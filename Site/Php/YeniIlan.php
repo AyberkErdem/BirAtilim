@@ -1,41 +1,34 @@
 <?php
+  
 session_start();
 function testfun()
 {
-require_once('config.php');
-  $file_size = $_FILES['defter']['size'];
-  if($file_size !=0 ){
+  require_once('config.php');
+   $file_size = $_FILES['image']['size'];
+   if($file_size!=0)
+   {
 
-    $filename = $_FILES['defter']['name'];
-    $tmpname = $_FILES['defter']['tmp_name'];
-    $file_size = $_FILES['defter']['size'];
-    $file_type = $_FILES['defter']['type'];
-    $ext = pathinfo($filename, PATHINFO_EXTENSION);
-    $fp  = fopen($tmpname, 'r');
-    $content = fread($fp, filesize($tmpname));
-    $content = addslashes($content);
-    fclose($fp);
-    if($ext=="jpeg"||$ext=="JPEG")
-    {
-    $query="insert into  stajdefteri values('','".$_SESSION['user']."','','0','".$content."','".$file_size ."','0',curDate());";
-    if(mysqli_query($dbc,$query))
-    {
-      echo"<script>alert('Defter sayfası yüklenmiştir.')</script>";
-
-
-    }
-    else
-    {
-      echo"<script>alert('Bir hata oldu tekrar deneyiniz.')</script>";
-    }
-    }
-
-else
-{
-  echo"<script>alert('Dosya tipi pdf olmalıdır!')</script>";
-}
-
-}
+     $filename = $_FILES['image']['name'];
+      $tmpname = $_FILES['image']['tmp_name'];
+  	  $file_size = $_FILES['image']['size'];
+  	  $file_type = $_FILES['image']['type'];
+  	  $ext = pathinfo($filename, PATHINFO_EXTENSION);
+      $fp  = fopen($tmpname, 'r');
+      $content = fread($fp, filesize($tmpname));
+      $content = addslashes($content);
+      fclose($fp);
+      $adress=$_POST['City'];
+      $adress.=$_POST['District'];
+      $query=("insert into poster values('','".$_SESSION['user']."','".$content."','".$_POST['description']."','".$adress."','','','')");
+      if(mysqli_query($dbc,$query))
+      {
+        header("location:home.php");
+      }
+   }
+   else
+   {
+     echo"<script>alert('Bir resim ekleyiniz')</script>";
+   }
 }
 if(array_key_exists('public',$_POST))
 {
@@ -50,22 +43,46 @@ if(array_key_exists('public',$_POST))
   <meta name="author" content="Ayberk Erdem">
   <meta name="keywords" content="esogü staj sistemi,esogü">
   <meta name="viewport" content="widht-device-witdh,initial-scale-1.0">
+   <link rel="stylesheet" type="text/css" href="../css/İlan.css">
+  <script type="text/javascript" src="../Js/googlemap.js">
+
+  </script>
     <title>BirAtilim</title>
   </head>
   <body>
+  <!--<div class="googlearea" border="1px" height="200px" >
+      <center><h1>Select Your Location</h1></center>
+<div id='map'class="map" >
+
+</div>
+</div>-->
+
     <form method="POST" action="YeniIlan.php" enctype="multipart/form-data">
+<br><br>
+      <label>City</label>
+          <input type="text" name="City" value="" placeholder="İl...">
+          <label>District</label>
+          <input type="text" name="District" value=""placeholder="İlçe...">
+          <br><br><br>
           <div>
+            <label>Resim Yükleyiniz</label>
+            <br>
       	  <input type="file" name="image" accept="image/jpeg">
           </div>
           <br>
           <br>
           <textarea
-          	id="text"
+          name="description"
+          	id="description"
           	cols="40"
           	rows="4"
           	name="image_text"
           	placeholder="İlanı Anlatınız..."></textarea>
       		<input type="submit" name="public" value="Devam Et">
+          		<input type="submit" name="konum" value="konum bak">
       </form>
   </body>
+<!--  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmCd7903K8KvYDLjq_A_J3vMe4eKDPSNU&callback=LoadMap">
+
+</script>-->
 </html>
