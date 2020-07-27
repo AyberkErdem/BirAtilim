@@ -1,6 +1,7 @@
 <?php
 require_once('config.php');
 session_start();
+
 if(isset($_POST['Yolla']))
 {
   $query=("insert into chat values('','".$_SESSION['user']."','".$_SESSION['IlanNo']."','".$_POST['mesaj']."','".$_POST['price']."')");
