@@ -1,6 +1,19 @@
 <?php
 require_once('config.php');
 session_start();
+if(isset($_POST['Yolla']))
+{
+  $query=("insert into chat values('','".$_SESSION['user']."','".$_SESSION['IlanNo']."','".$_POST['mesaj']."','".$_POST['price']."')");
+  if(mysqli_query($dbc,$query))
+  {
+
+  }
+  else
+  {
+    echo"<script>alert('mesajı atamadık')</script>";
+  }
+
+}
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -15,21 +28,18 @@ session_start();
     <th>Resim</th>
     <th>Açıklama</th>
     <th>Adres</th>
-    <th>İlana Git</th>
     </tr>
       <?php require_once('config.php');
-      $sql = "SELECT * FROM poster  order by Id ASC";
+      $sql = "SELECT * FROM poster  where Id='".$_SESSION['IlanNo']."'";
         $result=@mysqli_query($dbc,$sql);
           if ($result->num_rows > 0) {
             while($row=$result->fetch_assoc())
             {?><tr>
               <?php
                 echo "<td>".$row['UserName']."</td>
-                <td><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='150' widht='100'</td>
+                <td><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='300' widht='100'</td>
                 <td>".$row['Description']."</td>
-                <td>".$row['adress']."</td>
-
-                <td><a target='_blank' href='Göster.php?subject=".$row['Id']."'>İlana Git</a></td></form></td>";
+                <td>".$row['adress']."</td>";
                   ?></tr><?php
             }
           }
@@ -41,25 +51,20 @@ session_start();
        <div border='1'height='700' widht='400' class="">
          <table>
          <tr>
-         <th>İlan Sahibi</th>
-         <th>Resim</th>
-         <th>Açıklama</th>
-         <th>Adres</th>
-         <th>İlana Git</th>
+         <th>From</th>
+         <th>Message</th>
+         <th>Value</th>
          </tr>
            <?php require_once('config.php');
-           $sql1 = "SELECT * FROM chat  where PosterId='".$_GET['subject']."'";
+           $sql1 = "SELECT * FROM chat  where PosterId='".$_SESSION['IlanNo']."'";
              $result=@mysqli_query($dbc,$sql1);
                if ($result->num_rows > 0) {
                  while($row=$result->fetch_assoc())
                  {?><tr>
                    <?php
-                     echo "<td>".$row['UserName']."</td>
-                     <td><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='150' widht='100'</td>
-                     <td>".$row['Description']."</td>
-                     <td>".$row['adress']."</td>
-
-                     <td><a target='_blank' href='Göster.php?subject=".$row['Id']."'>İlana Git</a></td></form></td>";
+                     echo "<td>".$row['Sender']."</td>
+                     <td>".$row['Message']."</td>
+                     <td>".$row['Value']."</td>";
                        ?></tr><?php
                  }
                }
@@ -68,7 +73,17 @@ session_start();
                  echo"Nothing new here...";
                }
             ?>
+          </table>
          </div>
-          
+         <br>
+<div class="">
+  <form class="" action="Göster.php" method="post">
+      <textarea name="mesaj" rows="8" cols="80"></textarea>
+      <input type="number" name="price" value=""placeholder="Fiyat Verin">
+      <input type="submit" name="Yolla" value="Gönder">
+  </form>
+
+
+</div>
   </body>
 </html>

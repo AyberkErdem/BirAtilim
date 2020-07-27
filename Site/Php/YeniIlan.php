@@ -1,5 +1,5 @@
 <?php
-  
+
 session_start();
 function testfun()
 {
@@ -50,12 +50,7 @@ if(array_key_exists('public',$_POST))
     <title>BirAtilim</title>
   </head>
   <body>
-  <!--<div class="googlearea" border="1px" height="200px" >
-      <center><h1>Select Your Location</h1></center>
-<div id='map'class="map" >
 
-</div>
-</div>-->
 
     <form method="POST" action="YeniIlan.php" enctype="multipart/form-data">
 <br><br>
@@ -82,7 +77,5 @@ if(array_key_exists('public',$_POST))
           		<input type="submit" name="konum" value="konum bak">
       </form>
   </body>
-<!--  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmCd7903K8KvYDLjq_A_J3vMe4eKDPSNU&callback=LoadMap">
 
-</script>-->
 </html>
