@@ -31,7 +31,7 @@ if(isset($_POST['Tamamla']))
   </head>
   <body>
     <header>
-      <h1>Kullanıcı Girişi</h1>
+      <h1>Kullanıcı Kaydı</h1>
       </header>
     <form action="YeniKayıt.php" method="post" id="form" >
       <label for="fname">Kullanıcı İsmi:</label><br>
@@ -45,6 +45,6 @@ if(isset($_POST['Tamamla']))
       <input type="submit" name='Tamamla'value="Tamamla">
 
     </form>
-  
+
   </body>
 </html>

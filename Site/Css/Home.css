@@ -1,6 +1,13 @@
 .container
 {
   display: flex;
+  align-items: center;
+  padding-top: 5px;
+  padding-left: 15px;
+}
+#align-right
+{
+  margin-left: 80%;
 }
 #map
 {
@@ -19,11 +26,11 @@ ul
 {
   display: flex;
   align-items: center;
-  margin-left: 200%;
+  margin-left: 220%;
 }
 li
 {
-    padding: 27px 17px;
+    padding: 0px 17px;
 
 }
 a
@@ -35,4 +42,8 @@ a
 img
 {
   margin: auto;
+}
+.googlearea
+{
+font-size: 1.2em;
 }

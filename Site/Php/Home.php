@@ -30,7 +30,7 @@ if(isset($_POST['Ilan']))
     <header id="giriş">
       <div class= "container" >
         <div class="logo">
-    <a href="Home.php"><img src="../img/logo.png"></a>
+    <a href="Home.php"><img title="Hakkımızda"src="../img/logo.png"></a>
         </div>
         <div class="menu">
           <ul>
@@ -42,15 +42,16 @@ if(isset($_POST['Ilan']))
         </div>
       </div>
     </header>
-  <div class="googlearea" border="1px" height="200px" >
-        <center><h1>Select Your Location</h1></center>
+    <form class="" action="Home.php" method="post">
+      <input id="align-right" type="submit" name="Ilan" value="İlan Oluştur">
+    </form>
+  <div class="googlearea" >
+        <h2 align="center">İlanlar</h2>
   <div id='map'class="map" >
 
   </div>
   </div>
-<form class="" action="Home.php" method="post">
-  <input type="submit" name="Ilan" value="İlan Oluştur">
-</form>
+
 <table>
 <tr>
 <th>İlan Sahibi</th>

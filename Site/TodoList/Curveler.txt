@@ -1,2 +1,2 @@
 Cookie kullanılmalı
-link uzantıları ile ilanlara gidilmeli
+link uzantıları ile ilanlara gidilmeli ✓
