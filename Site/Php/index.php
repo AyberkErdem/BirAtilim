@@ -20,7 +20,7 @@ if(isset($_POST['giriş']))
 
 if(isset($_POST['yeni']))
 {
-
+header("location:YeniKayıt.php");
 }
 
  ?>
@@ -30,7 +30,7 @@ if(isset($_POST['yeni']))
     <meta charset="utf-8">
   <meta name="description" content="staj sistemi">
   <meta name="author" content="Ayberk Erdem">
-  <meta name="keywords" content="esogü staj sistemi,esogü">
+  <meta name="keywords" content="Bir atilim ">
   <meta name="viewport" content="widht-device-witdh,initial-scale-1.0">
 
     <title>BirAtilim</title>
@@ -47,7 +47,5 @@ if(isset($_POST['yeni']))
       <input type="submit" name='giriş'value="Giriş">
       <input type="submit" name='yeni'value="Yeni Kayıt">
     </form>
-
-
   </body>
 </html>

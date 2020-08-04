@@ -8,7 +8,7 @@ if(isset($_POST['Go']))
 }
 if(isset($_POST['Ilan']))
 {
-  header("location:Adresler.php");
+  header("location:YeniIlan.php");
 }
 
   ?>

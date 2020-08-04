@@ -1,16 +1,5 @@
 //AIzaSyDJesEcfS4a_1VHnKJRHbA-q2KceabVT2c
-function LoadMap()
-{
-  var location={ lat: 41.015137, lng: 28.979530 };
-  var map = new google.maps.Map(document.getElementById("map"), {
-     center: location,
-     zoom: 5
-   });
-var marker =new google.maps.Marker({
-  position:location,
-  map:map
-});
-}
+
 var customLabel = {
   restaurant: {
     label: 'R'
@@ -24,10 +13,22 @@ var customLabel = {
 };
 
   function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: new google.maps.LatLng(-33.863276, 151.207977),
-    zoom: 1
-  });
+    var myLatlng1 = new google.maps.LatLng(53.65914, 0.072050);
+
+       var mapOptions = {
+         zoom: 10,
+         center: myLatlng1,
+         mapTypeId: google.maps.MapTypeId.ROADMAP
+       };
+       var map = new google.maps.Map(document.getElementById('map'),
+         mapOptions);
+
+       if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(function(position) {
+           initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+           map.setCenter(initialLocation);
+         });
+       }
   var infoWindow = new google.maps.InfoWindow;
 
     // Change this depending on the name of your PHP or XML file
