@@ -1,0 +1,38 @@
+.container
+{
+  display: flex;
+}
+#map
+{
+  border:1px solid blue;
+  height: 400px;
+  width: 100%;
+}
+.menu
+{
+
+  display: flex;
+
+
+}
+ul
+{
+  display: flex;
+  align-items: center;
+  margin-left: 200%;
+}
+li
+{
+    padding: 27px 17px;
+
+}
+a
+{
+    text-decoration: none;
+
+      color: #333;
+}
+img
+{
+  margin: auto;
+}

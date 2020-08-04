@@ -10,9 +10,7 @@ if(isset($_POST['Ilan']))
 {
   header("location:YeniIlan.php");
 }
-
   ?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -22,12 +20,28 @@ if(isset($_POST['Ilan']))
   <meta name="keywords" content="esogü staj sistemi,esogü">
   <meta name="viewport" content="widht-device-witdh,initial-scale-1.0">
     <title>BirAtilim</title>
-    <link rel="stylesheet" type="text/css" href="../css/İlan.css">
+      <link rel="stylesheet" type="text/css" href="../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../css/Home.css">
    <script type="text/javascript" src="../Js/googlemap.js">
 
    </script>
 
   <body>
+    <header id="giriş">
+      <div class= "container" >
+        <div class="logo">
+    <a href="Home.php"><img src="../img/logo.png"></a>
+        </div>
+        <div class="menu">
+          <ul>
+            <li id="home" title="İlanlarım"><a href='MyPoster.php'>İlanlarım</a></li>
+              <li id="notify" title="Bildirimler"><a href='MyPoster.php'>Favorilerim</a></li>
+                <li id="about" title="Hakkında"><a href='MyPoster.php'>Ayarlar</a></li>
+                  <li id="about" title="Mesajlar"><a href='MyPoster.php'><img src="../img/Message.png"></a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
   <div class="googlearea" border="1px" height="200px" >
         <center><h1>Select Your Location</h1></center>
   <div id='map'class="map" >

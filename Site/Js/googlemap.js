@@ -16,7 +16,7 @@ var customLabel = {
     var myLatlng1 = new google.maps.LatLng(53.65914, 0.072050);
 
        var mapOptions = {
-         zoom: 10,
+         zoom: 13,
          center: myLatlng1,
          mapTypeId: google.maps.MapTypeId.ROADMAP
        };
@@ -69,7 +69,7 @@ marker.addListener('mouseout', function() {
 });
         marker.addListener('click', function() {
           sessionStorage.setItem("IlanNo", id);
-    window.location="Pass.php";
+          window.location="Göster.php?subject="+sessionStorage.getItem("IlanNo");
         });
       });
     });

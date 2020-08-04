@@ -2,12 +2,14 @@
 require_once('config.php');
 session_start();
 
+
+echo $_GET['subject'];
 if(isset($_POST['Yolla']))
 {
-  $query=("insert into chat values('','".$_SESSION['user']."','".$_SESSION['IlanNo']."','".$_POST['mesaj']."','".$_POST['price']."')");
+  $query=("insert into chat values('','".$_SESSION['user']."','".$_GET['subject']."','".$_POST['mesaj']."','".$_POST['price']."')");
   if(mysqli_query($dbc,$query))
   {
-
+echo"<script>window.location='Göster.php?subject='+sessionStorage.getItem('IlanNo');</script>";
   }
   else
   {
@@ -31,7 +33,7 @@ if(isset($_POST['Yolla']))
     <th>Adres</th>
     </tr>
       <?php require_once('config.php');
-      $sql = "SELECT * FROM poster  where Id='".$_SESSION['IlanNo']."'";
+      $sql = "SELECT * FROM poster  where Id='".$_GET['subject']."'";
         $result=@mysqli_query($dbc,$sql);
           if ($result->num_rows > 0) {
             while($row=$result->fetch_assoc())
@@ -57,7 +59,7 @@ if(isset($_POST['Yolla']))
          <th>Value</th>
          </tr>
            <?php require_once('config.php');
-           $sql1 = "SELECT * FROM chat  where PosterId='".$_SESSION['IlanNo']."'";
+           $sql1 = "SELECT * FROM chat  where PosterId='".$_GET['subject']."'";
              $result=@mysqli_query($dbc,$sql1);
                if ($result->num_rows > 0) {
                  while($row=$result->fetch_assoc())
@@ -78,10 +80,10 @@ if(isset($_POST['Yolla']))
          </div>
          <br>
 <div class="">
-  <form class="" action="Göster.php" method="post">
-      <textarea name="mesaj" rows="8" cols="80"></textarea>
-      <input type="number" name="price" value=""placeholder="Fiyat Verin">
-      <input type="submit" name="Yolla" value="Gönder">
+  <form class="" action="Göster.php?subject=<?php echo $_GET['subject']?>" method='post'>
+      <textarea name='mesaj' rows='8' cols='80'></textarea>
+      <input type='number' name='price' placeholder='Fiyat Verin'>
+      <input type='submit' name='Yolla' value='Gönder'>
   </form>
 
 

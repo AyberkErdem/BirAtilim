@@ -119,7 +119,7 @@ if(array_key_exists('public',$_POST))
       </form>
       <script type="text/javascript">
       function initMap() {
-        
+
       var infoWindow = new google.maps.InfoWindow;
 
         // Change this depending on the name of your PHP or XML file
@@ -168,7 +168,9 @@ if(array_key_exists('public',$_POST))
       if (error) {
       return;
       }
+
       content=String(result.address.Match_addr);
+
       infoWindow.setContent(content);
       infoWindow.open(map, marker);
 

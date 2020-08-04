@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+session_start();
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -9,7 +9,6 @@ session_start();
   </head>
   <body>
     <div id="result"></div>
-
   <script>
     document.getElementById("result").innerHTML = sessionStorage.getItem("IlanNo");
     window.location="Pass2.php?subject="+sessionStorage.getItem("IlanNo");
