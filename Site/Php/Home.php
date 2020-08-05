@@ -31,6 +31,10 @@ if(isset($_POST['Ara']))
   }
   }
 }
+echo"<script>
+function func(){
+  window.location.href ='MyPage.php?user='+".$_SESSION['user'].";
+}</script>"
   ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -79,7 +83,7 @@ if(isset($_POST['Ara']))
                     <a href="#" class="nav-link m-2 btn btn-warning">Mesajlar</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+                    <a href="MyPage.php?user=<?php echo$_SESSION['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
