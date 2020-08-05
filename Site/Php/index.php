@@ -1,18 +1,19 @@
 <?php
 require_once('config.php');
 session_start();
-
+$_SESSION['selection']='0';
 if(isset($_POST['giriş']))
 {
   if(isset($_POST['username'])&&isset($_POST['Password']))
   {
-    $query="select * from user where Email='".$_POST['username']."' and Password='".$_POST['Password']."' and authorized='1'";
+    $query="SELECT count(*), Name FROM user where Email='".$_POST['username']."' and Password='".$_POST['Password']."' and authorized='1' GROUP BY Name ORDER BY Id";
     $response=@mysqli_query($dbc,$query);
-  if(mysqli_num_rows($response))  {
-    $_SESSION['user']=$_POST['username'];
+    $row=$response->fetch_assoc();
+  if($row['count(*)']!='0')  {
+    $_SESSION['user']=$row['Name'];
       header("Location:Home.php");
   }
-  else
+  else if($row['Count(*)']=='0')
   {
     echo"<script>Giriş Bilgileri Hatalı</script>";
   }

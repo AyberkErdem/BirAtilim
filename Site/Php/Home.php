@@ -1,6 +1,13 @@
 <?php
 session_start();
-
+if(isset($_POST['Harita']))
+{
+  $_SESSION['selection']='0';
+}
+if(isset($_POST['tablo']))
+{
+  $_SESSION['selection']='1';
+}
 if(isset($_POST['Go']))
 {
   $_SESSION['IlanNo']=$_POST['id'];
@@ -18,7 +25,14 @@ if(isset($_POST['Ilan']))
   <meta name="description" content="staj sistemi">
   <meta name="author" content="Ayberk Erdem">
   <meta name="keywords" content="esogü staj sistemi,esogü">
-  <meta name="viewport" content="widht-device-witdh,initial-scale-1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" type="text/css" href="../css/reset.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
+
     <title>BirAtilim</title>
       <link rel="stylesheet" type="text/css" href="../css/reset.css">
     <link rel="stylesheet" type="text/css" href="../css/Home.css">
@@ -27,32 +41,66 @@ if(isset($_POST['Ilan']))
    </script>
 
   <body>
-    <header id="giriş">
-      <div class= "container" >
-        <div class="logo">
-    <a href="Home.php"><img title="Hakkımızda"src="../img/logo.png"></a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+        <div class="d-flex flex-grow-1">
+            <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
+            <a class="navbar-brand d-none d-lg-inline-block" href="#">
+                <img src="../Img/logo.png" alt="">
+            </a>
+            <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
+                <img src="//placehold.it/40?text=LOGO" alt="logo">
+            </a>
+            <div class="w-100 text-right">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
         </div>
-        <div class="menu">
-          <ul>
-            <li id="home" title="İlanlarım"><a href='MyPoster.php'>İlanlarım</a></li>
-              <li id="notify" title="Bildirimler"><a href='MyPoster.php'>Favorilerim</a></li>
-                <li id="about" title="Hakkında"><a href='MyPoster.php'>Ayarlar</a></li>
-                  <li id="about" title="Mesajlar"><a href='MyPoster.php'><img src="../img/Message.png"></a></li>
-          </ul>
+        <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
+            <ul class="navbar-nav ml-auto flex-nowrap">
+                <li class="nav-item">
+                    <a href="YeniIlan.php" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link m-2 btn btn-warning">Mesajlar</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
+                </li>
+            </ul>
         </div>
+        <form class="navbar-form" role="search">
+      <div class="input-group">
+          <input type="text" class="form-control" placeholder="İlan ara(Id veya Tür araması)" name="q">
+          <div class="input-group-btn">
+              <input type="submit" name='giriş'value="Ara" class="glyphicon glyphicon-search btn btn-primary">
+
+          </div>
       </div>
-    </header>
-    <form class="" action="Home.php" method="post">
-      <input id="align-right" type="submit" name="Ilan" value="İlan Oluştur">
-    </form>
-  <div class="googlearea" >
-        <h2 align="center">İlanlar</h2>
+
+      </form>
+    </nav>
+<form class="text-center" action="Home.php" method="post">
+  <input type="submit" name='Harita'value="Harita Görünümü" class=" btn btn-primary">
+  <input type="submit" name='tablo'value="Tablo Görünümü" class=" btn btn-primary">
+</form>
+<?php
+  if($_SESSION['selection']=='0'){
+  ?>
+  <div class="z-depth-1-half map-container" >
+
   <div id='map'class="map" >
 
   </div>
   </div>
-
-<table>
+<?php } ?>
+<?php
+  if($_SESSION['selection']=='1'){
+  ?>
+<table class="table table-hover">
 <tr>
 <th>İlan Sahibi</th>
 <th>Resim</th>
@@ -82,6 +130,9 @@ if(isset($_POST['Ilan']))
       }
    ?>
 </table>
+<?php
+}
+ ?>
   </body>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmCd7903K8KvYDLjq_A_J3vMe4eKDPSNU&callback=initMap">
 
