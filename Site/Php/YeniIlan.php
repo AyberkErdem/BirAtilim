@@ -72,8 +72,26 @@ if(array_key_exists('public',$_POST))
 
   </script>
     <title>BirAtilim</title>
+    <link rel="stylesheet" type="text/css" href="../css/reset.css">
+  <link rel="stylesheet" type="text/css" href="../css/Home.css">
   </head>
+
   <body>
+    <header id="giriş">
+      <div class= "container" >
+        <div class="logo">
+    <a href="Home.php"><img title="Hakkımızda"src="../img/logo.png"></a>
+        </div>
+        <div class="menu">
+          <ul>
+            <li id="home" title="İlanlarım"><a href='MyPoster.php'>İlanlarım</a></li>
+              <li id="notify" title="Bildirimler"><a href='MyPoster.php'>Favorilerim</a></li>
+                <li id="about" title="Hakkında"><a href='MyPoster.php'>Ayarlar</a></li>
+                  <li id="about" title="Mesajlar"><a href='MyPoster.php'><img src="../img/Message.png"></a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
     <div class="googlearea" border="1px" height="200px" >
           <center><h1>Select Your Location</h1></center>
     <div id='map'class="map" >
@@ -121,7 +139,7 @@ if(array_key_exists('public',$_POST))
       function initMap() {
 
       var infoWindow = new google.maps.InfoWindow;
-
+var warning=0;
         // Change this depending on the name of your PHP or XML file
 
         if (navigator.geolocation) {
@@ -192,7 +210,13 @@ if(array_key_exists('public',$_POST))
       }
       else
       {
+
           document.getElementById("4").value = res;
+          if(warning%4==0){
+          alert("Tam adres çıkması için lokasyona en yakın sokağı işaretlemeye çalışınız.");
+
+          }
+          warning++;
       }
       });
             });
