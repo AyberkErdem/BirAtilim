@@ -20,12 +20,20 @@ try {
 
     //Recipients
     $mail->setFrom('erdemayberkae@gmail.com', 'Mailer');
-    $mail->addAddress('erdemayberkae@gmail.com', 'Joe User');     // Add a recipient
+    $mail->addAddress($_GET['Email'],'Recipient');     // Add a recipient
 
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = " asd";
-    $mail->Body    = " asd";
+    $mail->Subject = $_GET['subject'];
+    if($_GET['subject']=="E-mail Authorize")
+    {
+      $mail->Body    = "<html>
+      Welcome to biratilim.com
+
+    <p>Please confirm your email address by clicking the link below <a href=https://localhost:90/BirAtilim/BirAtilim/Site/Php/authorize.php?subject=".$_GET['Email'].">E-mail authorize</a></p>
+      </html> ";
+    }
+
 
 
     $mail->send();

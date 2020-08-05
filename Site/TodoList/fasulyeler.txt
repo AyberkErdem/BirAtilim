@@ -4,7 +4,7 @@ Yeni ilan almak ✓
 kendi profil işleri
 																		//08.08.2020
 kullanıcı kayıt işleri ✓
-(email send &check unique ) -
+(email send &check unique ) ✓
 
 Id ile ilan arama
 --------*-----------*---------*------------*--------*---------*----------*

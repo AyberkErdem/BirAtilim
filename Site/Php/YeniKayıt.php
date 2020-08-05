@@ -11,7 +11,7 @@ if(isset($_POST['Tamamla']))
         if(mysqli_query($dbc,$query))
         {
 
-            header("location:MailSender.php");
+            header("location:MailSender.php?subject=E-mail Authorize&Email=".$_POST['email']."");
         }
         else
         {
@@ -83,7 +83,7 @@ if(isset($_POST['Tamamla']))
         <input name="Password2" class="form-control" placeholder="Tekrar Şifre" type="password">
     </div> <!-- form-group// -->
     <div class="form-group">
-        <input type="submit" name="Tamamla"value=" Hesap Oluştur"class="btn btn-warning btn-block">  
+        <input type="submit" name="Tamamla"value=" Hesap Oluştur"class="btn btn-warning btn-block">
     </div> <!-- form-group// -->
     <p color:"#ff7f27"  class="text-light mt-4 text-center">Zaten Bir Hesabınız var mı? <a class="text-info mt-4"href="index.php">Log In</a> </p>
 </form>

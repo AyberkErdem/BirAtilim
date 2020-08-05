@@ -1,6 +1,7 @@
 <?php
 require_once('config.php');
 session_start();
+
 if(isset($_POST['giriş']))
 {
   if(isset($_POST['username'])&&isset($_POST['Password']))
@@ -13,7 +14,7 @@ if(isset($_POST['giriş']))
   }
   else
   {
-    echo"<script>hatali şifre</script>";
+    echo"<script>Giriş Bilgileri Hatalı</script>";
   }
   }
 }
@@ -48,6 +49,7 @@ header("location:YeniKayıt.php");
 		<div class="card">
 			<div class="card-header">
 				<h3>Kullanıcı Girişi</h3>
+
 
 			</div>
 			<div class="card-body">
