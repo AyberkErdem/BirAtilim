@@ -1,4 +1,5 @@
 <?php
+require_once('config.php');
 session_start();
 if(isset($_POST['Harita']))
 {
@@ -16,6 +17,19 @@ if(isset($_POST['Go']))
 if(isset($_POST['Ilan']))
 {
   header("location:YeniIlan.php");
+}
+if(isset($_POST['Ara']))
+{
+  if($_POST['search']!='')
+  {
+    $query=("select Count(*) from poster where Id='".$_POST['search']."'");
+    $response=@mysqli_query($dbc,$query);
+    $row=$response->fetch_assoc();
+  if($row['Count(*)']!='0')  {
+
+      header("Location:Göster.php?subject=".$_POST['search']."");
+  }
+  }
 }
   ?>
 <!DOCTYPE html>
@@ -72,11 +86,11 @@ if(isset($_POST['Ilan']))
                 </li>
             </ul>
         </div>
-        <form class="navbar-form" role="search">
+        <form class="navbar-form"  method="post">
       <div class="input-group">
-          <input type="text" class="form-control" placeholder="İlan ara(Id veya Tür araması)" name="q">
+          <input type="text" class="form-control" placeholder="İlan ara(Id veya Tür araması)" name="search">
           <div class="input-group-btn">
-              <input type="submit" name='giriş'value="Ara" class="glyphicon glyphicon-search btn btn-primary">
+              <input type="submit" name='Ara' value="Ara" class="glyphicon glyphicon-search btn btn-primary">
 
           </div>
       </div>
