@@ -1,2 +1,4 @@
 Cookie kullanılmalı
 link uzantıları ile ilanlara gidilmeli ✓
+yeniden form işlemlerini onayla sorgusunu yok et
+(Form actionları javascripte bağla) 
