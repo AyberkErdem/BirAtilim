@@ -60,6 +60,7 @@ var customLabel = {
           position: point,
           label: icon.label
         });
+    
         marker.addListener('mouseover', function() {
           infoWindow.setContent(infowincontent);
           infoWindow.open(map, marker);

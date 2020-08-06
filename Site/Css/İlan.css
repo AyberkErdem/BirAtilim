@@ -8,3 +8,6 @@
 {
   display: flex;
 }
+.col-md-4,.col-md-2 {
+    background-color: #e3e3e3;
+}

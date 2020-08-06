@@ -1,13 +1,12 @@
 <?php
 
 session_start();
-function testfun()
+if(isset($_POST['publish']))
 {
   require_once('config.php');
    $file_size = $_FILES['image']['size'];
    if($file_size!=0)
    {
-
       $filename = $_FILES['image']['name'];
       $tmpname = $_FILES['image']['tmp_name'];
   	  $file_size = $_FILES['image']['size'];
@@ -34,14 +33,11 @@ function testfun()
      echo"<script>alert('Bir resim ekleyiniz')</script>";
    }
 }
-if(array_key_exists('public',$_POST))
-{
-   testfun();
-}
+
   ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
   <meta name="description" content="staj sistemi">
   <meta name="author" content="Ayberk Erdem">
@@ -80,8 +76,7 @@ if(array_key_exists('public',$_POST))
   </script>
     <title>BirAtilim</title>
     <link rel="stylesheet" type="text/css" href="../css/reset.css">
-
-  </head>
+</head>
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-warning">
@@ -186,14 +181,43 @@ if(array_key_exists('public',$_POST))
 
        <input type="hidden" id='5' name="latitude" value="">
        <input type="hidden" id='6' name="longitude" value="">
-     </form>
-      <div class="card-body" id="divilan">
- <form id='ilan' method="POST" name="ayberk" action="YeniIlan.php" enctype="multipart/form-data" class="well form-horizontal">
-<div class="row">
-    <input type="file" name="image" accept="image/jpeg">
+       <input style="visibility:hidden;" onclick="submit()" class="btn btn-warning btn-lg" type="submit" name="publish" value="İlanı Yayınla">
 
+     
+      <div class="card-body" id="divilan">
+
+
+<div class="row">
+  <div class="col-md-1 col-lg-4">
+      <div class="form-group align-middle">
+        <label class="control-label">Resim Ekleyiniz</label>
+    <input type="file" name="image" accept="image/jpeg">
+   </div> </div>
+   <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4 row-height">
+RESİM ÖNİZLEME
+    </div>
+    <div class="col-md-4 row-height">
+RESİM ÖNİZLEME
+    </div>
+    <div class="col-md-4 row-height">
+RESİM ÖNİZLEME
+    </div>
+  </div>
+</div>
+</div>
+<div class="row">
    <div class="col-md-1 col-lg-4">
+       <div class="form-group align-middle">
+
+    </div> </div>
+    </div>
+    <div class="row">
+   <div class="col-md-1 col-lg-8">
        <div class="form-group">
+             <label class="control-label">İlan Açıklaması</label>
+
  <textarea
   class="form-control"
  name="description"
@@ -205,16 +229,34 @@ if(array_key_exists('public',$_POST))
    placeholder="İlanı Anlatınız..."></textarea>
  </div>
 </div>
-   <div class="col-md-1 col-lg-4">
-       <div class="form-group">
-           <label class="text-center">Yayınla</label>
-           <input class="form-control" type="submit" name="public" value="Devam Et">
+</div>
+<div class="row">
+  <div class="col-md-1 col-lg-4">
+      <div class="form-group align-middle">
+      </div>
+    </div>
+    <div class="col-md-1 col-lg-4">
+        <div class="form-group align-middle">
+        </div>
+      </div>
+   <div class="col-md-1 col-lg-4 float-right">
+       <div class="form-group text-center">
+
+
+           <input onclick="submit()" class="btn btn-warning btn-lg" type="submit" name="publish" value="İlanı Yayınla">
        </div>
      </div>
-  </form>
- </div>
+        </form>
  </div>
 </div>
+ </div>
+</div>
+<script type="text/javascript">
+function submit(){
+ document.getElementById("adres").submit();
+ document.getElementById("ilan").submit();
+}
+</script>
 <script type="text/javascript">
 $("#divilan").hide();
 function f1(objButton){

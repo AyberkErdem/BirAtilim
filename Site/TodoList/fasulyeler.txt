@@ -15,6 +15,10 @@ sql("like tv - television")
 
 ilan tarihi
 
+3x foto eklensin
+(drop and button)
+
+Marker Clustering
 
 kişi ekle database
 
