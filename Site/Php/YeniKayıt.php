@@ -6,7 +6,7 @@ if(isset($_POST['Tamamla']))
   {
       if($_POST['Password1']==$_POST['Password2'])
       {
-        $query="insert into user values('','".$_POST['username']."','".$_POST['Password1']."','".$_POST['email']."','','0')";
+        $query="insert into user values('','','".$_POST['username']."','".$_POST['Password1']."','".$_POST['email']."','','0')";
 
         if(mysqli_query($dbc,$query))
         {

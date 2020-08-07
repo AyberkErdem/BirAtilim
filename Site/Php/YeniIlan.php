@@ -1,6 +1,6 @@
 <?php
-
 session_start();
+echo $_GET['user'];
 if(isset($_POST['publish']))
 {
   require_once('config.php');
@@ -22,11 +22,11 @@ if(isset($_POST['publish']))
           $adress.=",";
         $adress.=$_POST['City'];
 
-      $query=("insert into poster values('','".$_SESSION['user']."','".$content."','".$_POST['description']."','".$adress."','".$_POST['latitude']."','".$_POST['longitude']."','Ev')");
-      if(mysqli_query($dbc,$query))
-      {
-        header("location:home.php");
-      }
+      $query=("insert into poster values('','".$_GET['user']."','".$content."','".$_POST['description']."','".$adress."','".$_POST['latitude']."','".$_POST['longitude']."','Ev')");
+    $response=@mysqli_query($dbc,$query);
+
+      echo"<script>window.location='Home.php?subject=".$_GET['user'].";</script>";
+
    }
    else
    {
@@ -103,7 +103,7 @@ if(isset($_POST['publish']))
                     <a href="#" class="nav-link m-2 btn btn-warning">Mesajlar</a>
                 </li>
                 <li class="nav-item">
-                    <a href="MyPage.php?user=<?php echo$_SESSION['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+                    <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
@@ -183,7 +183,7 @@ if(isset($_POST['publish']))
        <input type="hidden" id='6' name="longitude" value="">
        <input style="visibility:hidden;" onclick="submit()" class="btn btn-warning btn-lg" type="submit" name="publish" value="İlanı Yayınla">
 
-     
+
       <div class="card-body" id="divilan">
 
 

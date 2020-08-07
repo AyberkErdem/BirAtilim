@@ -33,7 +33,7 @@ if(isset($_POST['Ara']))
 }
 echo"<script>
 function func(){
-  window.location.href ='MyPage.php?user='+".$_SESSION['user'].";
+  window.location.href ='MyPage.php?user='+".$_GET['user'].";
 }</script>"
   ?>
 <!DOCTYPE html>
@@ -77,13 +77,13 @@ function func(){
         <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
             <ul class="navbar-nav ml-auto flex-nowrap">
                 <li class="nav-item">
-                    <a href="YeniIlan.php" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
+                    <a href="YeniIlan.php?user=<?php echo $_GET['user'] ?>" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link m-2 btn btn-warning">Mesajlar</a>
                 </li>
                 <li class="nav-item">
-                    <a href="MyPage.php?user=<?php echo$_SESSION['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+                    <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>

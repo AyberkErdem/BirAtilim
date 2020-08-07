@@ -9,13 +9,15 @@ if(isset($_POST['giriş']))
     $query="SELECT count(*), Name FROM user where Email='".$_POST['username']."' and Password='".$_POST['Password']."' and authorized='1' GROUP BY Name ORDER BY Id";
     $response=@mysqli_query($dbc,$query);
     $row=$response->fetch_assoc();
+    if(isset($row['count(*)'])){
   if($row['count(*)']!='0')  {
-    $_SESSION['user']=$row['Name'];
-      header("Location:Home.php");
+  
+      header("Location:Home.php?user=".$row['Name']."");
   }
   else if($row['Count(*)']=='0')
   {
-    echo"<script>Giriş Bilgileri Hatalı</script>";
+    echo"<script>alert(Giriş Bilgileri Hatalı)</script>";
+  }
   }
   }
 }
