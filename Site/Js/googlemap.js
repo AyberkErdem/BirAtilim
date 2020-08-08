@@ -61,6 +61,7 @@ var customLabel = {
           label: icon.label
         });
 
+
         marker.addListener('mouseover', function() {
           infoWindow.setContent(infowincontent);
           infoWindow.open(map, marker);
@@ -69,12 +70,16 @@ marker.addListener('mouseout', function() {
     infoWindow.close(map,marker);
 });
         marker.addListener('click', function() {
-          sessionStorage.setItem("IlanNo", id);
-      
-          window.location="Göster.php?user="+"asd"+"&subject="+sessionStorage.getItem("IlanNo");
+        //  sessionStorage.setItem("IlanNo", id);
+        var url_string =window.location.href; //window.location.href
+        var url = new URL(url_string);
+        var c = url.searchParams.get("user");
+        console.log(c);
+      window.location="Göster.php?user="+c+"&subject="+id;
         });
       });
     });
+
   }
 
   var getParams = function (url) {

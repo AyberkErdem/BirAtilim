@@ -6,3 +6,5 @@ yeniden form işlemlerini onayla sorgusunu yok et
 (Form actionları javascripte bağla)
 
 Home için toogle navbar yapayım
+
+Göster kısmının arayüzü düzenlenecek
