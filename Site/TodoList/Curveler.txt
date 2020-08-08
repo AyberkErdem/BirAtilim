@@ -1,4 +1,8 @@
 Cookie kullanılmalı
+
 link uzantıları ile ilanlara gidilmeli ✓
+
 yeniden form işlemlerini onayla sorgusunu yok et
-(Form actionları javascripte bağla) 
+(Form actionları javascripte bağla)
+
+Home için toogle navbar yapayım

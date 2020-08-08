@@ -1,9 +1,9 @@
 <?php
+include('config.php');
 session_start();
-echo $_GET['user'];
 if(isset($_POST['publish']))
 {
-  require_once('config.php');
+
    $file_size = $_FILES['image']['size'];
    if($file_size!=0)
    {
@@ -23,9 +23,9 @@ if(isset($_POST['publish']))
         $adress.=$_POST['City'];
 
       $query=("insert into poster values('','".$_GET['user']."','".$content."','".$_POST['description']."','".$adress."','".$_POST['latitude']."','".$_POST['longitude']."','Ev')");
-    $response=@mysqli_query($dbc,$query);
+    if(mysqli_query($dbc,$query));
 
-      echo"<script>window.location='Home.php?subject=".$_GET['user'].";</script>";
+      header("Location:Home.php?user=".$_GET['user']."");
 
    }
    else
@@ -71,9 +71,7 @@ if(isset($_POST['publish']))
   <script src="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.js"
     integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
     crossorigin=""></script>
-  <script type="text/javascript" src="../Js/YeniIlan.js">
 
-  </script>
     <title>BirAtilim</title>
     <link rel="stylesheet" type="text/css" href="../css/reset.css">
 </head>
@@ -137,7 +135,7 @@ if(isset($_POST['publish']))
 </div>
 </div>
 <div>
-  <form id='adres' method="POST" name="ayberk" action="YeniIlan.php" enctype="multipart/form-data" class="well form-horizontal">
+  <form id='adres' method="POST" name="ayberk" action="YeniIlan.php?user=<?php echo $_GET['user']; ?> "enctype="multipart/form-data" class="well form-horizontal">
     <div id="collapse1" class="collapse show">
 <div class="card-body" id="divadres">
  <div class="row">

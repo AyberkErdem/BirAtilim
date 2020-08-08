@@ -11,12 +11,8 @@ if(isset($_POST['tablo']))
 }
 if(isset($_POST['Go']))
 {
-  $_SESSION['IlanNo']=$_POST['id'];
-  header("Location:Göster.php");
-}
-if(isset($_POST['Ilan']))
-{
-  header("location:YeniIlan.php");
+
+  header("Location:Göster.php?user=".$_GET['user']."&subject=".$_POST['id']."");
 }
 if(isset($_POST['Ara']))
 {
@@ -62,7 +58,7 @@ function func(){
     <nav class="navbar navbar-expand-lg navbar-light bg-warning">
         <div class="d-flex flex-grow-1">
             <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
-            <a class="navbar-brand d-none d-lg-inline-block" href="#">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
                 <img src="../Img/logo.png" alt="">
             </a>
             <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
@@ -101,7 +97,7 @@ function func(){
 
       </form>
     </nav>
-<form class="text-center" action="Home.php" method="post">
+<form class="text-center" action="Home.php?user=<?php echo $_GET['user']; ?>" method="post">
   <input type="submit" name='Harita'value="Harita Görünümü" class=" btn btn-primary">
   <input type="submit" name='tablo'value="Tablo Görünümü" class=" btn btn-primary">
 </form>
@@ -137,7 +133,7 @@ function func(){
             <td><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='150' widht='100'</td>
             <td>".$row['Description']."</td>
             <td>".$row['adress']."</td><td>
-            <form class='' action='Home.php' method='post'>
+            <form class='' action='Home.php?user=".$_GET['user']."' method='post'>
             <input type='submit' name='Go' value='Git'/><input type='hidden' name='id' value=".$row['Id']."/></form></td>";
               ?></tr><?php
         }

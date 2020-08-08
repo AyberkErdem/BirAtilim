@@ -6,7 +6,7 @@ session_start();
 echo $_GET['subject'];
 if(isset($_POST['Yolla']))
 {
-  $query=("insert into chat values('','".$_SESSION['user']."','".$_GET['subject']."','".$_POST['mesaj']."','".$_POST['price']."')");
+  $query=("insert into chat values('','".$_SESSION['user']."','".$_GET['subject']."','".$_POST['mesaj']."','".$_POST['price']."','0')");
   if(mysqli_query($dbc,$query))
   {
 echo"<script>window.location='Göster.php?subject='+sessionStorage.getItem('IlanNo');</script>";

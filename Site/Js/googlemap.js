@@ -60,7 +60,7 @@ var customLabel = {
           position: point,
           label: icon.label
         });
-    
+
         marker.addListener('mouseover', function() {
           infoWindow.setContent(infowincontent);
           infoWindow.open(map, marker);
@@ -70,13 +70,25 @@ marker.addListener('mouseout', function() {
 });
         marker.addListener('click', function() {
           sessionStorage.setItem("IlanNo", id);
-          window.location="Göster.php?subject="+sessionStorage.getItem("IlanNo");
+      
+          window.location="Göster.php?user="+"asd"+"&subject="+sessionStorage.getItem("IlanNo");
         });
       });
     });
   }
 
-
+  var getParams = function (url) {
+  	var params = {};
+  	var parser = document.createElement('a');
+  	parser.href = url;
+  	var query = parser.search.substring(1);
+  	var vars = query.split('&');
+  	for (var i = 0; i < vars.length; i++) {
+  		var pair = vars[i].split('=');
+  		params[pair[0]] = decodeURIComponent(pair[1]);
+  	}
+  	return params;
+  };
 
 function downloadUrl(url, callback) {
   var request = window.ActiveXObject ?

@@ -32,8 +32,8 @@ include('config.php');
                     <div class="row">
                         <div class="col-md-4">
                             <div class="profile-img">
-                                <img src="../Img/person.png" alt="image"/style="height:200px; width:180px;">
-
+                              <img src='data:image/jpeg;base64,<?php echo base64_encode($row['ProfilePic']);  ?>'onerror="this.onerror=null;this.src='../Img/person.png';"
+                                      alt="image"/style="height:150px; width:150px; overflow:hidden;">
                             </div>
                         </div>
                         <div class="col-md-6">

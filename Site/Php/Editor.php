@@ -26,25 +26,26 @@
           $query=("CALL EditProfile('".$_GET['User']."','".$content."','".$_POST['Name']."','".$_POST['Password1']."','".$_POST['Email']."','".$_POST['Phone']."')");
           if(mysqli_query($dbc,$query))
           {
-            $_SESSION['user']=$_POST['Name'];
-          echo"<script>window.location='Home.php?subject=".$_GET['user'].";</script>";
+
+          header("Location:Home.php?user=".$_POST['Name']."");
           }
         }
         else
         {
-          echo "<script>alert('Değiştirilmek istenen şifreler uyuşmuyor...');</script>";
+          header("Location:Home.php?user=".$_POST['Name']."");
         }
       }
       else {
         $query=("CALL EditProfile('".$_GET['User']."','".$content."','".$_POST['Name']."','".$row['Password']."','".$_POST['Email']."','".$_POST['Phone']."')");
         if(mysqli_query($dbc,$query))
         {
-          $_SESSION['user']=$_POST['Name'];
-          header("location:home.php");
+
+            header("Location:Home.php?user=".$_POST['Name']."");
         }
       }
 
   }}
+
    ?>
   <!DOCTYPE html>
   <html lang="en" dir="ltr">
@@ -72,11 +73,11 @@
                           <div class="col-md-3 register-left">
 
                             <div class="profile-img">
-                                <img src='data:image/jpeg;base64,<?php echo base64_encode($row['ProfilePic'])  ?>'
-                                        alt="image"/style="height:300px; width:180px; overflow:auto;">
+                                <img src='data:image/jpeg;base64,<?php echo base64_encode($resim['ProfilePic']);  ?>'onerror="this.onerror=null;this.src='../Img/person.png';"
+                                        alt="image"/style="height:300px; width:180px; overflow:hidden;">
                                 <div class="file btn btn-lg btn-primary">
                                                               Change Photo
-                                                              <form enctype="multipart/form-data" class="col-md-9" action="Editor.php?User=<?php echo $row['Name'] ?>" method="post">
+                                                              <form enctype="multipart/form-data" class="col-md-9" action="Editor.php?User=<?php echo $_GET['User'] ?>" method="post">
                                                               <input type="file" name="image" accept="image/jpeg">
                                                           </div>
                             </div>
