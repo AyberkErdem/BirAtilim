@@ -6,7 +6,7 @@ if(isset($_POST['Tamamla']))
   {
       if($_POST['Password1']==$_POST['Password2'])
       {
-        $query="insert into user values('','','".$_POST['username']."','".$_POST['Password1']."','".$_POST['email']."','','0')";
+        $query="insert into user values('','','".$_POST['username']."','".$_POST['Password1']."','".$_POST['email']."','".$_POST['phone']."','1','0')";
 
         if(mysqli_query($dbc,$query))
         {
@@ -67,7 +67,7 @@ if(isset($_POST['Tamamla']))
 		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
 		</div>
 
-    	<input name="" class="form-control" placeholder="Telefon No ( Opsiyonel )" type="text">
+    	<input name="phone" class="form-control" placeholder="Telefon No ( Opsiyonel )" type="text">
     </div> <!-- form-group// -->
 
     <div class="form-group input-group">

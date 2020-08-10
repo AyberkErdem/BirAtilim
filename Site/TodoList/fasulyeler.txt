@@ -11,7 +11,7 @@ Id ile ilan arama✓
 --------*-----------*---------*------------*--------*---------*----------*
 	//14.08.2020
 --------*-----------*---------*------------*--------*---------*----------*
-İlan Sayfası Arayüzü(Göster.php)
+İlan Sayfası Arayüzü(Göster.php)✓
 
 Marker Clustering
 
@@ -22,7 +22,7 @@ Kullanıcı Mesaj Bildirimleri
 
 ilan tarihi
 
-
+Başkasının profiline ulaşım
 --------*-----------*---------*------------*--------*---------*----------*
 ilan tipleri filtreleri araması
 (Harita görünümünde Markerin rengi değişsin tabloda zaten direkt gelir)

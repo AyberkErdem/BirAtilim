@@ -8,3 +8,5 @@ yeniden form işlemlerini onayla sorgusunu yok et
 Home için toogle navbar yapayım
 
 Göster kısmının arayüzü düzenlenecek
+
+Poster sahibi ve kendi fiyatlarını gösteren chat

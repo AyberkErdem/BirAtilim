@@ -1,6 +1,6 @@
   <?php
   include('config.php');
-  $query="select * from user Where Name='".$_GET['User']."'";
+  $query="select * from user Where Name='".$_GET['user']."'";
   $response=@mysqli_query($dbc,$query);
   $row=$response->fetch_assoc();
   if(isset($_POST['edit'])&&$_POST['PasswordOriginal']==$row['Password']){
@@ -23,7 +23,7 @@
       {
         if($_POST['Password1']==$_POST['Password2'])
         {
-          $query=("CALL EditProfile('".$_GET['User']."','".$content."','".$_POST['Name']."','".$_POST['Password1']."','".$_POST['Email']."','".$_POST['Phone']."')");
+          $query=("CALL EditProfile('".$_GET['user']."','".$content."','".$_POST['Name']."','".$_POST['Password1']."','".$_POST['Email']."','".$_POST['Phone']."')");
           if(mysqli_query($dbc,$query))
           {
 
@@ -36,7 +36,7 @@
         }
       }
       else {
-        $query=("CALL EditProfile('".$_GET['User']."','".$content."','".$_POST['Name']."','".$row['Password']."','".$_POST['Email']."','".$_POST['Phone']."')");
+        $query=("CALL EditProfile('".$_GET['user']."','".$content."','".$_POST['Name']."','".$row['Password']."','".$_POST['Email']."','".$_POST['Phone']."')");
         if(mysqli_query($dbc,$query))
         {
 
@@ -61,8 +61,56 @@
       <title></title>
     </head>
     <body>
+      <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light ">
+          <div class="d-flex flex-grow-1">
+              <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
+              <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+                  <img title="Bir Atilim" src="../Img/logo.png" alt="Logo">
+              </a>
+              <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+                  <img title="Bir Atilim" src="../Img/left.png" alt="Logo">
+              </a>
+              <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+                  <img title="Bir Atilim" src="../Img/home.png" alt="Logo">
+              </a>
+              <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
+                  <img  src="//placehold.it/40?text=LOGO" alt="logo">
+              </a>
+              <div class="w-100 text-right">
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
+                      <span class="navbar-toggler-icon"></span>
+                  </button>
+              </div>
+          </div>
+          <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
+              <ul class="navbar-nav ml-auto flex-nowrap">
+                  <li class="nav-item">
+                      <a href="YeniIlan.php?user=<?php echo $_GET['user'] ?>" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="#" class="nav-link m-2 btn btn-warning">Mesajlar</a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
+                  </li>
+              </ul>
+          </div>
+          <form class="navbar-form"  method="post">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="İlan ara(Id veya Tür araması)" name="search">
+            <div class="input-group-btn">
+                <input type="submit" name='Ara' value="Ara" class="glyphicon glyphicon-search btn btn-primary">
+
+            </div>
+        </div>
+
+        </form>
+      </nav>
       <?php
-      $sql = "select * FROM user  where Name='".$_GET['User']."'";
+      $sql = "select * FROM user  where Name='".$_GET['user']."'";
         $result=@mysqli_query($dbc,$sql);
           if ($result->num_rows > 0) {
             $resim = mysqli_fetch_array($result);}
@@ -74,10 +122,10 @@
 
                             <div class="profile-img">
                                 <img src='data:image/jpeg;base64,<?php echo base64_encode($resim['ProfilePic']);  ?>'onerror="this.onerror=null;this.src='../Img/person.png';"
-                                        alt="image"/style="height:300px; width:180px; overflow:hidden;">
+                                        alt="image"/style="height:200px; width:200px; overflow:hidden;">
                                 <div class="file btn btn-lg btn-primary">
                                                               Change Photo
-                                                              <form enctype="multipart/form-data" class="col-md-9" action="Editor.php?User=<?php echo $_GET['User'] ?>" method="post">
+                                                              <form enctype="multipart/form-data" class="col-md-9" action="Editor.php?User=<?php echo $_GET['user'] ?>" method="post">
                                                               <input type="file" name="image" accept="image/jpeg">
                                                           </div>
                             </div>
@@ -94,7 +142,7 @@
                                                   <input name="Name" type="text" class="form-control" placeholder="Kullanıcı Adı" value="<?php echo $row['Name']; ?>" />
                                               </div>
                                               <div class="form-group">
-                                                  <input name="PasswordOriginal" type="password" class="form-control" placeholder="Password" value="" />
+                                                  <input name="PasswordOriginal" type="password" class="form-control" placeholder="Current Password" value="" />
                                               </div>
                                               <div class="form-group">
                                                   <input name="Password1" type="password" class="form-control" placeholder="Re type Password" value="" />

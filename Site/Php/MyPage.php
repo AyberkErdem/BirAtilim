@@ -22,6 +22,54 @@ include('config.php');
     <title>Bir Atilim</title>
   </head>
   <body>
+    <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light ">
+        <div class="d-flex flex-grow-1">
+            <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+                <img title="Bir Atilim" src="../Img/logo.png" alt="Logo">
+            </a>
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+                <img title="Bir Atilim" src="../Img/left.png" alt="Logo">
+            </a>
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+                <img title="Bir Atilim" src="../Img/home.png" alt="Logo">
+            </a>
+            <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
+                <img  src="//placehold.it/40?text=LOGO" alt="logo">
+            </a>
+            <div class="w-100 text-right">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
+            <ul class="navbar-nav ml-auto flex-nowrap">
+                <li class="nav-item">
+                    <a href="YeniIlan.php?user=<?php echo $_GET['user'] ?>" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link m-2 btn btn-warning">Mesajlar</a>
+                </li>
+                <li class="nav-item">
+                    <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
+                </li>
+            </ul>
+        </div>
+        <form class="navbar-form"  method="post">
+      <div class="input-group">
+          <input type="text" class="form-control" placeholder="İlan ara(Id veya Tür araması)" name="search">
+          <div class="input-group-btn">
+              <input type="submit" name='Ara' value="Ara" class="glyphicon glyphicon-search btn btn-primary">
+
+          </div>
+      </div>
+
+      </form>
+    </nav>
     <?php
     $query="select * from user Where Name='".$_GET['user']."'";
     $response=@mysqli_query($dbc,$query);
@@ -31,9 +79,10 @@ include('config.php');
                 <form method="post">
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="profile-img">
-                              <img src='data:image/jpeg;base64,<?php echo base64_encode($row['ProfilePic']);  ?>'onerror="this.onerror=null;this.src='../Img/person.png';"
-                                      alt="image"/style="height:150px; width:150px; overflow:hidden;">
+                            <div  class="profile-img">
+                              <?php
+                            echo" <img src='data:image/jpeg;base64,".base64_encode($row['ProfilePic'])."' height='300' widht='100'/>
+ "?>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -65,7 +114,7 @@ include('config.php');
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <input type="button" onclick="location.href='Editor.php?User=<?php echo $_GET['user'];?>'" role="tab" class="profile-edit-btn btn-success" aria-controls="profile" aria-selected="false" name="btnAddMore" value="Edit Profile"/>
+                            <input type="button" onclick="location.href='Editor.php?user=<?php echo $_GET['user'];?>'" role="tab" class="profile-edit-btn btn-success" aria-controls="profile" aria-selected="false" name="btnAddMore" value="Edit Profile"/>
 
                         </div>
                     </div>

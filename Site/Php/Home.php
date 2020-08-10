@@ -61,6 +61,12 @@ function func(){
             <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
                 <img title="Bir Atilim" src="../Img/logo.png" alt="Logo">
             </a>
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+                <img title="Bir Atilim" src="../Img/left.png" alt="Logo">
+            </a>
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+                <img title="Bir Atilim" src="../Img/home.png" alt="Logo">
+            </a>
             <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
                 <img  src="//placehold.it/40?text=LOGO" alt="logo">
             </a>

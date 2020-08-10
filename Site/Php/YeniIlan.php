@@ -22,7 +22,7 @@ if(isset($_POST['publish']))
           $adress.=",";
         $adress.=$_POST['City'];
 
-      $query=("insert into poster values('','".$_GET['user']."','".$content."','".$_POST['description']."','".$adress."','".$_POST['latitude']."','".$_POST['longitude']."','Ev')");
+      $query=("insert into poster values('','".$_GET['user']."','".$content."','".$_POST['description']."','".$adress."',curdate(),'".$_POST['latitude']."','".$_POST['longitude']."','Ev')");
     if(mysqli_query($dbc,$query));
 
       header("Location:Home.php?user=".$_GET['user']."");
