@@ -31,8 +31,7 @@ sql("like tv - television")//Yetişirse 14.08
 
 
 
-
-
+İlan Düzenleyebilmeli
 
 
 kişi ekle database✓

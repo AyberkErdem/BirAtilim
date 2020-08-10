@@ -77,7 +77,7 @@ if(isset($_POST['publish']))
 </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+    <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light">
         <div class="d-flex flex-grow-1">
             <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
             <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
