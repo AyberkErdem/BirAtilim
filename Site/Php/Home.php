@@ -55,14 +55,14 @@ function func(){
    </script>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+    <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light ">
         <div class="d-flex flex-grow-1">
             <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
             <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
-                <img src="../Img/logo.png" alt="">
+                <img title="Bir Atilim" src="../Img/logo.png" alt="Logo">
             </a>
             <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
-                <img src="//placehold.it/40?text=LOGO" alt="logo">
+                <img  src="//placehold.it/40?text=LOGO" alt="logo">
             </a>
             <div class="w-100 text-right">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
@@ -98,8 +98,8 @@ function func(){
       </form>
     </nav>
 <form class="text-center" action="Home.php?user=<?php echo $_GET['user']; ?>" method="post">
-  <input type="submit" name='Harita'value="Harita Görünümü" class=" btn btn-primary">
-  <input type="submit" name='tablo'value="Tablo Görünümü" class=" btn btn-primary">
+  <input type="submit" name='Harita'value="Harita Görünümü" class=" btn btn-secondary">
+  <input type="submit" name='tablo'value="Tablo Görünümü" class=" btn btn-secondary">
 </form>
 <?php
   if($_SESSION['selection']=='0'){

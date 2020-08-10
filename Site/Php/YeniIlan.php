@@ -80,8 +80,8 @@ if(isset($_POST['publish']))
     <nav class="navbar navbar-expand-lg navbar-light bg-warning">
         <div class="d-flex flex-grow-1">
             <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
-            <a class="navbar-brand d-none d-lg-inline-block" href="#">
-                <img src="../Img/logo.png" alt="">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+                <img title="Bir Atilim" src="../Img/logo.png" alt="Logo">
             </a>
             <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
                 <img src="//placehold.it/40?text=LOGO" alt="logo">

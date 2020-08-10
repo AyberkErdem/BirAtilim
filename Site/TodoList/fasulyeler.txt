@@ -1,28 +1,43 @@
+	//08.08.2020
 ----------*--------*-----------*--------*-----------*------------*-------*
 Yeni ilan almak ✓
 
 kendi profil işleri✓
-																		//08.08.2020
+
 kullanıcı kayıt işleri ✓
 (email send &check unique ) ✓
 
 Id ile ilan arama✓
 --------*-----------*---------*------------*--------*---------*----------*
-ilan tipleri filtreleri araması
-(Harita görünümünde Markerin rengi değişsin tabloda zaten direkt gelir)
-(il-kategori-km çap-tarihi)
-sql("like tv - television")
+	//14.08.2020
+--------*-----------*---------*------------*--------*---------*----------*
+İlan Sayfası Arayüzü(Göster.php)
 
-ilan tarihi
+Marker Clustering
+
+Kullanıcı Mesaj Bildirimleri
 
 3x foto eklensin
 (drop and button)
 
-Marker Clustering
+ilan tarihi
 
-kişi ekle database
 
-client server olayı
+--------*-----------*---------*------------*--------*---------*----------*
+ilan tipleri filtreleri araması
+(Harita görünümünde Markerin rengi değişsin tabloda zaten direkt gelir)
+(il-kategori-km çap-tarihi)
+sql("like tv - television")//Yetişirse 14.08
+
+
+
+
+
+
+
+kişi ekle database✓
+
+client server olayı✓
 
 kullanıcı tipi(alıcı-satıcı)
 
