@@ -31,6 +31,8 @@ if(isset($_POST['Tamamla']))
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link style=" border-radius: 50%;" rel = "icon" href ="../Img/icon.png"
+        type = "image/x-icon">
   <meta name="description" content="staj sistemi">
   <meta name="author" content="Ayberk Erdem">
   <meta name="keywords" content="Bir atilim">

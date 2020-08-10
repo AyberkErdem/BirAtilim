@@ -8,7 +8,8 @@ include('config.php');
 
 <head>
   <meta charset="utf-8">
-
+  <link style=" border-radius: 50%;" rel = "icon" href ="../Img/icon.png"
+      type = "image/x-icon">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" type="text/css" href="../css/reset.css">
@@ -49,7 +50,7 @@ include('config.php');
                     <a href="YeniIlan.php?user=<?php echo $_GET['user'] ?>" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link m-2 btn btn-warning">Mesajlar</a>
+                    <a href="Mesajlar.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Mesajlar</a>
                 </li>
                 <li class="nav-item">
                     <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>

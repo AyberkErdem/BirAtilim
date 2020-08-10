@@ -15,12 +15,12 @@ Id ile ilan arama✓
 
 Marker Clustering
 
-Kullanıcı Mesaj Bildirimleri
+Kullanıcı Mesaj Bildirimleri✓
 
 3x foto eklensin
 (drop and button)
 
-ilan tarihi
+ilan tarihi✓
 
 Başkasının profiline ulaşım
 --------*-----------*---------*------------*--------*---------*----------*

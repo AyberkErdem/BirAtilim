@@ -1,10 +1,17 @@
 <?php
 require_once('config.php');
 session_start();
+$seen="update chat set Seen='1' where Receiver='".$_GET['user']."' and PosterId='".$_GET['subject']."'";
+if (mysqli_query($dbc,$seen)) {
 
+}
+else
+{
+  echo "<script>alert('Mesajlar Güncellenemedi.');</script>";
+}
 if(isset($_POST['Yolla']))
 {
-  $query=("insert into chat values('','".$_GET['user']."','".$_GET['subject']."','".$_POST['mesaj']."','".$_POST['price']."',now(),'0')");
+  $query=("call Send('".$_GET['user']."','".$_GET['subject']."','".$_POST['price']."','".$_POST['mesaj']."');");
   if(mysqli_query($dbc,$query))
   {
 echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET['subject']."';</script>";
@@ -19,6 +26,8 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <link style=" border-radius: 50%;" rel = "icon" href ="../Img/icon.png"
+        type = "image/x-icon">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="../css/reset.css">
@@ -60,7 +69,7 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
                     <a href="YeniIlan.php?user=<?php echo $_GET['user'] ?>" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link m-2 btn btn-warning">Mesajlar</a>
+                    <a href="Mesajlar.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Mesajlar</a>
                 </li>
                 <li class="nav-item">
                     <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
@@ -88,6 +97,7 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
         if ($result->num_rows > 0) {
           while($row=$result->fetch_assoc())
           {
+            $date = date_create($row['Date']);
               echo "
 
 
@@ -127,9 +137,10 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
                       <h3 class='product-title'>Buraya Filtre İçeriği Gelir</h3>
                       <p class='product-description'> ".$row['Description']." </p>
                         <h4 class='price'>İlan Yayın Tarihi</h4>
-                        <p class='product-description'> ".date('Y-m-d', strtotime($row['Date']))." </p>
+
+                        <p class='product-description'> " .date_format($date, 'd-m-Y')." </p>
                       <h4 class='price'>İlan Sahibi</h4>
-                      <p class='product-description'> ".$row['UserName']." </p>
+                      <p class='product-description'> ".$row['UserName']."<a class='text-primary' style='text-decoration:none;' href='#'> --> İlan Sahibi Profili</a> </p>
                       </div>
                       <div class='tab-pane fade ' id='location' role='tabpanel' aria-labelledby='location-tab'>
                         <h3 class='product-title'>Açık Adres</h3>

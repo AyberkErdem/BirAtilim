@@ -35,7 +35,6 @@ function func(){
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-
     <meta charset="utf-8">
     <link style=" border-radius: 50%;" rel = "icon" href ="../Img/icon.png"
         type = "image/x-icon">
@@ -85,19 +84,7 @@ function func(){
                     <a href="YeniIlan.php?user=<?php echo $_GET['user'] ?>" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                 </li>
                 <li class="nav-item">
-                  <?php
-                  require_once('config.php');
-                    $sql1 = "select * FROM chat  where Seen='0' and Receiver='".$_GET['user'] ."'";
-                      $result=@mysqli_query($dbc,$sql1);
-                        if ($result->num_rows > 0) {
-                            echo "<a href='Mesajlar.php?user=".$_GET['user']."' class='nav-link m-2 btn btn-warning'>Mesajınız Var</a>";
-                        }
-                        else
-                        {
-                          echo"  <a href='Mesajlar.php?user=".$_GET['user']."' class='nav-link m-2 btn btn-warning'>Mesajlar</a>";
-                        }
-                          ?>
-
+                    <a href="Mesajlar.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Mesajlar</a>
                 </li>
                 <li class="nav-item">
                     <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
@@ -118,7 +105,7 @@ function func(){
 
       </form>
     </nav>
-<form class="text-center" action="Home.php?user=<?php echo $_GET['user']; ?>" method="post">
+<form class="text-center" action="ilanlarım.php?user=<?php echo $_GET['user']; ?>" method="post">
   <input type="submit" name='Harita'value="Harita Görünümü" class=" btn btn-secondary">
   <input type="submit" name='tablo'value="Tablo Görünümü" class=" btn btn-secondary">
 </form>
@@ -144,7 +131,7 @@ function func(){
 <th>İlana Git</th>
 </tr>
   <?php require_once('config.php');
-  $sql = "SELECT * FROM poster  order by Id ASC";
+  $sql = "SELECT * FROM poster where UserName='".$_GET['user']."' order by Id ASC";
     $result=@mysqli_query($dbc,$sql);
       if ($result->num_rows > 0) {
         while($row=$result->fetch_assoc())
@@ -154,7 +141,7 @@ function func(){
             <td><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='150' widht='100'</td>
             <td>".$row['Description']."</td>
             <td>".$row['adress']."</td><td>
-            <form class='' action='Home.php?user=".$_GET['user']."' method='post'>
+            <form class='' action='ilanlarım.php?user=".$_GET['user']."' method='post'>
             <input type='submit' name='Go' value='Git'/><input type='hidden' name='id' value=".$row['Id']."/></form></td>";
               ?></tr><?php
         }
@@ -168,6 +155,125 @@ function func(){
 <?php
 }
  ?>
+ <script type="text/javascript">
+
+
+               //AIzaSyDJesEcfS4a_1VHnKJRHbA-q2KceabVT2c
+
+               var customLabel = {
+                 restaurant: {
+                   label: 'R'
+                 },
+                 bar: {
+                   label: 'B'
+                 },
+                 Ev: {
+                   label: 'E'
+                 }
+               };
+
+                 function initMap() {
+                   var myLatlng1 = new google.maps.LatLng(53.65914, 0.072050);
+
+
+
+                      if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                          initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                          map.setCenter(initialLocation);
+                        });
+                      }
+                 var infoWindow = new google.maps.InfoWindow;
+
+                   // Change this depending on the name of your PHP or XML file
+                   downloadUrl('MyPostersJson.php?user=<?php echo $_GET['user']; ?>', function(data) {
+                     var xml = data.responseXML;
+                     var markers = xml.documentElement.getElementsByTagName('poster');
+                     Array.prototype.forEach.call(markers, function(markerElem) {
+                       var id = markerElem.getAttribute('id');
+                       var name = markerElem.getAttribute('name');
+                       var address = markerElem.getAttribute('address');
+                       var description = markerElem.getAttribute('description');
+                       var type = markerElem.getAttribute('type');
+                       var point = new google.maps.LatLng(
+                           parseFloat(markerElem.getAttribute('lat')),
+                           parseFloat(markerElem.getAttribute('lng')));
+
+                       var infowincontent = document.createElement('div');
+                       var strong = document.createElement('strong');
+                       strong.textContent = name
+                       infowincontent.appendChild(strong);
+                       infowincontent.appendChild(document.createElement('br'));
+
+                       var text = document.createElement('text');
+                       text.textContent = description+'   '+address
+                       infowincontent.appendChild(text);
+                       var icon = customLabel[type] || {};
+                       var mapOptions = {
+                         zoom: 13,
+                         center: point,
+                         mapTypeId: google.maps.MapTypeId.ROADMAP
+                       };
+                       var map = new google.maps.Map(document.getElementById('map'),
+                         mapOptions);
+                       var marker = new google.maps.Marker({
+                         map: map,
+                         position: point,
+                         label: icon.label
+                       });
+
+
+                       marker.addListener('mouseover', function() {
+                         infoWindow.setContent(address);
+                         infoWindow.open(map, marker);
+               });
+               marker.addListener('mouseout', function() {
+                   infoWindow.close(map,marker);
+               });  marker.addListener('click', function() {
+                 //  sessionStorage.setItem("IlanNo", id);
+                 var url_string =window.location.href; //window.location.href
+                 var url = new URL(url_string);
+                 var c = url.searchParams.get("user");
+                 console.log(c);
+               window.location="Göster.php?user="+c+"&subject="+id;
+                 });
+
+                     });
+                   });
+
+                 }
+
+                 var getParams = function (url) {
+                 	var params = {};
+                 	var parser = document.createElement('a');
+                 	parser.href = url;
+                 	var query = parser.search.substring(1);
+                 	var vars = query.split('&');
+                 	for (var i = 0; i < vars.length; i++) {
+                 		var pair = vars[i].split('=');
+                 		params[pair[0]] = decodeURIComponent(pair[1]);
+                 	}
+                 	return params;
+                 };
+
+               function downloadUrl(url, callback) {
+                 var request = window.ActiveXObject ?
+                     new ActiveXObject('Microsoft.XMLHTTP') :
+                     new XMLHttpRequest;
+
+                 request.onreadystatechange = function() {
+                   if (request.readyState == 4) {
+                     request.onreadystatechange = doNothing;
+                     callback(request, request.status);
+                   }
+                 };
+
+                 request.open('GET', url, true);
+                 request.send(null);
+               }
+
+               function doNothing() {}
+ </script>
   </body>
 <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmCd7903K8KvYDLjq_A_J3vMe4eKDPSNU&callback=initMap">

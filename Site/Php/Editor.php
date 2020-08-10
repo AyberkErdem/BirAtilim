@@ -88,7 +88,7 @@
                       <a href="YeniIlan.php?user=<?php echo $_GET['user'] ?>" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                   </li>
                   <li class="nav-item">
-                      <a href="#" class="nav-link m-2 btn btn-warning">Mesajlar</a>
+                      <a href="Mesajlar.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Mesajlar</a>
                   </li>
                   <li class="nav-item">
                       <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
@@ -142,7 +142,7 @@
                                                   <input name="Name" type="text" class="form-control" placeholder="Kullanıcı Adı" value="<?php echo $row['Name']; ?>" />
                                               </div>
                                               <div class="form-group">
-                                                  <input name="PasswordOriginal" type="password" class="form-control" placeholder="Current Password" value="" />
+                                                  <input autocomplete="new-password" name="PasswordOriginal" type="password" class="form-control" placeholder="Current Password" value="" />
                                               </div>
                                               <div class="form-group">
                                                   <input name="Password1" type="password" class="form-control" placeholder="Re type Password" value="" />

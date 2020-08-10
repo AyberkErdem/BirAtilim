@@ -10,3 +10,5 @@ Home için toogle navbar yapayım
 Göster kısmının arayüzü düzenlenecek
 
 Poster sahibi ve kendi fiyatlarını gösteren chat
+
+Mesaja cevaptan sonra görüldü olsun ya da görüldü olarak işaretlesin
