@@ -3,7 +3,7 @@
 body {
   font-family: 'open sans';
   overflow-x: hidden;
-background-color: #88001b;
+    background: -webkit-linear-gradient(left, #4f4766, #4f4766);
 }
 #map
 {

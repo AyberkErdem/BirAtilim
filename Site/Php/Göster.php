@@ -1,5 +1,5 @@
 <?php
-require_once('config.php');
+include('config.php');
 session_start();
 $seen="update chat set Seen='1' where Receiver='".$_GET['user']."' and PosterId='".$_GET['subject']."'";
 if (mysqli_query($dbc,$seen)) {
@@ -14,11 +14,12 @@ if(isset($_POST['Yolla']))
   $query=("call Send('".$_GET['user']."','".$_GET['subject']."','".$_POST['price']."','".$_POST['mesaj']."');");
   if(mysqli_query($dbc,$query))
   {
+
 echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET['subject']."';</script>";
   }
   else
   {
-    echo"<script>alert('mesajı atamadık')</script>";
+    echo"<script>alert('mesajı atamadık(Mesaj 255 karakterden fazla olamaz)')</script>";
   }
 
 }
@@ -41,7 +42,7 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
 
     <title>Bir atilim</title>
   </head>
-  <body style='background-color: #c3c3c3;'>
+  <body >
     <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light ">
         <div class="d-flex flex-grow-1">
             <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
@@ -91,17 +92,14 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
       </form>
     </nav>
     <?php
-    require_once('config.php');
+
     $sql = "CALL getPoster('".$_GET['subject']."')";
       $result=@mysqli_query($dbc,$sql);
         if ($result->num_rows > 0) {
           while($row=$result->fetch_assoc())
           {
             $date = date_create($row['Date']);
-              echo "
-
-
-              <div  class='container'>
+              echo "<div  class='container'>
               <div class='card bg-warning'>
                 <div class='container-fliud'>
                   <div class='wrapper row'>
@@ -140,7 +138,11 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
 
                         <p class='product-description'> " .date_format($date, 'd-m-Y')." </p>
                       <h4 class='price'>İlan Sahibi</h4>
-                      <p class='product-description'> ".$row['UserName']."<a class='text-primary' style='text-decoration:none;' href='#'> --> İlan Sahibi Profili</a> </p>
+                      <p class='product-description'> ".$row['UserName'].""; if($_GET['user']==$row['UserName']){echo "<a class='text-primary' style='text-decoration:none;' href='Eye.php?user=".$_GET['user']."&eye=".$row['UserName']."'> --> Başkasının Gözünden Gör
+                        </a>";} else {echo "<a class='text-primary' style='text-decoration:none;' href='Eye.php?user=".$_GET['user']."&eye=".$row['UserName']."'> --> İlan Sahibi Profili
+                        </a>";}
+                        echo"
+                         </p>
                       </div>
                       <div class='tab-pane fade ' id='location' role='tabpanel' aria-labelledby='location-tab'>
                         <h3 class='product-title'>Açık Adres</h3>
@@ -158,10 +160,13 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
                   </div>
                 </div>
               ";}
+
             }
-            ?>
+            mysqli_free_result($result);
+          $dbc->next_result();
+        echo"
                 <div style='display:block;' class='wrapper row'>
-                  <div style="width: 650px;height:200px;overflow:auto;" >
+                  <div style='width: 650px;height:200px;overflow:auto;' >
                      <table  class='table table-striped custab'>
                      <thead>
                          <tr>
@@ -170,17 +175,17 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
                               <th>Value</th>
                              <th>Date</th>
                          </tr>
-                     </thead>
-                     <?php
-                     require_once('config.php');
-                       $sql1 = "SELECT * FROM chat  where PosterId='".$_GET['subject']."'Order by Sender='".$_GET['user'] ."'DESC";
-                         $result=@mysqli_query($dbc,$sql1);
-                         if ($result->num_rows > 0) {
-                             ?>
-                                <?php
+                     </thead>";
+
+
+                     $query = "CALL getChat('".$_GET['subject']."','".$_GET['user']."')";
+                       $result=@mysqli_query($dbc,$query);
+                       echo mysqli_error($dbc);
+                         if ($result ->num_rows > 0) {
+
                              while($row=$result->fetch_assoc())
-                             {?>
-                               <?php
+                             {
+
                                echo "<tr>";if($_GET['user']==$row['Sender']){echo "<td class='text-danger' style='font-size:0.7em;'>".$row['Sender']."</td>";}
                                else {echo "<td style='font-size:0.7em;'>".$row['Sender']."</td>";}
                                 echo"
@@ -188,13 +193,14 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
                                    <td style='font-size:0.7em;'>";if($_GET['user']==$row['Sender']||$_GET['user']==$row['Receiver']){echo $row['Value'];}else{echo "*";}echo"</td>
                                    <td style='font-size:0.7em;'>".$row['Date']."</td>
                                </tr>";
-                                 ?><?php
+
                              }
                            }
                            else
                            {
                              echo"İlk Mesajı Siz Atın";
                            }
+                                $result->close();
                         ?>
                      </table>
                      </div>

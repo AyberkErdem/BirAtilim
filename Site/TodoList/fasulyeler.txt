@@ -22,7 +22,11 @@ Kullanıcı Mesaj Bildirimleri✓
 
 ilan tarihi✓
 
-Başkasının profiline ulaşım
+Başkasının profiline ulaşım✓
+
+İlan İşaretleme
+
+Eklenen foto önizlemesi
 --------*-----------*---------*------------*--------*---------*----------*
 ilan tipleri filtreleri araması
 (Harita görünümünde Markerin rengi değişsin tabloda zaten direkt gelir)

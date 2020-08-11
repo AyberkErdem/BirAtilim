@@ -6,7 +6,9 @@ $dom = new DOMDocument("1.0");
 $node = $dom->createElement("poster");
 $parnode = $dom->appendChild($node);
 $query = "SELECT * FROM poster where UserName='".$_GET['user']."'";
-$result = mysqli_query($dbc,$query);
+$result=@mysqli_query($dbc,$query);
+if ($result ->num_rows > 0) {
+
 
 
 header("Content-type: text/xml");
@@ -24,5 +26,21 @@ while ($row = @mysqli_fetch_assoc($result)){
 }
 
 echo $dom->saveXML();
+}
+else
+{
+  $node = $dom->createElement("poster");
+  $newnode = $parnode->appendChild($node);
+  $newnode->setAttribute("id","0");
+  $newnode->setAttribute("name",$_GET['user']);
+  $newnode->setAttribute("description", "");
+  $newnode->setAttribute("address", "");
+  $newnode->setAttribute("lat", "");
+  $newnode->setAttribute("lng", "");
+  $newnode->setAttribute("type", "");
 
+
+echo $dom->saveXML();
+
+}
 ?>
