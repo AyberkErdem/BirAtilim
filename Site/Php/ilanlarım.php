@@ -155,7 +155,7 @@ function func(){
 <?php
 }
  ?>
- <script type="text/javascript">
+<script type="text/javascript">
 
 
                //AIzaSyDJesEcfS4a_1VHnKJRHbA-q2KceabVT2c

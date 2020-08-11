@@ -100,6 +100,9 @@ function func(){
 
                 </li>
                 <li class="nav-item">
+                    <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Favorilerim</a>
+                </li>
+                <li class="nav-item">
                     <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
                 </li>
                 <li class="nav-item">
@@ -173,5 +176,55 @@ function func(){
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmCd7903K8KvYDLjq_A_J3vMe4eKDPSNU&callback=initMap">
 
   </script>
+  <script type="text/javascript">
+  
+  function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=../DummyTests/";
+}
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
 
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+function deleteCookie(name)
+{
+
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
+}
+function checkFav()
+{
+  var str=getCookie("favori");
+  var x=str.search("<?php echo $_GET['subject']; ?>");
+  if(x!="-1")
+  {
+    document.getElementById("favori").checked=true;
+  }
+}
+function checkCookie() {
+  var user = getCookie("username");
+  if (user != "") {
+    alert("Welcome again " + user);
+  } else {
+    user = prompt("Please enter your name:", "");
+    if (user != "" && user != null) {
+      setCookie("username", user, 365);
+    }
+  }
+}
+  </script>
 </html>

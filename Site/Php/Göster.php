@@ -360,12 +360,23 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
     } else {
       var str=getCookie("favori");
       var x=str.search(",");
-      if(x!="-1"){
+      if(x!="-1")
+      {
+        if(str.replace(","+<?php echo $_GET['subject']; ?>, "")!=str)
+        {
       var credit=str.replace(","+<?php echo $_GET['subject']; ?>, "");
       deleteCookie(name);
       setCookie("favori",credit,30);
         alert(getCookie("favori"));
         }
+        else if(str.replace(","+<?php echo $_GET['subject']; ?>, "")==str)
+        {
+      var credit=str.replace(<?php echo $_GET['subject']; ?>+",", "");
+      deleteCookie(name);
+      setCookie("favori",credit,30);
+        alert(getCookie("favori"));
+        }
+      }
         else
         {
             deleteCookie("favori");
