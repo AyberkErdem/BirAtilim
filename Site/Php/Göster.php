@@ -185,7 +185,7 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
                                else {echo "<td style='font-size:0.7em;'>".$row['Sender']."</td>";}
                                 echo"
                                    <td style='font-size:0.7em;'>".$row['Message']."</td>
-                                   <td style='font-size:0.7em;'>";if($_GET['user']==$row['Sender']){echo $row['Value'];}else{echo "*";}echo"</td>
+                                   <td style='font-size:0.7em;'>";if($_GET['user']==$row['Sender']||$_GET['user']==$row['Receiver']){echo $row['Value'];}else{echo "*";}echo"</td>
                                    <td style='font-size:0.7em;'>".$row['Date']."</td>
                                </tr>";
                                  ?><?php
