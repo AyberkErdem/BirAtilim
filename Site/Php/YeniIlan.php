@@ -4,30 +4,28 @@ session_start();
 if(isset($_POST['publish']))
 {
 
-   $file_size = $_FILES['image']['size'];
-   if($file_size!=0)
-   {
-      $filename = $_FILES['image']['name'];
-      $tmpname = $_FILES['image']['tmp_name'];
-  	  $file_size = $_FILES['image']['size'];
-  	  $file_type = $_FILES['image']['type'];
-  	  $ext = pathinfo($filename, PATHINFO_EXTENSION);
-      $fp  = fopen($tmpname, 'r');
-      $content = fread($fp, filesize($tmpname));
-      $content = addslashes($content);
-      fclose($fp);
+    $datas=array("","","","","");
+     $filename=$_FILES['image']['name'];
+     $tmpname=$_FILES['image']['tmp_name'];
+     $filetype=$_FILES['image']['type'];
+     for ($i=0; $i <=count($tmpname)-1 ; $i++) {
+       $name=addslashes($filename[$i]);
+       $tmp=addslashes(file_get_contents($tmpname[$i]));
+       $datas[$i]=$tmp;
+     }
       $adress=$_POST['address'];
         $adress.=",";
       $adress.=$_POST['District'];
           $adress.=",";
         $adress.=$_POST['City'];
 
-      $query=("insert into poster values('','".$_GET['user']."','".$content."','".$_POST['description']."','".$adress."',curdate(),'".$_POST['latitude']."','".$_POST['longitude']."','Ev')");
-    if(mysqli_query($dbc,$query));
-
+      $query=("CALL AddPoster('".$_GET['user']."','".$_POST['description']."','".$adress."','".$_POST['latitude']."','".$_POST['longitude']."','Ev','".$datas[0]."',
+      '".$datas[1]."','".$datas[2]."','".$datas[3]."','".$datas[4]."')");
+    if(mysqli_query($dbc,$query))
+    {
       header("Location:Home.php?user=".$_GET['user']."");
+    }
 
-   }
    else
    {
      echo"<script>alert('Bir resim ekleyiniz')</script>";
@@ -197,7 +195,7 @@ if(isset($_POST['publish']))
   <div class="col-md-1 col-lg-4">
       <div class="form-group align-middle">
         <label class="control-label">Resim Ekleyiniz</label>
-    <input type="file" name="image" accept="image/jpeg">
+    <input type="file" name="image[]" accept="image/jpeg" multiple>
    </div> </div>
    <div class="container-fluid">
   <div class="row">

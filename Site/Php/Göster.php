@@ -92,7 +92,7 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
     </nav>
     <?php
     require_once('config.php');
-    $sql = "SELECT * FROM poster  where Id='".$_GET['subject']."'";
+    $sql = "CALL getPoster('".$_GET['subject']."')";
       $result=@mysqli_query($dbc,$sql);
         if ($result->num_rows > 0) {
           while($row=$result->fetch_assoc())
@@ -108,18 +108,18 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
                     <div class='preview col-md-6'>
 
                       <div class='preview-pic tab-content'>
-                        <div class='tab-pane active' id='pic-1'><img src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='300' widht='100'/></div>
-                        <div class='tab-pane' id='pic-2'><img src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='300' widht='100'/></div>
-                        <div class='tab-pane' id='pic-3'><img src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='300' widht='100'/></div>
-                        <div class='tab-pane' id='pic-4'><img src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='300' widht='100'/></div>
-                        <div class='tab-pane' id='pic-5'><img src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='300' widht='100'/></div>
+                        <div class='tab-pane active' id='pic-1'><img src='data:image/jpeg;base64,".base64_encode($row['Image0'])."' height='300' widht='100'/></div>
+                        <div class='tab-pane' id='pic-2'><img src='data:image/jpeg;base64,".base64_encode($row['Image1'])."' height='300' widht='100'/></div>
+                        <div class='tab-pane' id='pic-3'><img src='data:image/jpeg;base64,".base64_encode($row['Image2'])."' height='300' widht='100'/></div>
+                        <div class='tab-pane' id='pic-4'><img src='data:image/jpeg;base64,".base64_encode($row['Image3'])."' height='300' widht='100'/></div>
+                        <div class='tab-pane' id='pic-5'><img src='data:image/jpeg;base64,".base64_encode($row['Image4'])."' height='300' widht='100'/></div>
                       </div>
                       <ul class='preview-thumbnail nav nav-tabs'>
-                        <li class='active'><a data-target='#pic-1' data-toggle='tab'><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='56' widht='55'/></a></li>
-                        <li><a data-target='#pic-2' data-toggle='tab'><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='56' widht='55'/></a></li>
-                        <li><a data-target='#pic-3' data-toggle='tab'><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='56' widht='55'/></a></li>
-                        <li><a data-target='#pic-4' data-toggle='tab'><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='56' widht='55'/></a></li>
-                        <li><a data-target='#pic-5' data-toggle='tab'><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='56' widht='55'/></a></li>
+                        <li class='active'><a data-target='#pic-1' data-toggle='tab'><embed src='data:image/jpeg;base64,".base64_encode($row['Image0'])."' height='56' widht='55'/></a></li>
+                        <li><a data-target='#pic-2' data-toggle='tab'><embed src='data:image/jpeg;base64,".base64_encode($row['Image1'])."' height='56' widht='55'/></a></li>
+                        <li><a data-target='#pic-3' data-toggle='tab'><embed src='data:image/jpeg;base64,".base64_encode($row['Image2'])."' height='56' widht='55'/></a></li>
+                        <li><a data-target='#pic-4' data-toggle='tab'><embed src='data:image/jpeg;base64,".base64_encode($row['Image3'])."' height='56' widht='55'/></a></li>
+                        <li><a data-target='#pic-5' data-toggle='tab'><embed src='data:image/jpeg;base64,".base64_encode($row['Image4'])."' height='56' widht='55'/></a></li>
                       </ul>
 
                     </div>
@@ -175,7 +175,7 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
                      require_once('config.php');
                        $sql1 = "SELECT * FROM chat  where PosterId='".$_GET['subject']."'Order by Sender='".$_GET['user'] ."'DESC";
                          $result=@mysqli_query($dbc,$sql1);
-                           if ($result->num_rows > 0) {
+                         if ($result->num_rows > 0) {
                              ?>
                                 <?php
                              while($row=$result->fetch_assoc())
