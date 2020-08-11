@@ -24,7 +24,7 @@ ilan tarihi✓
 
 Başkasının profiline ulaşım✓
 
-İlan İşaretleme
+İlan İşaretleme-Düzenleme-kaldırma
 
 Eklenen foto önizlemesi
 --------*-----------*---------*------------*--------*---------*----------*

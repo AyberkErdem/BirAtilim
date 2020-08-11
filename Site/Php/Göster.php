@@ -129,6 +129,9 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
                         <li class='nav-item'>
                             <a style='background-color:#88001b;' class='nav-link text-light ' id='profile-tab' data-toggle='tab' href='#location' role='tab' aria-controls='profile' aria-selected='false'>Lokasyon</a>
                         </li>
+                        <div class='col-md-6'>
+                          <p class='text-primary'>Favori       <input type='checkbox' onclick='Favourite()' id='favori' value='Favori işaretle' onload='checkFav()'></p>
+                        </div>
                     </ul>
                     <div class='tab-content profile-tab' id='myTabContent'>
                     <div class='tab-pane fade show active' id='home' role='tabpanel' aria-labelledby='home-tab'>
@@ -211,14 +214,7 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
          <form class="" action="Göster.php?user=<?php echo $_GET['user']; ?>&subject=<?php echo $_GET['subject'];?>" method='post'>
            <div class="input-controls-container expand">
               <textarea name="mesaj" style="resize:none;" class="form-control" placeholder="Enter Message"> </textarea>
-              <div class="input-controls">
-                    <div class="btn-group">
-                      <button class="btn btn-link">
-                          <span class="glyphicon glyphicon-paperclip"></span>
-                      </button>
-
-                  </div>
-              </div>
+          <br>
           </div>
                 <input style="widht:200px" name="price" type="number" placeholder="Fiyat Biçin" value="" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="c2" />
              <input type='submit' name='Yolla' value='Gönder'>
@@ -341,6 +337,92 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
               function doNothing() {}
 </script>
   </body>
+  <script type="text/javascript">
+  window.onload = checkFav();
+
+
+  function Favourite()
+  {
+    if (document.getElementById('favori').checked)
+    {
+      var credit=getCookie("favori");
+      if(credit=="")
+      {
+        setCookie("favori",<?php echo $_GET['subject'] ;?>,30);
+      }
+      else
+      {
+        setCookie("favori",credit+","+<?php echo $_GET['subject'] ;?>,30);
+      }
+
+    alert(getCookie("favori"));
+
+    } else {
+      var str=getCookie("favori");
+      var x=str.search(",");
+      if(x!="-1"){
+      var credit=str.replace(","+<?php echo $_GET['subject']; ?>, "");
+      deleteCookie(name);
+      setCookie("favori",credit,30);
+        alert(getCookie("favori"));
+        }
+        else
+        {
+            deleteCookie("favori");
+              alert(getCookie("favori"));
+        }
+
+    }
+  }
+  function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=../DummyTests/";
+}
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+function deleteCookie(name)
+{
+
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
+}
+function checkFav()
+{
+  var str=getCookie("favori");
+  var x=str.search("<?php echo $_GET['subject']; ?>");
+  if(x!="-1")
+  {
+    document.getElementById("favori").checked=true;
+  }
+}
+function checkCookie() {
+  var user = getCookie("username");
+  if (user != "") {
+    alert("Welcome again " + user);
+  } else {
+    user = prompt("Please enter your name:", "");
+    if (user != "" && user != null) {
+      setCookie("username", user, 365);
+    }
+  }
+}
+  </script>
   <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmCd7903K8KvYDLjq_A_J3vMe4eKDPSNU&callback=initMap">
 

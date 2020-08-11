@@ -125,7 +125,7 @@
                                         alt="image"/style="height:200px; width:200px; overflow:hidden;">
                                 <div class="file btn btn-lg btn-primary">
                                                               Change Photo
-                                                              <form enctype="multipart/form-data" class="col-md-9" action="Editor.php?User=<?php echo $_GET['user'] ?>" method="post">
+                                                              <form enctype="multipart/form-data" class="col-md-9" action="Editor.php?user=<?php echo $_GET['user'] ?>" method="post">
                                                               <input type="file" name="image" accept="image/jpeg">
                                                           </div>
                             </div>
