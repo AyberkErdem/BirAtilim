@@ -17,7 +17,7 @@ include('config.php');
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
   <title>Bir atilim</title>
 </head>
   <body>
@@ -48,7 +48,10 @@ include('config.php');
                     <a href="YeniIlan.php?user=<?php echo $_GET['user'] ?>" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Mesajlar.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Mesajlar</a>
+                    <button  onclick="İlanlarım()" class="nav-link m-2 btn btn-warning">İlanlarım</button>
+                </li>
+                <li class="nav-item">
+                    <button  onclick="Fav()" class="nav-link m-2 btn btn-warning">Favorilerim</button>
                 </li>
                 <li class="nav-item">
                     <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
@@ -69,45 +72,65 @@ include('config.php');
 
       </form>
     </nav>
-    <form class="text-center" action="ilanlarım.php?user=<?php echo $_GET['user']; ?>" method="post">
-      <input  style="margin-top: 0px;" type="submit" name='ilanlarım'value="İlanlarıma Git" class=" btn btn-info">
-    </form>
+
          <?php
          require_once('config.php');
-           $sql1 = "select * FROM chat  where Seen='0' and Receiver='".$_GET['user'] ."'";
+           $sql1 = "select  DISTINCT Sender  from chat where Receiver='".$_GET['user']."'  order by Seen ASC";
              $result=@mysqli_query($dbc,$sql1);
                if ($result->num_rows > 0) {
-                 ?>  <div style='display:block;' class='wrapper row'>
-                     <div style="padding-left:25px;margin-top: 20px;width: 100%;height:200px;overflow:auto;" >
+                 echo "<div class='container '>
 
-                        <table style="padding-left:25px; auto;width: 100% overflow-X:hidden; "  class='float-center table table-striped custab'>
-                        <thead>
-                            <tr>
-                                <th>Sender</th>
-                                <th>Message</th>
-                                <th>Value</th>
-                                <th>Date</th>
-                                <th>İlana Git</th>
-                            </tr>
-                        </thead>
-
-                    <?php
+                 <div class='messaging'>
+                       <div class='inbox_msg'>
+                         <div class='inbox_people'>
+                           <div class='headind_srch'>
+                             <div class='recent_heading'>
+                               <h4>List</h4>
+                             </div>
+                             <div class='srch_bar'>
+                               <div class='stylish-input-group'>
+                                 <input type='text' class='search-bar'  placeholder='Search' >
+                                 <span class='input-group-addon'>
+                                 <button onclick='MessageLook()' type='button'> <i class='fa fa-search' aria-hidden='true'></i> </button>
+                                 </span> </div>
+                             </div>
+                           </div>   <div class='inbox_chat'>";
                  while($row=$result->fetch_assoc())
-                 {?>
-                   <?php
-                   echo "<tr>";
-                   echo "<td style='font-size:0.7em;'>".$row['Sender']."</td>";
-                    echo"
-                       <td style='font-size:0.7em;'>".$row['Message']."</td>
-                       <td style='font-size:0.7em;'>";echo $row['Value'];echo"</td>
-                       <td style='font-size:0.7em;'>".$row['Date']."</td>
-                       <td>
-                       <button class='btn btn-primary' onclick='GoPoster()' value='Git'>Git</button>
-                       <input id='posterid'class='btn btn-primary' type='hidden' value='".$row['PosterId']."'>
-                           </td>
-                   </tr>";
+                 {
+                   echo "
+
+
+                   <div class='chat_list'>
+                     <div class='chat_people'>
+                       <div class='chat_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'> </div>
+                       <div class='chat_ib'>
+                         <h5><a style='text-decoration:none;' href='MessageFrame.php?user=".$_GET['user']."&sender=".$row['Sender']."' target='MessageFrame'>".$row['Sender']."</a> </h5>
+
+                       </div>
+                     </div>
+                  </div>
+
+
+                          ";
                      ?><?php
                  }
+                 echo"
+                    </div>
+                 </div>
+                  <div  class='mesgs'>
+                     <iframe style='position:relative;align=bottom;' width='100%' height='100%'  name='MessageFrame' class='msg_history'></iframe>
+                     <div class='type_msg'>
+                       <div class='input_msg_write'>
+                         <input type='text' class='write_msg' placeholder='Type a message' />
+                         <button class='msg_send_btn' type='button'><i class='fa fa-paper-plane-o' aria-hidden='true'></i></button>
+                       </div>
+                     </div>
+              </div>
+                  </div>
+                     </div>
+
+               </div>
+             </div>";
                }
                else
                {
@@ -118,6 +141,26 @@ include('config.php');
           </div>
           </div>
           <script type="text/javascript">
+          function İlanlarım()
+          {
+
+
+            var user="<?php echo $_GET['user'];?>";
+
+            window.location="ilanlarım.php?user="+user+"";
+
+          }
+          function Fav()
+          {
+
+
+            var Name="<?php echo $_GET['user']; ?>";
+
+            var x=getCookie(Name);
+            var user="<?php echo $_GET['user'];?>";
+
+            window.location="ilanlarım.php?user="+user+"&favori="+x+"";
+          }
           function GoPoster()
           {
             var url_string = window.location.href;
@@ -125,6 +168,22 @@ include('config.php');
             var c = url.searchParams.get("user");
             var x = document.getElementById("posterid").value;
             window.location="Göster.php?user="+c+"&subject="+x;
+          }
+          function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0) == ' ') {
+
+                c = c.substring(1);
+              }
+              if (c.indexOf(name) == 0) {
+
+                return c.substring(name.length, c.length);
+              }
+            }
+            return "";
           }
           </script>
   </body>

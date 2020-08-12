@@ -185,7 +185,7 @@ function func(){
 
     var x=getCookie(Name);
     var user="<?php echo $_GET['user'];?>";
-      alert(x);
+
     window.location="ilanlarım.php?user="+user+"&favori="+x+"";
 
   }
