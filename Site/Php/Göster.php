@@ -343,44 +343,47 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
 
   function Favourite()
   {
+    alert(getCookie('<?php echo $_GET['user']; ?>'));
+    var Name='<?php echo $_GET['user']; ?>';
+
     if (document.getElementById('favori').checked)
     {
-      var credit=getCookie("favori");
+      var credit=getCookie(Name);
       if(credit=="")
       {
-        setCookie("favori",<?php echo $_GET['subject'] ;?>,30);
+        setCookie(Name,'<?php echo $_GET['subject']; ?>',30);
       }
       else
       {
-        setCookie("favori",credit+","+<?php echo $_GET['subject'] ;?>,30);
+        setCookie(Name,credit+","+'<?php echo $_GET['subject']; ?>',30);
       }
 
-    alert(getCookie("favori"));
+    alert(getCookie(Name));
 
     } else {
-      var str=getCookie("favori");
+      var str=getCookie(Name);
       var x=str.search(",");
       if(x!="-1")
       {
-        if(str.replace(","+<?php echo $_GET['subject']; ?>, "")!=str)
+        if(str.replace(","+'<?php echo $_GET['subject']; ?>', "")!=str)
         {
-      var credit=str.replace(","+<?php echo $_GET['subject']; ?>, "");
-      deleteCookie(name);
-      setCookie("favori",credit,30);
-        alert(getCookie("favori"));
+      var credit=str.replace(","+'<?php echo $_GET['subject']; ?>', "");
+      deleteCookie(Name);
+      setCookie(Name,credit,30);
+        alert(getCookie(Name));
         }
-        else if(str.replace(","+<?php echo $_GET['subject']; ?>, "")==str)
+        else if(str.replace(","+'<?php echo $_GET['subject']; ?>', "")==str)
         {
-      var credit=str.replace(<?php echo $_GET['subject']; ?>+",", "");
-      deleteCookie(name);
-      setCookie("favori",credit,30);
-        alert(getCookie("favori"));
+      var credit=str.replace('<?php echo $_GET['subject']; ?>', "");
+      deleteCookie(Name);
+      setCookie(Name,credit,30);
+        alert(getCookie(Name));
         }
       }
         else
         {
-            deleteCookie("favori");
-              alert(getCookie("favori"));
+              setCookie(Name,"",30);
+              alert(getCookie(Name));
         }
 
     }
@@ -389,7 +392,7 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
   var d = new Date();
   d.setTime(d.getTime() + (exdays*24*60*60*1000));
   var expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=../DummyTests/";
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 function getCookie(cname) {
   var name = cname + "=";
@@ -407,19 +410,26 @@ function getCookie(cname) {
   }
   return "";
 }
-function deleteCookie(name)
+function deleteCookie(namex)
 {
 
-  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie = namex + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 
 }
 function checkFav()
 {
-  var str=getCookie("favori");
-  var x=str.search("<?php echo $_GET['subject']; ?>");
+  var str=getCookie('<?php echo $_GET['user'] ?>');
+
+  var x=str.search("<?php echo $_GET['subject'] ?>");
+
   if(x!="-1")
   {
+
     document.getElementById("favori").checked=true;
+  }
+  else if(x==-1)
+  {
+        document.getElementById("favori").checked=false;
   }
 }
 function checkCookie() {

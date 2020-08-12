@@ -3,6 +3,7 @@ require_once('config.php');
 session_start();
 if(isset($_POST['Harita']))
 {
+
   $_SESSION['selection']='0';
 }
 if(isset($_POST['tablo']))
@@ -105,7 +106,7 @@ function func(){
 
       </form>
     </nav>
-<form class="text-center" action="ilanlarım.php?user=<?php echo $_GET['user']; ?>" method="post">
+<form class="text-center" action="ilanlarım.php?user=<?php if(isset($_GET['favori'])){echo "".$_GET['user']."&favori=".$_GET['favori']."";}else echo $_GET['user']; ?>" method="post">
   <input type="submit" name='Harita'value="Harita Görünümü" class=" btn btn-secondary">
   <input type="submit" name='tablo'value="Tablo Görünümü" class=" btn btn-secondary">
 </form>
@@ -131,8 +132,21 @@ function func(){
 <th>İlana Git</th>
 </tr>
   <?php require_once('config.php');
-  $sql = "SELECT * FROM poster where UserName='".$_GET['user']."' order by Id ASC";
+
+  if(isset($_GET['favori']))
+  {
+    if($_GET['favori']=="")
+    {
+      $_GET['favori']="-1";
+    }
+    $sql = "select * from poster where Id IN(".$_GET['favori'].") order by Id ASC";
+  }
+  else
+  {
+    $sql = "select * from poster where UserName='".$_GET['user']."' order by Id ASC";
+  }
     $result=@mysqli_query($dbc,$sql);
+       echo mysqli_error($dbc);
       if ($result->num_rows > 0) {
         while($row=$result->fetch_assoc())
         {?><tr>
@@ -141,7 +155,7 @@ function func(){
             <td><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='150' widht='100'</td>
             <td>".$row['Description']."</td>
             <td>".$row['adress']."</td><td>
-            <form class='' action='ilanlarım.php?user=".$_GET['user']."' method='post'>
+            <form class='' action=";if(isset($_GET['favori'])){echo "ilanlarım.php?user=".$_GET['user']."&favori=".$_GET['favori']."";}else {echo "ilanlarım.php?user=".$_GET['user']."";} ;echo" method='post'>
             <input type='submit' name='Go' value='Git'/><input type='hidden' name='id' value=".$row['Id']."/></form></td>";
               ?></tr><?php
         }
@@ -186,7 +200,7 @@ function func(){
                  var infoWindow = new google.maps.InfoWindow;
 
                    // Change this depending on the name of your PHP or XML file
-                   downloadUrl('MyPostersJson.php?user=<?php echo $_GET['user']; ?>', function(data) {
+                   downloadUrl('MyPostersJson.php?user=<?php if(isset($_GET['favori'])){echo"".$_GET['user']."&favori=".$_GET['favori']."";}else {echo $_GET['user'];}  ?>', function(data) {
                      var xml = data.responseXML;
                      var markers = xml.documentElement.getElementsByTagName('poster');
                      Array.prototype.forEach.call(markers, function(markerElem) {
@@ -275,6 +289,60 @@ function func(){
                function doNothing() {}
  </script>
   </body>
+  <script type="text/javascript">
+  window.onload = checkFav();
+
+
+
+  function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=../DummyTests/";
+}
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+function deleteCookie(name)
+{
+
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
+}
+function checkFav()
+{
+  var str=getCookie("favori");
+  var x=str.search("<?php echo $_GET['subject']; ?>");
+  if(x!="-1")
+  {
+    document.getElementById("favori").checked=true;
+  }
+}
+function checkCookie() {
+  var user = getCookie("username");
+  if (user != "") {
+    alert("Welcome again " + user);
+  } else {
+    user = prompt("Please enter your name:", "");
+    if (user != "" && user != null) {
+      setCookie("username", user, 365);
+    }
+  }
+}
+  </script>
 <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmCd7903K8KvYDLjq_A_J3vMe4eKDPSNU&callback=initMap">
 

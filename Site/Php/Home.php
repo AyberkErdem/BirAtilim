@@ -94,13 +94,13 @@ function func(){
                         }
                         else
                         {
-                          echo"  <a href='Mesajlar.php?user=".$_GET['user']."' class='nav-link m-2 btn btn-warning'>Mesajlar</a>";
+                          echo" <a href='Mesajlar.php?user=".$_GET['user']."' class='nav-link m-2 btn btn-warning'>Mesajlar</a>";
                         }
                           ?>
 
                 </li>
                 <li class="nav-item">
-                    <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Favorilerim</a>
+                    <button  onclick="Fav()" class="nav-link m-2 btn btn-warning">Favorilerim</button>
                 </li>
                 <li class="nav-item">
                     <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
@@ -177,12 +177,24 @@ function func(){
 
   </script>
   <script type="text/javascript">
-  
+
+  function Fav()
+  {
+
+    var Name="<?php echo $_GET['user']; ?>";
+
+    var x=getCookie(Name);
+    var user="<?php echo $_GET['user'];?>";
+      alert(x);
+    window.location="ilanlarım.php?user="+user+"&favori="+x+"";
+
+  }
+
   function setCookie(cname, cvalue, exdays) {
   var d = new Date();
   d.setTime(d.getTime() + (exdays*24*60*60*1000));
   var expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=../DummyTests/";
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 function getCookie(cname) {
   var name = cname + "=";
@@ -206,15 +218,7 @@ function deleteCookie(name)
   document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 
 }
-function checkFav()
-{
-  var str=getCookie("favori");
-  var x=str.search("<?php echo $_GET['subject']; ?>");
-  if(x!="-1")
-  {
-    document.getElementById("favori").checked=true;
-  }
-}
+
 function checkCookie() {
   var user = getCookie("username");
   if (user != "") {

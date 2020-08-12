@@ -73,3 +73,46 @@ function checkCookie() {
 }
   </script>
 </html>
+var Name="<?php echo $_GET['user']; ?>";
+
+if (document.getElementById('favori').checked==true)
+{
+  var credit=getCookie(Name);
+  if(credit=="")
+  {
+    setCookie(Name,<?php echo $_GET['subject'] ;?>,30);
+  }
+  else
+  {
+    setCookie(Name,credit+","+<?php echo $_GET['subject'] ;?>,30);
+  }
+
+alert(getCookie(Name));
+
+} else {
+  var str=getCookie(Name);
+  var x=str.search(",");
+  if(x!="-1")
+  {
+    if(str.replace(","+<?php echo $_GET['subject']; ?>, "")!=str)
+    {
+  var credit=str.replace(","+<?php echo $_GET['subject']; ?>, "");
+  deleteCookie(Name);
+  setCookie(Name,credit,30);
+    alert(getCookie(Name));
+    }
+    else if(str.replace(","+<?php echo $_GET['subject']; ?>, "")==str)
+    {
+  var credit=str.replace(<?php echo $_GET['subject']; ?>+",", "");
+  deleteCookie(Name);
+  setCookie(Name,credit,30);
+    alert(getCookie(Name));
+    }
+  }
+    else
+    {
+        deleteCookie(Name);
+          alert(getCookie(Name));
+    }
+
+}
