@@ -53,9 +53,7 @@ function func(){
     <title>BirAtilim</title>
       <link rel="stylesheet" type="text/css" href="../css/reset.css">
     <link rel="stylesheet" type="text/css" href="../css/Home.css">
-   <script type="text/javascript" src="../Js/googlemap.js">
 
-   </script>
 
   <body>
     <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light ">
@@ -173,7 +171,6 @@ function func(){
 
 
                //AIzaSyDJesEcfS4a_1VHnKJRHbA-q2KceabVT2c
-
                var customLabel = {
                  restaurant: {
                    label: 'R'
@@ -189,7 +186,13 @@ function func(){
                  function initMap() {
                    var myLatlng1 = new google.maps.LatLng(53.65914, 0.072050);
 
-
+                      var mapOptions = {
+                        zoom: 13,
+                        center: myLatlng1,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                      };
+                      var map = new google.maps.Map(document.getElementById('map'),
+                        mapOptions);
 
                       if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(function(position) {
@@ -200,7 +203,7 @@ function func(){
                  var infoWindow = new google.maps.InfoWindow;
 
                    // Change this depending on the name of your PHP or XML file
-                   downloadUrl('MyPostersJson.php?user=<?php if(isset($_GET['favori'])){echo"".$_GET['user']."&favori=".$_GET['favori']."";}else {echo $_GET['user'];}  ?>', function(data) {
+                   downloadUrl('MyPostersJson.php?user=<?php echo $_GET['user'];?><?php if(isset($_GET['favori'])){echo "&favori=".$_GET['favori']."";}?>', function(data) {
                      var xml = data.responseXML;
                      var markers = xml.documentElement.getElementsByTagName('poster');
                      Array.prototype.forEach.call(markers, function(markerElem) {
@@ -223,13 +226,6 @@ function func(){
                        text.textContent = description+'   '+address
                        infowincontent.appendChild(text);
                        var icon = customLabel[type] || {};
-                       var mapOptions = {
-                         zoom: 13,
-                         center: point,
-                         mapTypeId: google.maps.MapTypeId.ROADMAP
-                       };
-                       var map = new google.maps.Map(document.getElementById('map'),
-                         mapOptions);
                        var marker = new google.maps.Marker({
                          map: map,
                          position: point,
@@ -238,20 +234,20 @@ function func(){
 
 
                        marker.addListener('mouseover', function() {
-                         infoWindow.setContent(address);
+                         infoWindow.setContent(infowincontent);
                          infoWindow.open(map, marker);
                });
                marker.addListener('mouseout', function() {
                    infoWindow.close(map,marker);
-               });  marker.addListener('click', function() {
-                 //  sessionStorage.setItem("IlanNo", id);
-                 var url_string =window.location.href; //window.location.href
-                 var url = new URL(url_string);
-                 var c = url.searchParams.get("user");
-                 console.log(c);
-               window.location="Göster.php?user="+c+"&subject="+id;
-                 });
-
+               });
+                       marker.addListener('click', function() {
+                       //  sessionStorage.setItem("IlanNo", id);
+                       var url_string =window.location.href; //window.location.href
+                       var url = new URL(url_string);
+                       var c = url.searchParams.get("user");
+                       console.log(c);
+                     window.location="Göster.php?user="+c+"&subject="+id;
+                       });
                      });
                    });
 
@@ -287,6 +283,7 @@ function func(){
                }
 
                function doNothing() {}
+
  </script>
   </body>
   <script type="text/javascript">

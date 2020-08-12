@@ -1,5 +1,5 @@
 <?php
-require_once('config.php');
+include('config.php');
 // Start XML file, create parent node
 
 $dom = new DOMDocument("1.0");
@@ -11,15 +11,15 @@ if(isset($_GET['favori']))
   {
     $_GET['favori']="-1";
   }
-    $query = "select * from poster where Id IN(".$_GET['favori'].") order by Id ASC";
-    
+  $_GET['favori']="47,44";
+  
+  $sql = "select * from poster where Id IN(".$_GET['favori'].") order by Id ASC";
 }
 else
- {
-   $query = "select * FROM poster where UserName='".$_GET['user']."'";
- }
-
-$result=@mysqli_query($dbc,$query);
+{
+  $sql = "select * from poster where UserName='".$_GET['user']."' order by Id ASC";
+}
+  $result=@mysqli_query($dbc,$sql);
 if ($result ->num_rows > 0) {
 header("Content-type: text/xml");
 while ($row = @mysqli_fetch_assoc($result)){
