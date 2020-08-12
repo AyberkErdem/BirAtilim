@@ -11,8 +11,8 @@ if(isset($_GET['favori']))
   {
     $_GET['favori']="-1";
   }
-  $_GET['favori']="47,44";
-  
+
+
   $sql = "select * from poster where Id IN(".$_GET['favori'].") order by Id ASC";
 }
 else

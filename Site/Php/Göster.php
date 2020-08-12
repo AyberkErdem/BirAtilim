@@ -343,7 +343,7 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
 
   function Favourite()
   {
-    alert(getCookie('<?php echo $_GET['user']; ?>'));
+
     var Name='<?php echo $_GET['user']; ?>';
 
     if (document.getElementById('favori').checked)
@@ -358,7 +358,7 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
         setCookie(Name,credit+","+'<?php echo $_GET['subject']; ?>',30);
       }
 
-    alert(getCookie(Name));
+
 
     } else {
       var str=getCookie(Name);
@@ -370,20 +370,20 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
       var credit=str.replace(","+'<?php echo $_GET['subject']; ?>', "");
       deleteCookie(Name);
       setCookie(Name,credit,30);
-        alert(getCookie(Name));
+
         }
         else if(str.replace(","+'<?php echo $_GET['subject']; ?>', "")==str)
         {
       var credit=str.replace('<?php echo $_GET['subject']; ?>', "");
       deleteCookie(Name);
       setCookie(Name,credit,30);
-        alert(getCookie(Name));
+
         }
       }
         else
         {
               setCookie(Name,"",30);
-              alert(getCookie(Name));
+            
         }
 
     }
