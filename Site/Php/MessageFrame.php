@@ -3,7 +3,7 @@ include('config.php');
 $query="call MakeSeen('".$_GET['user']."','".$_GET['sender']."')";
 if(!mysqli_query($dbc,$query))
 {
-  echo mysqli_error($dbc);
+
   echo "<script>alert('Mesajlar Güncellenemedi')</script>";
 }
 if(isset($_POST['Privateer']))
