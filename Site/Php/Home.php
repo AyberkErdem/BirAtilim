@@ -87,13 +87,13 @@ function func(){
                 <li class="nav-item">
                   <?php
                   require_once('config.php');
-                    $sql1 = "select * FROM chat  where Seen='0' and Receiver='".$_GET['user'] ."'";
+                    $sql1 = "call DoIHave('".$_GET['user'] ."')";
                       $result=@mysqli_query($dbc,$sql1);
                         if ($result->num_rows > 0) {
+                          $row=$result->fetch_assoc();
+                          if($row['res']!=0)
                             echo "<a href='Mesajlar.php?user=".$_GET['user']."' class='nav-link m-2 btn btn-warning'>Mesajınız Var</a>";
-                        }
-                        else
-                        {
+else 
                           echo" <a href='Mesajlar.php?user=".$_GET['user']."' class='nav-link m-2 btn btn-warning'>Mesajlar</a>";
                         }
                           ?>

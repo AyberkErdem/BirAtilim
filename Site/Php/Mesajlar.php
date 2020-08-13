@@ -10,7 +10,7 @@ include('config.php');
       type = "image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" type="text/css" href="../css/reset.css">
-      <link rel="stylesheet" type="text/css" href="../css/Göster.css">
+      <link rel="stylesheet" type="text/css" href="../css/Mesaj.css">
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -20,7 +20,7 @@ include('config.php');
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
   <title>Bir atilim</title>
 </head>
-  <body>
+  <body style="overflow-y=hidden;">
     <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light ">
         <div class="d-flex flex-grow-1">
             <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
@@ -119,12 +119,7 @@ include('config.php');
                  </div>
                   <div  class='mesgs'>
                      <iframe style='position:relative;align=bottom;' width='100%' height='100%'  name='MessageFrame' class='msg_history'></iframe>
-                     <div class='type_msg'>
-                       <div class='input_msg_write'>
-                         <input type='text' class='write_msg' placeholder='Type a message' />
-                         <button class='msg_send_btn' type='button'><i class='fa fa-paper-plane-o' aria-hidden='true'></i></button>
-                       </div>
-                     </div>
+
               </div>
                   </div>
                      </div>
@@ -141,6 +136,7 @@ include('config.php');
           </div>
           </div>
           <script type="text/javascript">
+
           function İlanlarım()
           {
 

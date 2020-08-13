@@ -1,7 +1,7 @@
 <?php
 include('config.php');
 session_start();
-$seen="update chat set Seen='1' where Receiver='".$_GET['user']."' and PosterId='".$_GET['subject']."'";
+$seen="update forum set Seen='1' where Receiver='".$_GET['user']."' and PosterId='".$_GET['subject']."'";
 if (mysqli_query($dbc,$seen)) {
 
 }
@@ -383,7 +383,7 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
         else
         {
               setCookie(Name,"",30);
-            
+
         }
 
     }

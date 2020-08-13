@@ -1,5 +1,16 @@
 <?php
+include('config.php');
+$query="call MakeSeen('".$_GET['user']."','".$_GET['sender']."')";
+if(!mysqli_query($dbc,$query))
+{
+  echo mysqli_error($dbc);
+  echo "<script>alert('Mesajlar Güncellenemedi')</script>";
+}
+if(isset($_POST['Privateer']))
+{
+header("location:SendPrivate.php?user=".$_GET['user']."&Receiver=".$_GET['sender']."&Message=".$_POST['mess']."&PosterId=".$_POST['poster']."");
 
+}
  ?>
  <!DOCTYPE html>
  <html lang="en" dir="ltr">
@@ -9,7 +20,7 @@
          type = "image/x-icon">
      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
      <link rel="stylesheet" type="text/css" href="../css/reset.css">
-         <link rel="stylesheet" type="text/css" href="../css/Mesaj.css">
+         <link rel="stylesheet" type="text/css" href="../css/Frame.css">
 
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -20,11 +31,15 @@
      <title></title>
    </head>
    <body>
+     <div class="">
+
+
 <?php
 require_once('config.php');
   $sql1 = "select  *  from chat where Receiver='".$_GET['user']."'and Sender='".$_GET['sender']."' OR  Receiver='".$_GET['sender']."'and Sender='".$_GET['user']."'order by Id ASC";
     $result=@mysqli_query($dbc,$sql1);
       if ($result->num_rows > 0) {
+        echo" <div id='peace' class='msg_history'><div id='1' class='msg_history'>";
         while($row=$result->fetch_assoc())
         {
 if($row['Receiver']==$_GET['sender']){
@@ -32,7 +47,7 @@ if($row['Receiver']==$_GET['sender']){
   <div class='outgoing_msg'>
     <div class='sent_msg'>
       <p>".$row['Message']."</p>
-      <span class='time_date'>".$row['Date']."</div>
+      <span class='time_date'>".$row['Clock']."</div>
   </div>";
         }
             if($row['Receiver']==$_GET['user']){
@@ -40,12 +55,31 @@ if($row['Receiver']==$_GET['sender']){
                   <div class='received_msg'>
                     <div class='received_withd_msg'>
                       <p>".$row['Message']."</p>
-                      <span class='time_date'> ".$row['Date']."</span></div>
+                      <span class='time_date'> ".$row['Clock']."</span></div>
                   </div>
                 </div>";
           }
+            $poster=$row['PosterId'];
         }
+
       }
+  echo    "  </div></div><div class='type_msg'>
+        <div class='input_msg_write'>
+        <form style='height:100%;widht:100%' action=MessageFrame.php?user=".$_GET['user']."&sender=".$_GET['sender']." method=post>
+          <input style='height:100%;widht:100%' name='mess' type='text' class='write_msg' placeholder='Type a message' />
+          <input type='hidden' name='poster' value='".$poster."'>
+          <input style='background-color:#05728f;'  name='Privateer' type='submit' class='text-light float-right profile-edit-btn' >
+           </form>
+</div></div>
+
+    ";
  ?>
+    </div>
    </body>
+   <script type="text/javascript">
+   window.onload=function () {
+   var objDiv = document.getElementById("1");
+   objDiv.scrollTop = objDiv.scrollHeight;
+}
+   </script>
  </html>
