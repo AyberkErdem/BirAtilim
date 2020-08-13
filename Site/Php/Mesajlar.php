@@ -21,6 +21,7 @@ include('config.php');
   <title>Bir atilim</title>
 </head>
   <body style="overflow-y=hidden;">
+
     <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light ">
         <div class="d-flex flex-grow-1">
             <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
@@ -74,12 +75,34 @@ include('config.php');
     </nav>
 
          <?php
+         /*<div id='context-menu'>
+         <div class='item'>
+         <a href='#' class='context-menu__link'>
+         <i class='fa fa-cut'></i> Cut
+           </a>
+         </div>
+         <div class='item'>
+         <i class='fa fa-clone'></i> Copy
+         </div>
+         <div class='item'>
+         <i class='fa fa-paste'></i> Paste
+         </div>
+         <div class='item'>
+         <i class='fa fa-trash-o'></i> Delete
+         </div>
+         <hr>
+         <div class='item'>
+         <i class='fa fa-refresh'></i> Reload
+         </div>
+         <div class='item'>
+         <i class='fa fa-times'></i> Exit
+         </div>
+         </div>*/
          require_once('config.php');
            $sql1 = "select  DISTINCT Sender  from chat where Receiver='".$_GET['user']."'  order by Seen ASC";
              $result=@mysqli_query($dbc,$sql1);
                if ($result->num_rows > 0) {
                  echo "<div class='container '>
-
                  <div class='messaging'>
                        <div class='inbox_msg'>
                          <div class='inbox_people'>
@@ -95,11 +118,32 @@ include('config.php');
                                  </span> </div>
                              </div>
                            </div>   <div class='inbox_chat'>";
+
+
                  while($row=$result->fetch_assoc())
                  {
-                   echo "
-
-
+                   echo "<div id='context-menu'> <div class='item'>
+                      <a href='#".$row['Sender']."' class='context-menu__link'>
+                      <i class='fa fa-cut'></i> Cut
+                        </a>
+                      </div>
+                      <div class='item'>
+                      <i class='fa fa-clone'></i> Copy
+                      </div>
+                      <div class='item'>
+                      <i class='fa fa-paste'></i> Paste
+                      </div>
+                      <div class='item'>
+                      <i class='fa fa-trash-o'></i> Delete
+                      </div>
+                      <hr>
+                      <div class='item'>
+                      <i class='fa fa-refresh'></i> Reload
+                      </div>
+                      <div class='item'>
+                      <i class='fa fa-times'></i> Exit
+                      </div>
+                      </div>
                    <div class='chat_list'>
                      <div class='chat_people'>
                        <div class='chat_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'> </div>
@@ -136,6 +180,7 @@ include('config.php');
           </div>
           </div>
           <script type="text/javascript">
+
 
           function İlanlarım()
           {
@@ -182,5 +227,18 @@ include('config.php');
             return "";
           }
           </script>
+          <script>
+          window.addEventListener("contextmenu",function(event){
+      event.preventDefault();
+      var contextElement = document.getElementById("context-menu");
+      contextElement.style.top = event.offsetY + "px";
+      contextElement.style.left = event.offsetX + "px";
+      contextElement.classList.add("active");
+    });
+    window.addEventListener("click",function(){
+      document.getElementById("context-menu").classList.remove("active");
+    });
+
+   </script>
   </body>
 </html>

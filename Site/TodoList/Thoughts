@@ -1,1 +1,18 @@
 Ürüne göre dinamik ilanlar ?
+
+
+Etkin Bir Chat Uygulaması
+{
+According to my thoughts here is how chat applications mostly work
+Lets say we have a sender x and receiver y
+When x sended a message the message goes to the database and also the message stored in the
+senders computer,phone etc with a xml or json kind of file so with those tags they can identify who sended
+the message and who received so it can be displayed correctly
+When the receiver got online and clicked the senders link to see the messages that link works like this:
+The message stored in json or xml type of file in the receiver after the file get done with it triggers an event
+in the database and the message got deleted so they no longer need to worry about how much space it will take on the database
+what if users want to delete and dont want to see messages between each other.
+Because if they only use database if one of the user decided to delete the messages what would have happen you will be needing
+two other fields with the type of one bit if its 1 user didnt delete the messages if its 0 user dont want to see messages between
+each other anymore this is a quite more safe approach for users but not for database so the choose is depending on an developer
+}

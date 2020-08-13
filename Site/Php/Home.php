@@ -93,9 +93,11 @@ function func(){
                           $row=$result->fetch_assoc();
                           if($row['res']!=0)
                             echo "<a href='Mesajlar.php?user=".$_GET['user']."' class='nav-link m-2 btn btn-warning'>Mesajınız Var</a>";
-else 
+else
                           echo" <a href='Mesajlar.php?user=".$_GET['user']."' class='nav-link m-2 btn btn-warning'>Mesajlar</a>";
                         }
+                        mysqli_free_result($result);
+                      $dbc->next_result();
                           ?>
 
                 </li>
@@ -147,6 +149,7 @@ else
 <th>İlana Git</th>
 </tr>
   <?php require_once('config.php');
+
   $sql = "SELECT * FROM poster  order by Id ASC";
     $result=@mysqli_query($dbc,$sql);
       if ($result->num_rows > 0) {

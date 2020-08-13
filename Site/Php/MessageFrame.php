@@ -14,6 +14,9 @@ header("location:SendPrivate.php?user=".$_GET['user']."&Receiver=".$_GET['sender
  ?>
  <!DOCTYPE html>
  <html lang="en" dir="ltr">
+ <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+ <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
    <head>
      <meta charset="utf-8">
      <link style=" border-radius: 50%;" rel = "icon" href ="../Img/icon.png"
@@ -31,15 +34,28 @@ header("location:SendPrivate.php?user=".$_GET['user']."&Receiver=".$_GET['sender
      <title></title>
    </head>
    <body>
-     <div class="">
 
 
 <?php
 require_once('config.php');
+echo"
+      <ul class='nav navbar-nav'>
+        <li class='dropdown'>
+          <a style='text-decoration:none;' href='#' class='dropdown-toggle' data-toggle='dropdown'>Seçenekler<span class='glyphicon glyphicon-user pull-right'></span></a>
+          <ul class='dropdown-menu'>
+            <li><a href='#'>Mesajları Sil<span class='glyphicon glyphicon-cog pull-right'></span></a></li>
+            <li class='divider'></li>
+            <li><a href='#'>Bildirimleri Aç <span class='glyphicon glyphicon-stats pull-right'></span></a></li>
+            <li class='divider'></li>
+          <li><a target='_blank' href='Eye.php?user=".$_GET['user']."&eye=".$_GET['sender']."'>Profiline Git<span class='glyphicon glyphicon-stats pull-right'></span></a></li>
+
+          </ul>
+        </li>
+      </ul>";
   $sql1 = "select  *  from chat where Receiver='".$_GET['user']."'and Sender='".$_GET['sender']."' OR  Receiver='".$_GET['sender']."'and Sender='".$_GET['user']."'order by Id ASC";
     $result=@mysqli_query($dbc,$sql1);
       if ($result->num_rows > 0) {
-        echo" <div id='peace' class='msg_history'><div id='1' class='msg_history'>";
+        echo" <div id='1' class='msg_history'>";
         while($row=$result->fetch_assoc())
         {
 if($row['Receiver']==$_GET['sender']){
@@ -55,7 +71,7 @@ if($row['Receiver']==$_GET['sender']){
                   <div class='received_msg'>
                     <div class='received_withd_msg'>
                       <p>".$row['Message']."</p>
-                      <span class='time_date'> ".$row['Clock']."</span></div>
+                      <span class='time_date'> ".$row['Clock']."<a target='_blank' style='text-decoration:none;'href='Göster.php?subject=".$row['PosterId']."&user=".$_GET['user']."'>@ilan".$row['PosterId']."</a></span></div>
                   </div>
                 </div>";
           }
