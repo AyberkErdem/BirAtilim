@@ -69,7 +69,10 @@ function initMap() {
                              markers[i].getAttribute("address")
                              );
                              infowindow.open(map, marker);
-
+                             var url_string =window.location.href; //window.location.href
+                             var url = new URL(url_string);
+                             var c = url.searchParams.get("user");
+                             window.location="Göster.php?user="+c+"&subject="+markers[i].getAttribute("id");
                              //This sends information from the clicked icon back to the serverside code
                              document.getElementById("setlatlng").innerHTML = markers[i].getAttribute("name");
                          }
