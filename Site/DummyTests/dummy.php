@@ -1,116 +1,44 @@
-//AIzaSyDJesEcfS4a_1VHnKJRHbA-q2KceabVT2c
+<?php
 
-var customLabel = {
-  restaurant: {
-    label: 'R'
-  },
-  bar: {
-    label: 'B'
-  },
-  Ev: {
-    label: 'E'
-  }
-};
+	$dom = new DOMDocument();
 
-  function initMap() {
-    var myLatlng1 = new google.maps.LatLng(53.65914, 0.072050);
+		$dom->encoding = 'utf-8';
 
-       var mapOptions = {
-         zoom: 13,
-         center: myLatlng1,
-         mapTypeId: google.maps.MapTypeId.ROADMAP
-       };
-       var map = new google.maps.Map(document.getElementById('map'),
-         mapOptions);
+		$dom->xmlVersion = '1.0';
 
-       if (navigator.geolocation) {
-         navigator.geolocation.getCurrentPosition(function(position) {
-           initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-           map.setCenter(initialLocation);
-         });
-       }
-  var infoWindow = new google.maps.InfoWindow;
+		$dom->formatOutput = true;
 
-    // Change this depending on the name of your PHP or XML file
-    downloadUrl('Adresler.php', function(data) {
-      var xml = data.responseXML;
-      var markers = xml.documentElement.getElementsByTagName('poster');
-      Array.prototype.forEach.call(markers, function(markerElem) {
-        var id = markerElem.getAttribute('id');
-        var name = markerElem.getAttribute('name');
-        var address = markerElem.getAttribute('address');
-        var description = markerElem.getAttribute('description');
-        var type = markerElem.getAttribute('type');
-        var point = new google.maps.LatLng(
-            parseFloat(markerElem.getAttribute('lat')),
-            parseFloat(markerElem.getAttribute('lng')));
+	$xml_file_name = 'movies_list.xml';
 
-        var infowincontent = document.createElement('div');
-        var strong = document.createElement('strong');
-        strong.textContent = name
-        infowincontent.appendChild(strong);
-        infowincontent.appendChild(document.createElement('br'));
+		$root = $dom->createElement('Movies');
 
-        var text = document.createElement('text');
-        text.textContent = description+'   '+address
-        infowincontent.appendChild(text);
-        var icon = customLabel[type] || {};
-        var marker = new google.maps.Marker({
-          map: map,
-          position: point,
-          label: icon.label
-        });
+		$movie_node = $dom->createElement('movie');
 
+		$attr_movie_id = new DOMAttr('movie_id', '5467');
 
-        marker.addListener('mouseover', function() {
-          infoWindow.setContent(infowincontent);
-          infoWindow.open(map, marker);
-});
+		$movie_node->setAttributeNode($attr_movie_id);
 
-marker.addListener('mouseout', function() {
-    infoWindow.close(map,marker);
-});
-        marker.addListener('click', function() {
-        //  sessionStorage.setItem("IlanNo", id);
-        var url_string =window.location.href; //window.location.href
-        var url = new URL(url_string);
-        var c = url.searchParams.get("user");
-        console.log(c);
-      window.location="Göster.php?user="+c+"&subject="+id;
-        });
-      });
-    });
-    var markerCluster = new MarkerClusterer(map, marker,
-                {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-  }
+	$child_node_title = $dom->createElement('Title', 'The Campaign');
 
-  var getParams = function (url) {
-  	var params = {};
-  	var parser = document.createElement('a');
-  	parser.href = url;
-  	var query = parser.search.substring(1);
-  	var vars = query.split('&');
-  	for (var i = 0; i < vars.length; i++) {
-  		var pair = vars[i].split('=');
-  		params[pair[0]] = decodeURIComponent(pair[1]);
-  	}
-  	return params;
-  };
+		$movie_node->appendChild($child_node_title);
 
-function downloadUrl(url, callback) {
-  var request = window.ActiveXObject ?
-      new ActiveXObject('Microsoft.XMLHTTP') :
-      new XMLHttpRequest;
+		$child_node_year = $dom->createElement('Year', 2012);
 
-  request.onreadystatechange = function() {
-    if (request.readyState == 4) {
-      request.onreadystatechange = doNothing;
-      callback(request, request.status);
-    }
-  };
+		$movie_node->appendChild($child_node_year);
 
-  request.open('GET', url, true);
-  request.send(null);
-}
+	$child_node_genre = $dom->createElement('Genre', 'The Campaign');
 
-function doNothing() {}
+		$movie_node->appendChild($child_node_genre);
+
+		$child_node_ratings = $dom->createElement('Ratings', 6.2);
+
+		$movie_node->appendChild($child_node_ratings);
+
+		$root->appendChild($movie_node);
+
+		$dom->appendChild($root);
+
+	$dom->save($xml_file_name);
+
+	echo "$xml_file_name has been successfully created";
+?>

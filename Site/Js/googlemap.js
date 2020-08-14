@@ -77,6 +77,24 @@ function initMap() {
                              document.getElementById("setlatlng").innerHTML = markers[i].getAttribute("name");
                          }
                      })(marker, i));
+                     google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+                                   return function() {
+                                       infowindow.setContent(
+                                       "<b>" +
+                                       markers[i].getAttribute("name") +
+                                       "</b> <br/>" +
+                                       markers[i].getAttribute("address")
+                                       );
+                                       infowindow.open(map, marker);
+
+                                   }
+                               })(marker, i));
+                               google.maps.event.addListener(marker, 'mouseout', (function(marker, i) {
+                                             return function() {
+                                                  infowindow.close(map,marker);
+
+                                             }
+                                         })(marker, i));
            cluster.push(marker);
          }
 
