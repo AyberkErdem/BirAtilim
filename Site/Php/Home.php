@@ -12,7 +12,7 @@ if(isset($_POST['tablo']))
 if(isset($_POST['Go']))
 {
 
-  header("Location:Göster.php?user=".$_GET['user']."&subject=".$_POST['id']."");
+  header("Location:Göster.php?subject=".$_POST['id']."");
 }
 if(isset($_POST['Ara']))
 {
@@ -23,13 +23,13 @@ if(isset($_POST['Ara']))
     $row=$response->fetch_assoc();
   if($row['Count(*)']!='0')  {
 
-      header("Location:Göster.php?subject=".$_POST['search']."&user=".$_GET['user']."");
+      header("Location:Göster.php?subject=".$_POST['search']."");
   }
   }
 }
 echo"<script>
 function func(){
-  window.location.href ='MyPage.php?user='+".$_GET['user'].";
+  window.location.href ='MyPage.php';
 }</script>"
   ?>
 <!DOCTYPE html>
@@ -62,13 +62,13 @@ function func(){
     <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light ">
         <div class="d-flex flex-grow-1">
             <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/logo.png" alt="Logo">
             </a>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/left.png" alt="Logo">
             </a>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/home.png" alt="Logo">
             </a>
             <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
@@ -83,19 +83,19 @@ function func(){
         <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
             <ul class="navbar-nav ml-auto flex-nowrap">
                 <li class="nav-item">
-                    <a href="YeniIlan.php?user=<?php echo $_GET['user'] ?>" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
+                    <a href="YeniIlan.php" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                 </li>
                 <li class="nav-item">
                   <?php
                   require_once('config.php');
-                    $sql1 = "call DoIHave('".$_GET['user'] ."')";
+                    $sql1 = "call DoIHave('".$_SESSION['user'] ."')";
                       $result=@mysqli_query($dbc,$sql1);
                         if ($result->num_rows > 0) {
                           $row=$result->fetch_assoc();
                           if($row['res']!=0)
-                            echo "<a href='Mesajlar.php?user=".$_GET['user']."' class='nav-link m-2 btn btn-warning'>Mesajınız Var</a>";
+                            echo "<a href='Mesajlar.php' class='nav-link m-2 btn btn-warning'>Mesajınız Var</a>";
 else
-                          echo" <a href='Mesajlar.php?user=".$_GET['user']."' class='nav-link m-2 btn btn-warning'>Mesajlar</a>";
+                          echo" <a href='Mesajlar.php' class='nav-link m-2 btn btn-warning'>Mesajlar</a>";
                         }
                         mysqli_free_result($result);
                       $dbc->next_result();
@@ -106,10 +106,10 @@ else
                     <button  onclick="Fav()" class="nav-link m-2 btn btn-warning">Favorilerim</button>
                 </li>
                 <li class="nav-item">
-                    <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+                    <a href="MyPage.php" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
+                    <a href="BizeYazın.php" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
                 </li>
             </ul>
         </div>
@@ -124,7 +124,7 @@ else
 
       </form>
     </nav>
-<form class="text-center" action="Home.php?user=<?php echo $_GET['user']; ?>" method="post">
+<form class="text-center" action="Home.php" method="post">
   <input type="submit" name='Harita'value="Harita Görünümü" class=" btn btn-secondary">
   <input type="submit" name='tablo'value="Tablo Görünümü" class=" btn btn-secondary">
 </form>
@@ -161,7 +161,7 @@ else
             <td><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='150' widht='100'</td>
             <td>".$row['Description']."</td>
             <td>".$row['adress']."</td><td>
-            <form class='' action='Home.php?user=".$_GET['user']."' method='post'>
+            <form class='' action='Home.php' method='post'>
             <input type='submit' name='Go' value='Git'/><input type='hidden' name='id' value=".$row['Id']."/></form></td>";
               ?></tr><?php
         }
@@ -185,12 +185,12 @@ else
   function Fav()
   {
 
-    var Name="<?php echo $_GET['user']; ?>";
+    var Name="<?php echo $_SESSION['user']; ?>";
 
     var x=getCookie(Name);
-    var user="<?php echo $_GET['user'];?>";
+    var user="<?php echo $_SESSION['user'];?>";
 
-    window.location="ilanlarım.php?user="+user+"&favori="+x+"";
+    window.location="ilanlarım.php?favori="+x+"";
 
   }
 

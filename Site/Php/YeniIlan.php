@@ -19,11 +19,11 @@ if(isset($_POST['publish']))
           $adress.=",";
         $adress.=$_POST['City'];
 
-      $query=("CALL AddPoster('".$_GET['user']."','".$_POST['description']."','".$adress."','".$_POST['latitude']."','".$_POST['longitude']."','Ev','".$datas[0]."',
+      $query=("CALL AddPoster('".$_SESSION['user']."','".$_POST['description']."','".$adress."','".$_POST['latitude']."','".$_POST['longitude']."','Ev','".$datas[0]."',
       '".$datas[1]."','".$datas[2]."','".$datas[3]."','".$datas[4]."')");
     if(mysqli_query($dbc,$query))
     {
-      header("Location:Home.php?user=".$_GET['user']."");
+      header("Location:Home.php");
     }
 
    else
@@ -80,13 +80,13 @@ if(isset($_POST['publish']))
     <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light ">
         <div class="d-flex flex-grow-1">
             <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/logo.png" alt="Logo">
             </a>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/left.png" alt="Logo">
             </a>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/home.png" alt="Logo">
             </a>
             <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
@@ -101,13 +101,13 @@ if(isset($_POST['publish']))
         <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
             <ul class="navbar-nav ml-auto flex-nowrap">
                 <li class="nav-item">
-                    <a href="YeniIlan.php?user=<?php echo $_GET['user'] ?>" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
+                    <a href="YeniIlan.php" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Mesajlar.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Mesajlar</a>
+                    <a href="Mesajlar.php" class="nav-link m-2 btn btn-warning">Mesajlar</a>
                 </li>
                 <li class="nav-item">
-                    <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+                    <a href="MyPage.php" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
@@ -141,7 +141,7 @@ if(isset($_POST['publish']))
 </div>
 </div>
 <div>
-  <form id='adres' method="POST" name="ayberk" action="YeniIlan.php?user=<?php echo $_GET['user']; ?> "enctype="multipart/form-data" class="well form-horizontal">
+  <form id='adres' method="POST" name="ayberk" action="YeniIlan.php "enctype="multipart/form-data" class="well form-horizontal">
     <div id="collapse1" class="collapse show">
 <div class="card-body" id="divadres">
  <div class="row">

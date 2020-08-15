@@ -1,6 +1,7 @@
   <?php
+  session_start();
   include('config.php');
-  $query="select * from user Where Name='".$_GET['user']."'";
+  $query="select * from user Where Name='".$_SESSION['user']."'";
   $response=@mysqli_query($dbc,$query);
   $row=$response->fetch_assoc();
   if(isset($_POST['edit'])&&$_POST['PasswordOriginal']==$row['Password']){
@@ -23,24 +24,24 @@
       {
         if($_POST['Password1']==$_POST['Password2'])
         {
-          $query=("CALL EditProfile('".$_GET['user']."','".$content."','".$_POST['Name']."','".$_POST['Password1']."','".$_POST['Email']."','".$_POST['Phone']."')");
+          $query=("CALL EditProfile('".$_SESSION['user']."','".$content."','".$_POST['Name']."','".$_POST['Password1']."','".$_POST['Email']."','".$_POST['Phone']."')");
           if(mysqli_query($dbc,$query))
           {
 
-          header("Location:Home.php?user=".$_POST['Name']."");
+          header("Location:Home.php");
           }
         }
         else
         {
-          header("Location:Home.php?user=".$_POST['Name']."");
+          header("Location:Home.php");
         }
       }
       else {
-        $query=("CALL EditProfile('".$_GET['user']."','".$content."','".$_POST['Name']."','".$row['Password']."','".$_POST['Email']."','".$_POST['Phone']."')");
+        $query=("CALL EditProfile('".$_SESSION['user']."','".$content."','".$_POST['Name']."','".$row['Password']."','".$_POST['Email']."','".$_POST['Phone']."')");
         if(mysqli_query($dbc,$query))
         {
 
-            header("Location:Home.php?user=".$_POST['Name']."");
+            header("Location:Home.php");
         }
       }
 
@@ -64,13 +65,13 @@
       <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light ">
           <div class="d-flex flex-grow-1">
               <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
-              <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+              <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                   <img title="Bir Atilim" src="../Img/logo.png" alt="Logo">
               </a>
-              <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+              <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                   <img title="Bir Atilim" src="../Img/left.png" alt="Logo">
               </a>
-              <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+              <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                   <img title="Bir Atilim" src="../Img/home.png" alt="Logo">
               </a>
               <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
@@ -85,13 +86,13 @@
           <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
               <ul class="navbar-nav ml-auto flex-nowrap">
                   <li class="nav-item">
-                      <a href="YeniIlan.php?user=<?php echo $_GET['user'] ?>" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
+                      <a href="YeniIlan.php" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                   </li>
                   <li class="nav-item">
-                      <a href="Mesajlar.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Mesajlar</a>
+                      <a href="Mesajlar.php" class="nav-link m-2 btn btn-warning">Mesajlar</a>
                   </li>
                   <li class="nav-item">
-                      <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+                      <a href="MyPage.php" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
                   </li>
                   <li class="nav-item">
                       <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
@@ -110,7 +111,7 @@
         </form>
       </nav>
       <?php
-      $sql = "select * FROM user  where Name='".$_GET['user']."'";
+      $sql = "select * FROM user  where Name='".$_SESSION['user']."'";
         $result=@mysqli_query($dbc,$sql);
           if ($result->num_rows > 0) {
             $resim = mysqli_fetch_array($result);}
@@ -125,7 +126,7 @@
                                         alt="image"/style="height:200px; width:200px; overflow:hidden;">
                                 <div class="file btn btn-lg btn-primary">
                                                               Change Photo
-                                                              <form enctype="multipart/form-data" class="col-md-9" action="Editor.php?user=<?php echo $_GET['user'] ?>" method="post">
+                                                              <form enctype="multipart/form-data" class="col-md-9" action="Editor.php" method="post">
                                                               <input type="file" name="image" accept="image/jpeg">
                                                           </div>
                             </div>

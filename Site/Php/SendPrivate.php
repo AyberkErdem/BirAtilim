@@ -1,12 +1,12 @@
 <?php
 include('config.php');
-
-$query="call SendPrivate('".$_GET['user']."','".$_GET['Receiver']."','".$_GET['Message']."','".$_GET['PosterId']."')";
+session_start();
+$query="call SendPrivate('".$_SESSION['user']."','".$_GET['Receiver']."','".$_GET['Message']."','".$_GET['PosterId']."')";
 if(mysqli_query($dbc,$query))
 {
 
 
-  header("Location:MessageFrame.php?user=".$_GET['user']."&sender=".$_GET['Receiver']."");
+  header("Location:MessageFrame.php?user=".$_SESSION['user']."&sender=".$_GET['Receiver']."");
 }
 else
 {

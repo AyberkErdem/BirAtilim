@@ -13,7 +13,7 @@ if(isset($_POST['tablo']))
 if(isset($_POST['Go']))
 {
 
-  header("Location:Göster.php?user=".$_GET['user']."&subject=".$_POST['id']."");
+  header("Location:Göster.php?subject=".$_POST['id']."");
 }
 if(isset($_POST['Ara']))
 {
@@ -24,13 +24,13 @@ if(isset($_POST['Ara']))
     $row=$response->fetch_assoc();
   if($row['Count(*)']!='0')  {
 
-      header("Location:Göster.php?subject=".$_POST['search']."&user=".$_GET['user']."");
+      header("Location:Göster.php?subject=".$_POST['search']."");
   }
   }
 }
 echo"<script>
 function func(){
-  window.location.href ='MyPage.php?user='+".$_GET['user'].";
+  window.location.href ='MyPage.php';
 }</script>"
   ?>
 <!DOCTYPE html>
@@ -59,13 +59,13 @@ function func(){
     <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light ">
         <div class="d-flex flex-grow-1">
             <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/logo.png" alt="Logo">
             </a>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/left.png" alt="Logo">
             </a>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/home.png" alt="Logo">
             </a>
             <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
@@ -80,13 +80,13 @@ function func(){
         <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
             <ul class="navbar-nav ml-auto flex-nowrap">
                 <li class="nav-item">
-                    <a href="YeniIlan.php?user=<?php echo $_GET['user'] ?>" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
+                    <a href="YeniIlan.php" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Mesajlar.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Mesajlar</a>
+                    <a href="Mesajlar.php" class="nav-link m-2 btn btn-warning">Mesajlar</a>
                 </li>
                 <li class="nav-item">
-                    <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+                    <a href="MyPage.php" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
@@ -104,7 +104,7 @@ function func(){
 
       </form>
     </nav>
-<form class="text-center" action="ilanlarım.php?user=<?php if(isset($_GET['favori'])){echo "".$_GET['user']."&favori=".$_GET['favori']."";}else echo $_GET['user']; ?>" method="post">
+<form class="text-center" action="ilanlarım.php?<?php if(isset($_GET['favori'])){echo "favori=".$_GET['favori'].""; } ?>" method="post">
   <input type="submit" name='Harita'value="Harita Görünümü" class=" btn btn-secondary">
   <input type="submit" name='tablo'value="Tablo Görünümü" class=" btn btn-secondary">
 </form>
@@ -141,7 +141,7 @@ function func(){
   }
   else
   {
-    $sql = "select * from poster where UserName='".$_GET['user']."' order by Id ASC";
+    $sql = "select * from poster where UserName='".$_SESSION['user']."' order by Id ASC";
   }
     $result=@mysqli_query($dbc,$sql);
        echo mysqli_error($dbc);
@@ -153,7 +153,7 @@ function func(){
             <td><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='150' widht='100'</td>
             <td>".$row['Description']."</td>
             <td>".$row['adress']."</td><td>
-            <form class='' action=";if(isset($_GET['favori'])){echo "ilanlarım.php?user=".$_GET['user']."&favori=".$_GET['favori']."";}else {echo "ilanlarım.php?user=".$_GET['user']."";} ;echo" method='post'>
+            <form class='' action=";if(isset($_GET['favori'])){echo "ilanlarım.php?favori=".$_GET['favori']."";}else {echo "ilanlarım.php";} ;echo" method='post'>
             <input type='submit' name='Go' value='Git'/><input type='hidden' name='id' value=".$row['Id']."/></form></td>";
               ?></tr><?php
         }
@@ -208,7 +208,7 @@ function func(){
                 var infowindow = new google.maps.InfoWindow();
 
                       // Change this depending on the name of your PHP file
-                      downloadUrl('MyPostersJson.php?user=<?php echo $_GET['user'];?><?php if(isset($_GET['favori'])){echo "&favori=".$_GET['favori']."";}?>', function(data) {
+                      downloadUrl('MyPostersJson.php?<?php if(isset($_GET['favori'])){echo "favori=".$_GET['favori']."";}?>', function(data) {
                         var xml = data.responseXML;
                         var markers = xml.documentElement.getElementsByTagName("poster");
                         for (var i = 0; i < markers.length; i++) {

@@ -2,7 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-
+session_start();
 // Load Composer's autoloader
 require 'vendor/autoload.php';
 $mail = new PHPMailer(true);
@@ -20,20 +20,27 @@ try {
 
     //Recipients
     $mail->setFrom('erdemayberkae@gmail.com', 'BirAtilim');
-    $mail->addAddress($_GET['Email'],'Recipient');     // Add a recipient
+
 
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = $_GET['subject'];
     if($_GET['subject']=="E-mail Authorize")
     {
+        $mail->addAddress($_GET['Email'],'Recipient');
       $mail->Body    = "<html>
       Welcome to biratilim.com
 
     <p>Please confirm your email address by clicking the link below <a href=https://localhost:90/BirAtilim/BirAtilim/Site/Php/authorize.php?subject=".$_GET['Email'].">E-mail authorize</a></p>
       </html> ";
     }
-
+else if($_GET['subject']=="Destek"&&isset($_GET['Message']))
+{
+      $mail->addAddress('erdemayberkae@gmail.com','Recipient');
+      $mail->Body  =$_GET['Message']."<br><br><br>Gönderen: ".$_SESSION['user'];
+      $mail->send();
+      header("Location:Home.php");
+}
 
 
     $mail->send();

@@ -1,7 +1,7 @@
 <?php
 include('config.php');
 session_start();
-$seen="update forum set Seen='1' where Receiver='".$_GET['user']."' and PosterId='".$_GET['subject']."'";
+$seen="update forum set Seen='1' where Receiver='".$_SESSION['user']."' and PosterId='".$_GET['subject']."'";
 if (mysqli_query($dbc,$seen)) {
 
 }
@@ -11,11 +11,11 @@ else
 }
 if(isset($_POST['Yolla']))
 {
-  $query=("call Send('".$_GET['user']."','".$_GET['subject']."','".$_POST['price']."','".$_POST['mesaj']."');");
+  $query=("call Send('".$_SESSION['user']."','".$_GET['subject']."','".$_POST['price']."','".$_POST['mesaj']."');");
   if(mysqli_query($dbc,$query))
   {
 
-echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET['subject']."';</script>";
+echo"<script>window.location='Göster.php?subject=".$_GET['subject']."';</script>";
   }
   else
   {
@@ -46,13 +46,13 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
     <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light ">
         <div class="d-flex flex-grow-1">
             <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/logo.png" alt="Logo">
             </a>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/left.png" alt="Logo">
             </a>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/home.png" alt="Logo">
             </a>
             <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
@@ -67,13 +67,13 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
         <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
             <ul class="navbar-nav ml-auto flex-nowrap">
                 <li class="nav-item">
-                    <a href="YeniIlan.php?user=<?php echo $_GET['user'] ?>" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
+                    <a href="YeniIlan.php" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Mesajlar.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Mesajlar</a>
+                    <a href="Mesajlar.php" class="nav-link m-2 btn btn-warning">Mesajlar</a>
                 </li>
                 <li class="nav-item">
-                    <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+                    <a href="MyPage.php" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
@@ -141,8 +141,8 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
 
                         <p class='product-description'> " .date_format($date, 'd-m-Y')." </p>
                       <h4 class='price'>İlan Sahibi</h4>
-                      <p class='product-description'> ".$row['UserName'].""; if($_GET['user']==$row['UserName']){echo "<a class='text-primary' style='text-decoration:none;' href='Eye.php?user=".$_GET['user']."&eye=".$row['UserName']."'> --> Başkasının Gözünden Gör
-                        </a>";} else {echo "<a class='text-primary' style='text-decoration:none;' href='Eye.php?user=".$_GET['user']."&eye=".$row['UserName']."'> --> İlan Sahibi Profili
+                      <p class='product-description'> ".$row['UserName'].""; if($_SESSION['user']==$row['UserName']){echo "<a class='text-primary' style='text-decoration:none;' href='Eye.php?user=".$_SESSION['user']."&eye=".$row['UserName']."'> --> Başkasının Gözünden Gör
+                        </a>";} else {echo "<a class='text-primary' style='text-decoration:none;' href='Eye.php?user=".$_SESSION['user']."&eye=".$row['UserName']."'> --> İlan Sahibi Profili
                         </a>";}
                         echo"
                          </p>
@@ -181,7 +181,7 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
                      </thead>";
 
 
-                     $query = "CALL getChat('".$_GET['subject']."','".$_GET['user']."')";
+                     $query = "CALL getChat('".$_GET['subject']."','".$_SESSION['user']."')";
                        $result=@mysqli_query($dbc,$query);
                        echo mysqli_error($dbc);
                          if ($result ->num_rows > 0) {
@@ -189,11 +189,11 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
                              while($row=$result->fetch_assoc())
                              {
 
-                               echo "<tr>";if($_GET['user']==$row['Sender']){echo "<td class='text-danger' style='font-size:0.7em;'>".$row['Sender']."</td>";}
+                               echo "<tr>";if($_SESSION['user']==$row['Sender']){echo "<td class='text-danger' style='font-size:0.7em;'>".$row['Sender']."</td>";}
                                else {echo "<td style='font-size:0.7em;'>".$row['Sender']."</td>";}
                                 echo"
                                    <td style='font-size:0.7em;'>".$row['Message']."</td>
-                                   <td style='font-size:0.7em;'>";if($_GET['user']==$row['Sender']||$_GET['user']==$row['Receiver']){echo $row['Value'];}else{echo "*";}echo"</td>
+                                   <td style='font-size:0.7em;'>";if($_SESSION['user']==$row['Sender']||$_SESSION['user']==$row['Receiver']){echo $row['Value'];}else{echo "*";}echo"</td>
                                    <td style='font-size:0.7em;'>".$row['Date']."</td>
                                </tr>";
 
@@ -211,7 +211,7 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
                 <br>
                   <div class='wrapper row'>
                     <div border='1' class='col-md-8'>
-         <form class="" action="Göster.php?user=<?php echo $_GET['user']; ?>&subject=<?php echo $_GET['subject'];?>" method='post'>
+         <form class="" action="Göster.php?subject=<?php echo $_GET['subject'];?>" method='post'>
            <div class="input-controls-container expand">
               <textarea name="mesaj" style="resize:none;" class="form-control" placeholder="Enter Message"> </textarea>
           <br>
@@ -344,7 +344,7 @@ echo"<script>window.location='Göster.php?user=".$_GET['user']."&subject=".$_GET
   function Favourite()
   {
 
-    var Name='<?php echo $_GET['user']; ?>';
+    var Name='<?php echo $_SESSION['user']; ?>';
 
     if (document.getElementById('favori').checked)
     {
@@ -418,7 +418,7 @@ function deleteCookie(namex)
 }
 function checkFav()
 {
-  var str=getCookie('<?php echo $_GET['user'] ?>');
+  var str=getCookie('<?php echo $_SESSION['user'] ?>');
 
   var x=str.search("<?php echo $_GET['subject'] ?>");
 

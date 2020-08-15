@@ -1,6 +1,7 @@
 <?php
 include('config.php');
-$query="call MakeSeen('".$_GET['user']."','".$_GET['sender']."')";
+session_start();
+$query="call MakeSeen('".$_SESSION['user']."','".$_GET['sender']."')";
 if(!mysqli_query($dbc,$query))
 {
 
@@ -8,7 +9,7 @@ if(!mysqli_query($dbc,$query))
 }
 if(isset($_POST['Privateer']))
 {
-header("location:SendPrivate.php?user=".$_GET['user']."&Receiver=".$_GET['sender']."&Message=".$_POST['mess']."&PosterId=".$_POST['poster']."");
+header("location:SendPrivate.php?user=".$_SESSION['user']."&Receiver=".$_GET['sender']."&Message=".$_POST['mess']."&PosterId=".$_POST['poster']."");
 
 }
  ?>
@@ -47,12 +48,12 @@ echo"
             <li class='divider'></li>
             <li><a href='#'>Bildirimleri Aç <span class='glyphicon glyphicon-stats pull-right'></span></a></li>
             <li class='divider'></li>
-          <li><a target='_blank' href='Eye.php?user=".$_GET['user']."&eye=".$_GET['sender']."'>Profiline Git<span class='glyphicon glyphicon-stats pull-right'></span></a></li>
+          <li><a target='_blank' href='Eye.php?eye=".$_GET['sender']."'>Profiline Git<span class='glyphicon glyphicon-stats pull-right'></span></a></li>
 
           </ul>
         </li>
       </ul>";
-  $sql1 = "select  *  from chat where Receiver='".$_GET['user']."'and Sender='".$_GET['sender']."' OR  Receiver='".$_GET['sender']."'and Sender='".$_GET['user']."'order by Id ASC";
+  $sql1 = "select  *  from chat where Receiver='".$_SESSION['user']."'and Sender='".$_GET['sender']."' OR  Receiver='".$_GET['sender']."'and Sender='".$_SESSION['user']."'order by Id ASC";
     $result=@mysqli_query($dbc,$sql1);
       if ($result->num_rows > 0) {
         echo" <div id='1' class='msg_history'>";
@@ -66,12 +67,12 @@ if($row['Receiver']==$_GET['sender']){
       <span class='time_date'>".$row['Clock']."</div>
   </div>";
         }
-            if($row['Receiver']==$_GET['user']){
+            if($row['Receiver']==$_SESSION['user']){
               echo "  <div class='incoming_msg'>
                   <div class='received_msg'>
                     <div class='received_withd_msg'>
                       <p>".$row['Message']."</p>
-                      <span class='time_date'> ".$row['Clock']."<a target='_blank' style='text-decoration:none;'href='Göster.php?subject=".$row['PosterId']."&user=".$_GET['user']."'>@ilan".$row['PosterId']."</a></span></div>
+                      <span class='time_date'> ".$row['Clock']."<a target='_blank' style='text-decoration:none;'href='Göster.php?subject=".$row['PosterId']."'>@ilan".$row['PosterId']."</a></span></div>
                   </div>
                 </div>";
           }
@@ -81,7 +82,7 @@ if($row['Receiver']==$_GET['sender']){
       }
   echo    "  </div></div><div class='type_msg'>
         <div class='input_msg_write'>
-        <form style='height:100%;widht:100%' action=MessageFrame.php?user=".$_GET['user']."&sender=".$_GET['sender']." method=post>
+        <form style='height:100%;widht:100%' action=MessageFrame.php?user=".$_SESSION['user']."&sender=".$_GET['sender']." method=post>
           <input style='height:100%;widht:100%' name='mess' type='text' class='write_msg' placeholder='Type a message' />
           <input type='hidden' name='poster' value='".$poster."'>
           <input style='background-color:#05728f;'  name='Privateer' type='submit' class='text-light float-right profile-edit-btn' >

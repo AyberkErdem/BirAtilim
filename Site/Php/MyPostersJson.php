@@ -1,7 +1,7 @@
 <?php
 include('config.php');
 // Start XML file, create parent node
-
+session_start();
 $dom = new DOMDocument("1.0");
 $node = $dom->createElement("poster");
 $parnode = $dom->appendChild($node);
@@ -17,7 +17,7 @@ if(isset($_GET['favori']))
 }
 else
 {
-  $sql = "select * from poster where UserName='".$_GET['user']."' order by Id ASC";
+  $sql = "select * from poster where UserName='".$_SESSION['user']."' order by Id ASC";
 }
   $result=@mysqli_query($dbc,$sql);
 if ($result ->num_rows > 0) {

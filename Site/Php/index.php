@@ -11,8 +11,8 @@ if(isset($_POST['giriş']))
     $row=$response->fetch_assoc();
     if(isset($row['count(*)'])){
   if($row['count(*)']!='0')  {
-
-      header("Location:Home.php?user=".$row['Name']."");
+$_SESSION['user']=$row['Name'];
+      header("Location:Home.php");
   }
   else if($row['Count(*)']=='0')
   {

@@ -1,6 +1,6 @@
 <?php
 include('config.php');
-
+session_start();
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -25,13 +25,13 @@ include('config.php');
     <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light ">
         <div class="d-flex flex-grow-1">
             <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/logo.png" alt="Logo">
             </a>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/left.png" alt="Logo">
             </a>
-            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php?user=<?php echo $_GET['user']; ?>">
+            <a class="navbar-brand d-none d-lg-inline-block" href="Home.php">
                 <img title="Bir Atilim" src="../Img/home.png" alt="Logo">
             </a>
             <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
@@ -46,7 +46,7 @@ include('config.php');
         <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
             <ul class="navbar-nav ml-auto flex-nowrap">
                 <li class="nav-item">
-                    <a href="YeniIlan.php?user=<?php echo $_GET['user'] ?>" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
+                    <a href="YeniIlan.php" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                 </li>
                 <li class="nav-item">
                     <button  onclick="İlanlarım()" class="nav-link m-2 btn btn-warning">İlanlarım</button>
@@ -55,7 +55,7 @@ include('config.php');
                     <button  onclick="Fav()" class="nav-link m-2 btn btn-warning">Favorilerim</button>
                 </li>
                 <li class="nav-item">
-                    <a href="MyPage.php?user=<?php echo $_GET['user'];?>" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+                    <a href="MyPage.php" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
@@ -99,7 +99,7 @@ include('config.php');
          </div>
          </div>*/
          require_once('config.php');
-           $sql1 = "select  DISTINCT Sender  from chat where Receiver='".$_GET['user']."'  order by Seen ASC";
+           $sql1 = "select  DISTINCT Sender  from chat where Receiver='".$_SESSION['user']."'  order by Seen ASC";
              $result=@mysqli_query($dbc,$sql1);
                if ($result->num_rows > 0) {
                  echo "<div class='container '>
@@ -148,7 +148,7 @@ include('config.php');
                      <div class='chat_people'>
                        <div class='chat_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'> </div>
                        <div class='chat_ib'>
-                         <h5><a style='text-decoration:none;' href='MessageFrame.php?user=".$_GET['user']."&sender=".$row['Sender']."' target='MessageFrame'>".$row['Sender']."</a> </h5>
+                         <h5><a style='text-decoration:none;' href='MessageFrame.php?user=".$_SESSION['user']."&sender=".$row['Sender']."' target='MessageFrame'>".$row['Sender']."</a> </h5>
 
                        </div>
                      </div>
@@ -186,29 +186,28 @@ include('config.php');
           {
 
 
-            var user="<?php echo $_GET['user'];?>";
 
-            window.location="ilanlarım.php?user="+user+"";
+            window.location="ilanlarım.php";
 
           }
           function Fav()
           {
 
 
-            var Name="<?php echo $_GET['user']; ?>";
+            var Name="<?php echo $_SESSION['user']; ?>";
 
             var x=getCookie(Name);
-            var user="<?php echo $_GET['user'];?>";
+            var user="<?php echo $_SESSION['user'];?>";
 
-            window.location="ilanlarım.php?user="+user+"&favori="+x+"";
+            window.location="ilanlarım.php?favori="+x+"";
           }
           function GoPoster()
           {
             var url_string = window.location.href;
             var url = new URL(url_string);
-            var c = url.searchParams.get("user");
+
             var x = document.getElementById("posterid").value;
-            window.location="Göster.php?user="+c+"&subject="+x;
+            window.location="Göster.php?subject="+x;
           }
           function getCookie(cname) {
             var name = cname + "=";
