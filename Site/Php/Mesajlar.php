@@ -48,9 +48,7 @@ session_start();
                 <li class="nav-item">
                     <a href="YeniIlan.php" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                 </li>
-              
                 <li class="nav-item">
-
                     <button onclick="myFunction()" class="nav-link m-2 dropbtn btn btn-warning">Kişisel Şeyler</button>
                     <div id="myDropdown" class="dropdown-content">
                       <a class="bg-warning text-muted" href="ilanlarım.php">İlanlarım</a>

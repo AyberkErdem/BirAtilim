@@ -126,8 +126,8 @@ function func(){
     </nav>
     <div class="text-center">
     <div id="choose-form" style="text-align:right" class="btn-group"  aria-label="Basic example">
-    <button value="map"onclick="f1(this)"  type="button" class="btn btn-secondary">Harita Görünümü</button>
-    <button value="DivTablo" onclick="f1(this)" type="button" class="btn btn-secondary">Tablo Görünümü</button>
+    <button value="map"onclick="f1(this)"  type="button" class="btn btn-primary">Harita Görünümü</button>
+    <button value="DivTablo" onclick="f1(this)" type="button" class="btn btn-danger">Tablo Görünümü</button>
   </div>
   </div>
 
