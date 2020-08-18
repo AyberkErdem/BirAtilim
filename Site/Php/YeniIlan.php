@@ -151,7 +151,7 @@ else if (isset($_POST['publish'])&&isset($_GET['role']))
 </div>
 </div>
 <div>
-  <form id='adres' method="POST" name="ayberk" action="YeniIlan.php "enctype="multipart/form-data" class="well form-horizontal">
+  <form onload='Edition()' id='adres' method="POST" name="ayberk" action="YeniIlan.php "enctype="multipart/form-data" class="well form-horizontal">
     <div id="collapse1" class="collapse show">
 <div class="card-body" id="divadres">
  <div class="row">
@@ -315,6 +315,31 @@ var customLabel = {
   }
 };
 <?php if (isset($_GET['subject'])){ ?>
+   window.onload = Edition();
+   function Edition(){
+     downloadUrl('İlanJson.php?ıd=<?php echo $_GET['subject']; ?>', function(data) {
+       var xml = data.responseXML;
+       var kayıt = xml.documentElement.getElementsByTagName('poster');
+         Array.prototype.forEach.call(kayıt, function(kayıts) {
+       var address =kayıts.getAttribute('address');
+       var description = kayıts.getAttribute('description');
+       var type = kayıts.getAttribute('type');
+      var point0=kayıts.getAttribute('lat');
+      var point1=kayıts.getAttribute('lng');
+        var x = address.split(",");
+                  document.getElementById("4").value = "";
+                  document.getElementById("0").value = x[2];
+                  document.getElementById("1").value = x[1];
+                  document.getElementById("2").value =x[0];
+
+                    document.getElementById("5").value = point0;
+                      document.getElementById("6").value = point1;
+});
+ });
+
+     }
+
+
 function initMap() {
   var myLatlng1 = new google.maps.LatLng(53.65914, 0.072050);
 
@@ -382,6 +407,7 @@ lng:marker.getPosition().lng()
 
 
 };
+var x = markerElem.getAttribute('address').split(",");
 
 geocodeService.reverse().latlng(asd).run(function (error, result) {
 if (error) {
