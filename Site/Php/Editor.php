@@ -89,10 +89,16 @@
                       <a href="YeniIlan.php" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                   </li>
                   <li class="nav-item">
-                      <a href="Mesajlar.php" class="nav-link m-2 btn btn-warning">Mesajlar</a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="MyPage.php" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+
+                      <button onclick="myFunction()" class="nav-link m-2 dropbtn btn btn-warning">Kişisel Şeyler</button>
+                      <div id="myDropdown" class="dropdown-content">
+                        <a class="bg-warning text-muted" href="ilanlarım.php">İlanlarım</a>
+                        <a class="bg-warning text-muted" onclick="Fav()">Favorilerim</a>
+                            <a class="bg-warning text-muted" href="Mesajlar.php">Mesajlarım</a>
+                        <a class="bg-warning text-muted" href="MyPage.php">Ayarlarım</a>
+
+      </div>
+
                   </li>
                   <li class="nav-item">
                       <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>

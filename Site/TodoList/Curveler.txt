@@ -2,7 +2,7 @@ Cookie kullanılmalı ✓
 
 link uzantıları ile ilanlara gidilmeli ✓
 
-yeniden form işlemlerini onayla sorgusunu yok et
+yeniden form işlemlerini onayla sorgusunu yok et✓
 (Form actionları javascripte bağla)
 
 Home için toogle navbar yapayım✓
@@ -16,13 +16,13 @@ Mesaja cevaptan sonra görüldü olsun ya da görüldü olarak işaretlesin ✓
 Bireysel chatler yapılmalı✓
 
 Chat Kişi Listesi Düzenleme sorgusu✓
-(select  DISTINCT Sender,Seen  from chat where Seen='0' and Receiver='Ayberk' OR(Seen='1' and Receiver='Ayberk') order by Seen ASC)
+(select  DISTINCT Sender,Seen  from chat where Seen='0' and Receiver='Ayberk' OR(Seen='1' and Receiver='Ayberk') order by Seen ASC)✓
 /* //17.08.2020
 önizleme resmi opsiyonel
 
 sol tarafa panel(trendyol)
 
-dropdown list on options
+dropdown list on options✓
 
 tabloda satıra tıklayınca gitsin giti kaldıralım ✓
 
