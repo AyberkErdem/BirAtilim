@@ -362,7 +362,7 @@ echo"<script>window.location='Göster.php?subject=".$_GET['subject']."';</script
       }
 
     }
-  
+
 function Edit()
 {
   var url_string =window.location.href; //window.location.href
@@ -472,6 +472,23 @@ function checkCookie() {
       setCookie("username", user, 365);
     }
   }
+}
+function myFunction() {
+document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+if (!event.target.matches('.dropbtn')) {
+  var dropdowns = document.getElementsByClassName("dropdown-content");
+  var i;
+  for (i = 0; i < dropdowns.length; i++) {
+    var openDropdown = dropdowns[i];
+    if (openDropdown.classList.contains('show')) {
+      openDropdown.classList.remove('show');
+    }
+  }
+}
 }
   </script>
   <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>

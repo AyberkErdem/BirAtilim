@@ -78,7 +78,16 @@ function func(){
                     <a href="Mesajlar.php" class="nav-link m-2 btn btn-warning">Mesajlar</a>
                 </li>
                 <li class="nav-item">
-                    <a href="MyPage.php" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+
+                    <button onclick="myFunction()" class="nav-link m-2 dropbtn btn btn-warning">Kişisel Şeyler</button>
+                    <div id="myDropdown" class="dropdown-content">
+                      <a class="bg-warning text-muted" href="ilanlarım.php">İlanlarım</a>
+                      <a class="bg-warning text-muted" onclick="Fav()">Favorilerim</a>
+                          <a class="bg-warning text-muted" href="Mesajlar.php">Mesajlarım</a>
+                      <a class="bg-warning text-muted" href="MyPage.php">Ayarlarım</a>
+
+    </div>
+
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
@@ -154,6 +163,23 @@ function func(){
 </table>
   </div>
 <script type="text/javascript">
+function myFunction() {
+document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+if (!event.target.matches('.dropbtn')) {
+  var dropdowns = document.getElementsByClassName("dropdown-content");
+  var i;
+  for (i = 0; i < dropdowns.length; i++) {
+    var openDropdown = dropdowns[i];
+    if (openDropdown.classList.contains('show')) {
+      openDropdown.classList.remove('show');
+    }
+  }
+}
+}
 $("#DivTablo").hide();
 function f1(objButton){
 
@@ -306,7 +332,23 @@ function Goster(X)
   <script type="text/javascript">
   window.onload = checkFav();
 
+  function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
 
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
 
   function setCookie(cname, cvalue, exdays) {
   var d = new Date();

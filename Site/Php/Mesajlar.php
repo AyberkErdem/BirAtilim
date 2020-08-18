@@ -55,7 +55,16 @@ session_start();
                     <button  onclick="Fav()" class="nav-link m-2 btn btn-warning">Favorilerim</button>
                 </li>
                 <li class="nav-item">
-                    <a href="MyPage.php" class="nav-link m-2 btn btn-warning">Ayarlarım</a>
+
+                    <button onclick="myFunction()" class="nav-link m-2 dropbtn btn btn-warning">Kişisel Şeyler</button>
+                    <div id="myDropdown" class="dropdown-content">
+                      <a class="bg-warning text-muted" href="ilanlarım.php">İlanlarım</a>
+                      <a class="bg-warning text-muted" onclick="Fav()">Favorilerim</a>
+                          <a class="bg-warning text-muted" href="Mesajlar.php">Mesajlarım</a>
+                      <a class="bg-warning text-muted" href="MyPage.php">Ayarlarım</a>
+
+    </div>
+
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
@@ -75,29 +84,7 @@ session_start();
     </nav>
 
          <?php
-         /*<div id='context-menu'>
-         <div class='item'>
-         <a href='#' class='context-menu__link'>
-         <i class='fa fa-cut'></i> Cut
-           </a>
-         </div>
-         <div class='item'>
-         <i class='fa fa-clone'></i> Copy
-         </div>
-         <div class='item'>
-         <i class='fa fa-paste'></i> Paste
-         </div>
-         <div class='item'>
-         <i class='fa fa-trash-o'></i> Delete
-         </div>
-         <hr>
-         <div class='item'>
-         <i class='fa fa-refresh'></i> Reload
-         </div>
-         <div class='item'>
-         <i class='fa fa-times'></i> Exit
-         </div>
-         </div>*/
+
          require_once('config.php');
            $sql1 = "select  DISTINCT Sender  from chat where Receiver='".$_SESSION['user']."'  order by Seen ASC";
              $result=@mysqli_query($dbc,$sql1);
@@ -181,7 +168,23 @@ session_start();
           </div>
           <script type="text/javascript">
 
+          function myFunction() {
+          document.getElementById("myDropdown").classList.toggle("show");
+        }
 
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+          if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+              }
+            }
+          }
+        }
           function İlanlarım()
           {
 
