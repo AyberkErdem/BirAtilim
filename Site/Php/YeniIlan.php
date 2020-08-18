@@ -298,6 +298,136 @@ function f1(objButton){
   }
 </script>
 <script type="text/javascript">
+var customIcons = {
+               type1: {
+                 Ev: 'tip1.png'
+               }
+       };
+var customLabel = {
+  restaurant: {
+    label: 'R'
+  },
+  bar: {
+    label: 'B'
+  },
+  Ev: {
+    label: 'E'
+  }
+};
+<?php if (isset($_GET['subject'])){ ?>
+function initMap() {
+  var myLatlng1 = new google.maps.LatLng(53.65914, 0.072050);
+
+
+
+     if (navigator.geolocation) {
+       navigator.geolocation.getCurrentPosition(function(position) {
+         initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+         map.setCenter(initialLocation);
+       });
+     }
+var infoWindow = new google.maps.InfoWindow;
+
+  // Change this depending on the name of your PHP or XML file
+  downloadUrl('İlanJson.php?ıd=<?php echo $_GET['subject']; ?>', function(data) {
+    var xml = data.responseXML;
+    var markers = xml.documentElement.getElementsByTagName('poster');
+    Array.prototype.forEach.call(markers, function(markerElem) {
+      var id = markerElem.getAttribute('id');
+      var name = markerElem.getAttribute('name');
+      var address = markerElem.getAttribute('address');
+      var description = markerElem.getAttribute('description');
+      var type = markerElem.getAttribute('type');
+      var point = new google.maps.LatLng(
+          parseFloat(markerElem.getAttribute('lat')),
+          parseFloat(markerElem.getAttribute('lng')));
+
+      var infowincontent = document.createElement('div');
+      var strong = document.createElement('strong');
+      strong.textContent = name
+      infowincontent.appendChild(strong);
+      infowincontent.appendChild(document.createElement('br'));
+
+      var text = document.createElement('text');
+      text.textContent = description+'   '+address
+      infowincontent.appendChild(text);
+      var icon = customLabel[type] || {};
+      var mapOptions = {
+        zoom: 13,
+        center: point,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var map = new google.maps.Map(document.getElementById('map'),
+        mapOptions);
+      var marker = new google.maps.Marker({
+        map: map,
+        position: point,
+        label: icon.label,
+        draggable:true
+      });
+
+
+      marker.addListener('mouseover', function() {
+        infoWindow.setContent(address);
+        infoWindow.open(map, marker);
+});
+marker.addListener('mouseout', function() {
+  infoWindow.close(map,marker);
+});
+marker.addListener('click', function(e) {
+var geocodeService = L.esri.Geocoding.geocodeService();
+
+var asd = { lat:marker.getPosition().lat(),
+lng:marker.getPosition().lng()
+
+
+};
+
+geocodeService.reverse().latlng(asd).run(function (error, result) {
+if (error) {
+return;
+}
+
+content=String(result.address.Match_addr);
+
+infoWindow.setContent(content);
+infoWindow.open(map, marker);
+
+var res = content.split(",");
+var geocode=String(marker.position);
+
+var geocode=geocode.split(",");
+geocode[0] =geocode[0].replace('(','');
+geocode[1] =geocode[1].replace(')','');
+if(res.length!=1)
+{
+document.getElementById("4").value = "";
+document.getElementById("0").value = res[res.length-1];
+document.getElementById("1").value = res[res.length-2];
+document.getElementById("2").value = res[0]+" mahallesi "+res[res.length-4];
+document.getElementById("3").value = res[res.length-3];
+  document.getElementById("5").value = geocode[0];
+    document.getElementById("6").value = geocode[1];
+}
+else
+{
+
+document.getElementById("4").value = res;
+if(warning%4==0){
+alert("Tam adres çıkması için lokasyona en yakın sokağı işaretlemeye çalışınız.");
+
+}
+warning++;
+}
+});
+});
+    });
+  });
+
+
+}
+<?php }else { ?>
+
       function initMap() {
 
       var infoWindow = new google.maps.InfoWindow;
@@ -317,7 +447,7 @@ function f1(objButton){
             var infowincontent = "deneme 1 2";
 
             var text = document.createElement('text');
-            text.textContent = description
+            text.textContent = description;
 
 
             var marker = new google.maps.Marker({
@@ -385,7 +515,23 @@ function f1(objButton){
       });
       }
       }
+      <?php } ?>
       /*      */
+      function downloadUrl(url, callback) {
+        var request = window.ActiveXObject ?
+            new ActiveXObject('Microsoft.XMLHTTP') :
+            new XMLHttpRequest;
+
+        request.onreadystatechange = function() {
+          if (request.readyState == 4) {
+            request.onreadystatechange = doNothing;
+            callback(request, request.status);
+          }
+        };
+
+        request.open('GET', url, true);
+        request.send(null);
+      }
       function doNothing() {}
       </script>
   </body>
