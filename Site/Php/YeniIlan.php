@@ -184,7 +184,7 @@ else if (isset($_POST['publish'])&&isset($_GET['role']))
       <div class="col-md-1 col-lg-4">
           <div class="form-group">
               <label class="control-label">Posta Kodu</label>
-              <input class="form-control"  type="text" id="3"name="postcode" value=""placeholder="Açık Adres...">
+              <input class="form-control"  type="text" id="3"name="postcode" value=""placeholder="Posta Kodu...">
           </div>
       </div>
       </div>
