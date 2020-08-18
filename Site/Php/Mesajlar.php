@@ -48,12 +48,7 @@ session_start();
                 <li class="nav-item">
                     <a href="YeniIlan.php" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                 </li>
-                <li class="nav-item">
-                    <button  onclick="İlanlarım()" class="nav-link m-2 btn btn-warning">İlanlarım</button>
-                </li>
-                <li class="nav-item">
-                    <button  onclick="Fav()" class="nav-link m-2 btn btn-warning">Favorilerim</button>
-                </li>
+              
                 <li class="nav-item">
 
                     <button onclick="myFunction()" class="nav-link m-2 dropbtn btn btn-warning">Kişisel Şeyler</button>
