@@ -35,4 +35,6 @@ ilana puan vermedir vs
 alışveriş yapan değerlendirme yorumu yapsın
 
 parquete bakarık
+
+MARKER SPIDERFIER
 */

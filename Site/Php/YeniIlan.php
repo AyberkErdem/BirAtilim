@@ -55,9 +55,6 @@ if(isset($_POST['publish'])){
      echo"<script>alert('Bir resim ekleyiniz')</script>";
    }
 }
-
-
-
   ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -173,7 +170,7 @@ if(isset($_POST['publish'])){
 </div>
 </div>
 <div>
-  <form onload='Edition()' id='adres' method="POST" name="ayberk" action="YeniIlan.php?subject=<?php if(isset($_GET['subject'])){echo $_GET['subject'];} ?>"enctype="multipart/form-data" class="well form-horizontal">
+  <form onload='Edition()' id='adres' method="POST" name="ayberk" action="YeniIlan.php<?php if(isset($_GET['subject'])){echo "?subject=".$_GET['subject'];} ?>"enctype="multipart/form-data" class="well form-horizontal">
     <div id="collapse1" class="collapse show">
 <div class="card-body" id="divadres">
  <div class="row">
@@ -289,10 +286,7 @@ else {echo  " <input  class='btn btn-warning btn-lg' type='submit' name='publish
  </div>
 </div>
 <script type="text/javascript">
-function submit(){
- document.getElementById("adres").submit();
- document.getElementById("ilan").submit();
-}
+
 </script>
 <script type="text/javascript">
 function myFunction() {
@@ -498,7 +492,7 @@ warning++;
             var infowincontent = "deneme 1 2";
 
             var text = document.createElement('text');
-            text.textContent = description;
+          
 
 
             var marker = new google.maps.Marker({

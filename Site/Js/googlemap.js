@@ -1,8 +1,11 @@
 //AIzaSyDJesEcfS4a_1VHnKJRHbA-q2KceabVT2c
+
+
 var customIcons = {
                type1: {
                  Ev: 'tip1.png'
                }
+
        };
 var customLabel = {
   restaurant: {
@@ -17,15 +20,30 @@ var customLabel = {
 };
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 function initMap() {
+	var gm = google.maps;
+  var config = {
+      el: 'map',
+      lat: 37.4419,
+      lon: -122.1419,
+      zoom: 15,
+      minZoom: 20,
+      type: google.maps.MapTypeId.ROADMAP
+  };
+  var spiderConfig = {
+    arkersWontMove: true, markersWontHide: true, keepSpiderfied: true, circleSpiralSwitchover: 40
+  };
        var cluster = [];
   var myLatlng1 = new google.maps.LatLng(53.65914, 0.072050);
               var mapOptions = {
                 zoom: 13,
                 center: myLatlng1,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                disableDefaultUI: true
+
               };
        var map = new google.maps.Map(document.getElementById('map'),
          mapOptions);
+         var oms = new OverlappingMarkerSpiderfier(map, spiderConfig);
 
        if (navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(function(position) {
@@ -60,7 +78,7 @@ function initMap() {
              position: point,
              icon: icon.customIcons,
            });
-           google.maps.event.addListener(marker, 'click', (function(marker, i) {
+           google.maps.event.addListener(marker, 'dblclick', (function(marker, i) {
                          return function() {
                              infowindow.setContent(
                              "<b>" +
@@ -96,6 +114,12 @@ function initMap() {
                                              }
                                          })(marker, i));
            cluster.push(marker);
+           oms.addMarker(marker);
+
+               var padder = document.createElement('div');
+               padder.style.height = '100px';
+               padder.style.width = '100%';
+               map.controls[google.maps.ControlPosition.TOP_CENTER].push(padder);
          }
 
          var options = {
@@ -104,7 +128,17 @@ function initMap() {
            };
 
          var mc = new MarkerClusterer(map,cluster,options);
+         mc.setMaxZoom(config.minZoom);
        });
+       var iw =new google.maps.InfoWindow();
+       oms.addListener('mouseover', function(marker, event) {
+              iw.setContent(marker.desc);
+              iw.open(map, marker);
+          });
+          oms.addListener('spiderfy', function(markers) {
+              iw.close();
+          });
+
 
      }
 
@@ -131,5 +165,6 @@ function initMap() {
        request.open('GET', url, true);
        request.send(null);
      }
+
 
      function doNothing() {}
