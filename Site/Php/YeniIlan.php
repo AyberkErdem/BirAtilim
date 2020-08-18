@@ -232,7 +232,7 @@ RESİM ÖNİZLEME
        <div class="form-group">
              <label class="control-label">İlan Açıklaması</label>
 
- <textarea
+ <textarea id='7'
   class="form-control"
  name="description"
    id="description"
@@ -327,14 +327,16 @@ var customLabel = {
       var point0=kayıts.getAttribute('lat');
       var point1=kayıts.getAttribute('lng');
         var x = address.split(",");
-                  document.getElementById("4").value = "";
+
                   document.getElementById("0").value = x[2];
                   document.getElementById("1").value = x[1];
                   document.getElementById("2").value =x[0];
 
                     document.getElementById("5").value = point0;
                       document.getElementById("6").value = point1;
+                          document.getElementById("7").value = description;
 });
+
  });
 
      }
