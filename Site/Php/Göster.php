@@ -132,6 +132,9 @@ echo"<script>window.location='Göster.php?subject=".$_GET['subject']."';</script
                         <div class='col-md-6'>
                           <p class='text-primary'>Favori       <input type='checkbox' onclick='Favourite()' id='favori' value='Favori işaretle' onload='checkFav()'></p>
                         </div>
+                          <div class='col-md-6'>
+                            </div>
+
                     </ul>
                     <div class='tab-content profile-tab' id='myTabContent'>
                     <div class='tab-pane fade show active' id='home' role='tabpanel' aria-labelledby='home-tab'>
@@ -142,7 +145,12 @@ echo"<script>window.location='Göster.php?subject=".$_GET['subject']."';</script
                         <p class='product-description'> " .date_format($date, 'd-m-Y')." </p>
                       <h4 class='price'>İlan Sahibi</h4>
                       <p class='product-description'> ".$row['UserName'].""; if($_SESSION['user']==$row['UserName']){echo "<a class='text-primary' style='text-decoration:none;' href='Eye.php?user=".$_SESSION['user']."&eye=".$row['UserName']."'> --> Başkasının Gözünden Gör
-                        </a>";} else {echo "<a class='text-primary' style='text-decoration:none;' href='Eye.php?user=".$_SESSION['user']."&eye=".$row['UserName']."'> --> İlan Sahibi Profili
+                        </a>  <div class='col-md-6'>
+                            <p class='float-right'>
+                            <button class='btn btn-primary' onclick='Edit()' id='Edit' >Düzenle</button>
+
+                            <button style='background-color:#88001b;' class='btn text-light'  onclick='Delete()' id='sil' >Sil</button></p>
+                          </div>";} else {echo "<a class='text-primary' style='text-decoration:none;' href='Eye.php?user=".$_SESSION['user']."&eye=".$row['UserName']."'> --> İlan Sahibi Profili
                         </a>";}
                         echo"
                          </p>
@@ -339,7 +347,29 @@ echo"<script>window.location='Göster.php?subject=".$_GET['subject']."';</script
   </body>
   <script type="text/javascript">
   window.onload = checkFav();
+  function Delete()
+  {
 
+      var txt;
+      if (confirm("Bu ilanı kaldırmak istediğinize emin misiniz?")) {
+        var url_string =window.location.href; //window.location.href
+        var url = new URL(url_string);
+        var c = url.searchParams.get("subject");
+        window.location="Delete.php?subject="+c;
+
+      } else {
+
+      }
+
+    }
+  
+function Edit()
+{
+  var url_string =window.location.href; //window.location.href
+  var url = new URL(url_string);
+  var c = url.searchParams.get("subject");
+  window.location="YeniIlan.php?role=Edit&subject="+c;
+}
 
   function Favourite()
   {

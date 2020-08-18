@@ -1,15 +1,7 @@
 <?php
 require_once('config.php');
 session_start();
-if(isset($_POST['Harita']))
-{
 
-  $_SESSION['selection']='0';
-}
-if(isset($_POST['tablo']))
-{
-  $_SESSION['selection']='1';
-}
 if(isset($_POST['Go']))
 {
 
@@ -104,30 +96,28 @@ function func(){
 
       </form>
     </nav>
-<form class="text-center" action="ilanlarım.php?<?php if(isset($_GET['favori'])){echo "favori=".$_GET['favori'].""; } ?>" method="post">
-  <input type="submit" name='Harita'value="Harita Görünümü" class=" btn btn-secondary">
-  <input type="submit" name='tablo'value="Tablo Görünümü" class=" btn btn-secondary">
-</form>
-<?php
-  if($_SESSION['selection']=='0'){
-  ?>
-  <div class="z-depth-1-half map-container" >
+    <div class="text-center">
+    <div id="choose-form" style="text-align:right" class="btn-group"  aria-label="Basic example">
+    <button value="map"onclick="f1(this)"  type="button" class="btn btn-secondary">Harita Görünümü</button>
+    <button value="DivTablo" onclick="f1(this)" type="button" class="btn btn-secondary">Tablo Görünümü</button>
+  </div>
+  </div>
 
-  <div id='map'class="map" >
+
+  <div  class="z-depth-1-half map-container" >
+
+  <div id='map' class="map" >
 
   </div>
   </div>
-<?php } ?>
-<?php
-  if($_SESSION['selection']=='1'){
-  ?>
+
+<div id='DivTablo' class="">
 <table class="table table-hover">
 <tr>
 <th>İlan Sahibi</th>
 <th>Resim</th>
 <th>Açıklama</th>
 <th>Adres</th>
-<th>İlana Git</th>
 </tr>
   <?php require_once('config.php');
 
@@ -147,14 +137,12 @@ function func(){
        echo mysqli_error($dbc);
       if ($result->num_rows > 0) {
         while($row=$result->fetch_assoc())
-        {?><tr>
+        {?><tr title='İlana Git' onclick='Goster(<?php echo $row['Id']; ?>)'>
           <?php
             echo "<td>".$row['UserName']."</td>
             <td><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='150' widht='100'</td>
             <td>".$row['Description']."</td>
-            <td>".$row['adress']."</td><td>
-            <form class='' action=";if(isset($_GET['favori'])){echo "ilanlarım.php?favori=".$_GET['favori']."";}else {echo "ilanlarım.php";} ;echo" method='post'>
-            <input type='submit' name='Go' value='Git'/><input type='hidden' name='id' value=".$row['Id']."/></form></td>";
+            <td>".$row['adress']."</td>";
               ?></tr><?php
         }
       }
@@ -164,11 +152,19 @@ function func(){
       }
    ?>
 </table>
-<?php
-}
- ?>
+  </div>
 <script type="text/javascript">
+$("#DivTablo").hide();
+function f1(objButton){
 
+            $("#map, #DivTablo").hide();
+
+            $("#" + $(objButton).val()).show();
+  }
+function Goster(X)
+{
+    window.location="Göster.php?subject="+X+"";
+}
 
                //AIzaSyDJesEcfS4a_1VHnKJRHbA-q2KceabVT2c
                var customIcons = {

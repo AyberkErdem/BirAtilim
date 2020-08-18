@@ -1,7 +1,7 @@
 <?php
 include('config.php');
 session_start();
-if(isset($_POST['publish']))
+if(isset($_POST['publish'])&&!isset($_GET['role']))
 {
 
     $datas=array("","","","","");
@@ -30,6 +30,10 @@ if(isset($_POST['publish']))
    {
      echo"<script>alert('Bir resim ekleyiniz')</script>";
    }
+}
+else if (isset($_POST['publish'])&&isset($_GET['role']))
+{
+  
 }
 
   ?>
