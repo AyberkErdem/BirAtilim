@@ -99,7 +99,8 @@ function initMap() {
          }
 
          var options = {
-               imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+               imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+                maxZoom: 20
            };
 
          var mc = new MarkerClusterer(map,cluster,options);

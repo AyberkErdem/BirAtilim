@@ -74,9 +74,7 @@ function func(){
                 <li class="nav-item">
                     <a href="YeniIlan.php" class="nav-link m-2 btn btn-warning nav-active">İlan Oluştur</a>
                 </li>
-                <li class="nav-item">
-                    <a href="Mesajlar.php" class="nav-link m-2 btn btn-warning">Mesajlar</a>
-                </li>
+
                 <li class="nav-item">
 
                     <button onclick="myFunction()" class="nav-link m-2 dropbtn btn btn-warning">Kişisel Şeyler</button>
@@ -90,7 +88,7 @@ function func(){
 
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
+                    <a href="BizeYazın.php" class="nav-link m-2 btn btn-warning">Bize Yazın</a>
                 </li>
             </ul>
         </div>

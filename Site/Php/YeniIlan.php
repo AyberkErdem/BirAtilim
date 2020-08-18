@@ -1,9 +1,33 @@
 <?php
 include('config.php');
 session_start();
-if(isset($_POST['publish'])&&!isset($_GET['role']))
+if(isset($_POST['Düzenle']))
 {
+if(isset($_GET['subject'])){
+   $datas=array("","","","","");
+   $filename=$_FILES['image']['name'];
+   $tmpname=$_FILES['image']['tmp_name'];
+   $filetype=$_FILES['image']['type'];
+   for ($i=0; $i <=count($tmpname)-1 ; $i++) {
+     $name=addslashes($filename[$i]);
+     $tmp=addslashes(file_get_contents($tmpname[$i]));
+     $datas[$i]=$tmp;
+   }
+    $adress=$_POST['address'];
+      $adress.=",";
+    $adress.=$_POST['District'];
+        $adress.=",";
+      $adress.=$_POST['City'];
 
+  $query=("CALL Poster_Edit('".$_GET['subject']."','".$_SESSION['user']."','".$_POST['description']."','".$adress."','".$_POST['latitude']."','".$_POST['longitude']."','Ev','".$datas[0]."',
+  '".$datas[1]."','".$datas[2]."','".$datas[3]."','".$datas[4]."')");
+if(mysqli_query($dbc,$query))
+{
+  header("Location:Göster.php?subject=".$_GET['subject']."");
+}
+}
+}
+if(isset($_POST['publish'])){
     $datas=array("","","","","");
      $filename=$_FILES['image']['name'];
      $tmpname=$_FILES['image']['tmp_name'];
@@ -31,10 +55,8 @@ if(isset($_POST['publish'])&&!isset($_GET['role']))
      echo"<script>alert('Bir resim ekleyiniz')</script>";
    }
 }
-else if (isset($_POST['publish'])&&isset($_GET['role']))
-{
 
-}
+
 
   ?>
 <!DOCTYPE html>
@@ -151,7 +173,7 @@ else if (isset($_POST['publish'])&&isset($_GET['role']))
 </div>
 </div>
 <div>
-  <form onload='Edition()' id='adres' method="POST" name="ayberk" action="YeniIlan.php "enctype="multipart/form-data" class="well form-horizontal">
+  <form onload='Edition()' id='adres' method="POST" name="ayberk" action="YeniIlan.php?subject=<?php if(isset($_GET['subject'])){echo $_GET['subject'];} ?>"enctype="multipart/form-data" class="well form-horizontal">
     <div id="collapse1" class="collapse show">
 <div class="card-body" id="divadres">
  <div class="row">
@@ -255,9 +277,10 @@ RESİM ÖNİZLEME
       </div>
    <div class="col-md-1 col-lg-4 float-right">
        <div class="form-group text-center">
+<?php if(isset($_GET['subject'])){echo " <input o class='btn btn-warning btn-lg' type='submit' name='Düzenle' value='Düzenlemeyi Tamamla'>";}
+else {echo  " <input  class='btn btn-warning btn-lg' type='submit' name='publish' value='İlanı Yayınla'>";} ?>
 
 
-           <input onclick="submit()" class="btn btn-warning btn-lg" type="submit" name="publish" value="İlanı Yayınla">
        </div>
      </div>
         </form>
