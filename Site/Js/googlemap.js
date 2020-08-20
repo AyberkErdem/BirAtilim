@@ -116,7 +116,8 @@ function initMap() {
            var html= "<b>" +
            markers[i].getAttribute("name") +
            "</b> <br/>" +
-           markers[i].getAttribute("address");
+           markers[i].getAttribute("address")+
+           markers[i].getAttribute("description");
 
            var icon = customIcons[type] || {};
            var marker = new google.maps.Marker({
@@ -144,10 +145,11 @@ function initMap() {
                      google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
                                    return function() {
                                        infowindow.setContent(
-                                       "<b>" +
+                                         markers[i].getAttribute("description") +
+                                    "</b> <br/>" +
                                        markers[i].getAttribute("name") +
                                        "</b> <br/>" +
-                                       markers[i].getAttribute("address")
+                                       markers[i].getAttribute("address")+"</b> <br/>"
                                        );
                                        infowindow.open(map, marker);
 
