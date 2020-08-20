@@ -26,7 +26,7 @@ Başkasının profiline ulaşım✓
 
 İlan İşaretleme✓-Düzenleme✓-kaldırma✓
 
-Eklenen foto önizlemesi
+Eklenen foto önizlemesi✓
 --------*-----------*---------*------------*--------*---------*----------*
 
 
@@ -37,13 +37,13 @@ sql("like tv - television")//Yetişirse 14.08
 
 
 
-İlan Düzenleyebilmeli
+İlan Düzenleyebilmeli✓
 
 
 kişi ekle database✓
 
 client server olayı✓
 
-kullanıcı tipi(alıcı-satıcı)
+kullanıcı tipi(alıcı-satıcı)?
 
-Arayüz yapmaca
+Arayüz yapmaca✓

@@ -1,26 +1,12 @@
 <?php
-require_once('../Php/config.php');
-// Start XML file, create parent node
+$input = preg_quote('black', '~'); // don't forget to quote input string!
+$data = array('orange', 'blue', 'green', 'red', 'pink', 'brown', 'black');
 
-$dom = new DOMDocument("1.0");
-$node = $dom->createElement("chat");
-$parnode = $dom->appendChild($node);
-$query = "SELECT * FROM chat";
-$result = mysqli_query($dbc,$query);
+$result = preg_grep('~' . $input . '~', $data);
+print_r($result);
+$x=array_search("black",$result);
 
-
-header("Content-type: text/xml");
-while ($row = @mysqli_fetch_assoc($result)){
-  // Add to XML document node
-  $node = $dom->createElement("Messages");
-  $newnode = $parnode->appendChild($node);
-  $newnode->setAttribute("Sender",$row['Sender']);
-  $newnode->setAttribute("Message",$row['Message']);
-  $newnode->setAttribute("Receiver", $row['Receiver']);
-  $newnode->setAttribute("PosterId", $row['PosterId']);
-  $newnode->setAttribute("Date", $row['Clock']);
-
-}
-
-echo $dom->saveXML();
- ?>
+echo "|||||".$x;
+unset($data[$x]);
+print_r($data);
+?>

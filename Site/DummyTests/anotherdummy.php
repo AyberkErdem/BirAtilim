@@ -1,17 +1,58 @@
 <?php
-
+include('../Php/config.php');
 if(isset($_POST['submit_image']))
 {
+  $stopper=-1;
   $datas=array("","","","","");
-   $filename=$_FILES['upload_file']['name'];
-  $tmpname=$_FILES['upload_file']['tmp_name'];
-  $filetype=$_FILES['upload_file']['type'];
-  for ($i=0; $i <=count($tmpname)-1 ; $i++) {
+    $urls=array();
+if($_POST['im0']!="")
+{
+  $stopper=0;
+}
+if($_POST['im1']!="")
+{
+  $stopper=1;
+}
+if($_POST['im2']!="")
+{
+  $stopper=2;
+}
+if($_POST['im3']!="")
+{
+  $stopper=3;
+}
+if($_POST['im4']!="")
+{
+  $stopper=4;
+}
+    $filename=$_FILES['upload_file']['name'];
+    $tmpname=$_FILES['upload_file']['tmp_name'];
+    $filetype=$_FILES['upload_file']['type'];
+      echo count($tmpname)-1;
+    for ($i=0; $i <=count($tmpname)-1 ; $i++) {
+      if($i==$stopper)
+      {
+
+      }
+      else
+      {
+        $name=addslashes($filename[$i]);
+        $tmp=addslashes(file_get_contents($tmpname[$i]));
+        $datas[$i]=$tmp;
+      }
+
+    }
+    $query=("insert into dummtable values('','".$datas[0]."','','".$datas[1]."','".$datas[2]."','".$datas[3]."','".$datas[4]."')");
+    mysqli_query($dbc,$query);
+/*
+  for ($i=0; $i <count($urls) ; $i++) {
     $name=addslashes($filename[$i]);
+      echo $name;
     $tmp=addslashes(file_get_contents($tmpname[$i]));
     $datas[$i]=$tmp;
-    echo $datas[$i];
+
   }
+  */
 }
 
 ?>
@@ -30,23 +71,38 @@ $(document).ready(function()
   alert("Uploaded SuccessFully");
  });
 });
-
+  var items=new Array();
 function preview_image()
 {
 
-document.getElementById(""+x+"").src=URL.createObjectURL(event.target.files[0]);
-x++;
+  var total_file=document.getElementById("upload_file").files.length;
+  x=0;
+    document.getElementById("0").src="";
+      document.getElementById("1").src="";
+        document.getElementById("2").src="";
+          document.getElementById("3").src="";
+            document.getElementById("4").src="";
+
+   for(var i=0;i<total_file;i++)
+   {
+
+  document.getElementById(""+x+"").src=URL.createObjectURL(event.target.files[i]);
+  items[i]=event.target.files[i].name;
+  x++;
+   }
+
+
+
+
 }
 var x=0;
 var y;
-$(document).ready(function(){
-$("#remover").click(function(){
+function remover(){
   document.getElementById(""+y+"").src="";
-  alert(x);
-    x--;
-      alert(x);
-});
-});
+  document.getElementById(y+"hid").value= items[y];
+}
+
+
 function reply_click(clicked_id)
   {
   y=clicked_id;
@@ -57,12 +113,16 @@ function reply_click(clicked_id)
 </head>
 <body>
 <div id="wrapper">
- <form action="anotherdummy.php" method="post" enctype="multipart/form-data">
-  <input type="file" id="upload_file" name="upload_file[]" onchange="preview_image();"/multiple>
-  <input type="submit" name='submit_image' value="Upload Image"/>
-
+  <form action="anotherdummy.php" method="post" enctype="multipart/form-data">
+   <input accept="image/jpeg" type="file" id="upload_file" name="upload_file[]" onchange="preview_image();" multiple/>
+   <input type="submit" name='submit_image' value="Upload Image"/>
+<input id='0hid' type="hidden" name='im0' value=""/>
+<input id='1hid' type="hidden" name='im1' value=""/>
+<input id='2hid'  type="hidden" name='im2' value=""/>
+<input id='3hid' type="hidden" name='im3' value=""/>
+<input id='4hid'  type="hidden" name='im4' value=""/>
  </form>
- <button id='remover'>Remove selected image</button>
+ <button onclick="remover()" id='remover'>Remove selected image</button>
  <div id="image_preview"></div>
  <img id='0' onclick="reply_click(this.id)" src="" alt="1.">
  <img id='1' onclick="reply_click(this.id)" src="" alt="2.">

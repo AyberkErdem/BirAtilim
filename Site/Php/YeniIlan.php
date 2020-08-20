@@ -28,15 +28,46 @@ if(mysqli_query($dbc,$query))
 }
 }
 if(isset($_POST['publish'])){
-    $datas=array("","","","","");
-     $filename=$_FILES['image']['name'];
-     $tmpname=$_FILES['image']['tmp_name'];
-     $filetype=$_FILES['image']['type'];
-     for ($i=0; $i <=count($tmpname)-1 ; $i++) {
-       $name=addslashes($filename[$i]);
-       $tmp=addslashes(file_get_contents($tmpname[$i]));
-       $datas[$i]=$tmp;
-     }
+  $stopper=-1;
+  $datas=array("","","","","");
+    $urls=array();
+if($_POST['im0']!="")
+{
+  $stopper=0;
+}
+if($_POST['im1']!="")
+{
+  $stopper=1;
+}
+if($_POST['im2']!="")
+{
+  $stopper=2;
+}
+if($_POST['im3']!="")
+{
+  $stopper=3;
+}
+if($_POST['im4']!="")
+{
+  $stopper=4;
+}
+$filename=$_FILES['upload_file']['name'];
+$tmpname=$_FILES['upload_file']['tmp_name'];
+$filetype=$_FILES['upload_file']['type'];
+
+for ($i=0; $i <=count($tmpname)-1 ; $i++) {
+  if($i==$stopper)
+  {
+
+  }
+  else
+  {
+    $name=addslashes($filename[$i]);
+    $tmp=addslashes(file_get_contents($tmpname[$i]));
+    $datas[$i]=$tmp;
+  }
+
+}
       $adress=$_POST['address'];
         $adress.=",";
       $adress.=$_POST['District'];
@@ -52,7 +83,7 @@ if(isset($_POST['publish'])){
 
    else
    {
-     echo"<script>alert('Bir resim ekleyiniz')</script>";
+     echo mysqli_error($dbc);
    }
 }
   ?>
@@ -69,7 +100,8 @@ if(isset($_POST['publish'])){
    <link rel="stylesheet" type="text/css" href="../css/İlan.css">
    <link rel="stylesheet" type="text/css" href="../css/reset.css">
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
-
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
@@ -97,6 +129,8 @@ if(isset($_POST['publish'])){
 
     <title>BirAtilim</title>
     <link rel="stylesheet" type="text/css" href="../css/reset.css">
+
+
 </head>
 
   <body>
@@ -177,19 +211,19 @@ if(isset($_POST['publish'])){
      <div class="col-md-3 col-lg-4">
          <div class="form-group">
              <label class="control-label">Yer ismi</label>
-            <input class="form-control"  type="text" id="4"name="yerismi" value="" placeholder="İşaret İsmi...">
+            <input class="form-control"  type="text" id="Yerİsmi" name="yerismi" value="" placeholder="İşaret İsmi...">
          </div>
      </div>
      <div class="col-md-1 col-lg-4">
          <div class="form-group">
              <label class="control-label">Şehir</label>
-          <input type="text" id="0"name="City"  class="form-control"  value="" placeholder="İl...">
+          <input type="text" id="City" name="City"  class="form-control"  value="" placeholder="İl...">
          </div>
      </div>
      <div class="col-md-1 col-lg-4">
          <div class="form-group">
              <label class="control-label">İlçe</label>
-            <input class="form-control"  type="text" id="1"name="District" value=""placeholder="İlçe...">
+            <input class="form-control"  type="text" id="District" name="District" value=""placeholder="İlçe...">
          </div>
      </div>
       </div>
@@ -197,13 +231,13 @@ if(isset($_POST['publish'])){
       <div class="col-md-3 col-lg-4">
           <div class="form-group">
               <label class="control-label">Adres</label>
-              <textarea  class="form-control"  style="resize:none" class="form-control" id="2" name="address" rows="4" cols=30></textarea>
+              <textarea  class="form-control"  style="resize:none" class="form-control" id="Adres" name="address" rows="4" cols=30></textarea>
           </div>
       </div>
       <div class="col-md-1 col-lg-4">
           <div class="form-group">
               <label class="control-label">Posta Kodu</label>
-              <input class="form-control"  type="text" id="3"name="postcode" value=""placeholder="Posta Kodu...">
+              <input class="form-control"  type="text" id="PostaKodu" name="postcode" value=""placeholder="Posta Kodu...">
           </div>
       </div>
       </div>
@@ -212,9 +246,9 @@ if(isset($_POST['publish'])){
  </div>
      </div>
 
-       <input type="hidden" id='5' name="latitude" value="">
-       <input type="hidden" id='6' name="longitude" value="">
-       <input style="visibility:hidden;" onclick="submit()" class="btn btn-warning btn-lg" type="submit" name="publish" value="İlanı Yayınla">
+       <input type="hidden" id='lat' name="latitude" value="">
+       <input type="hidden" id='long' name="longitude" value="">
+
 
 
       <div class="card-body" id="divilan">
@@ -224,19 +258,35 @@ if(isset($_POST['publish'])){
   <div class="col-md-1 col-lg-4">
       <div class="form-group align-middle">
         <label class="control-label">Resim Ekleyiniz</label>
-    <input type="file" name="image[]" accept="image/jpeg" multiple>
+        <span class="btn btn-primary btn-file">
+    Resim Ekle<input accept="image/jpeg" type="file" id="upload_file" name="upload_file[]" onchange="preview_image();" multiple/>
+</span>
+
+     <button type="button" class="btn btn-warning" onclick="helele()" id='remover'>Seç ve Kaldır</button>
    </div> </div>
    <div class="container-fluid">
   <div class="row">
-    <div class="col-md-4 row-height">
-RESİM ÖNİZLEME
+    <div class="col-md-2 row-height">
+  <img  id='0' height="100px;" width="100px" onclick="reply_click(this.id)" src="../Img/bok.png" alt="1.">
     </div>
-    <div class="col-md-4 row-height">
-RESİM ÖNİZLEME
+    <div class="col-md-2 row-height">
+  <img id='1' height="100px;" width="100px" onclick="reply_click(this.id)" src="../Img/bok.png" alt="2.">
     </div>
-    <div class="col-md-4 row-height">
-RESİM ÖNİZLEME
+    <div class="col-md-2 row-height">
+  <img id='2' height="100px;" width="100px"  onclick="reply_click(this.id)" src="../Img/bok.png" alt="3.">
     </div>
+    <div class="col-md-2 row-height">
+  <img id='3' height="100px;" width="100px"  onclick="reply_click(this.id)" src="../Img/bok.png" alt="3.">
+    </div>
+     <div class="col-md-2 row-height">
+    <img id='4' height="100px;" width="100px"  onclick="reply_click(this.id)" src="../Img/bok.png" alt="3.">
+      </div>
+
+    <input id='0hid' type="hidden" name='im0' value=""/>
+    <input id='1hid' type="hidden" name='im1' value=""/>
+    <input id='2hid'  type="hidden" name='im2' value=""/>
+    <input id='3hid' type="hidden" name='im3' value=""/>
+    <input id='4hid'  type="hidden" name='im4' value=""/>
   </div>
 </div>
 </div>
@@ -251,7 +301,7 @@ RESİM ÖNİZLEME
        <div class="form-group">
              <label class="control-label">İlan Açıklaması</label>
 
- <textarea id='7'
+ <textarea id='description'
   class="form-control"
  name="description"
    id="description"
@@ -280,12 +330,63 @@ else {echo  " <input  class='btn btn-warning btn-lg' type='submit' name='publish
 
        </div>
      </div>
+
         </form>
+
  </div>
 </div>
  </div>
 </div>
-<script type="text/javascript">
+<script>
+
+  var items=new Array();
+  var o=0;
+  var y;
+  function helele(){
+    document.getElementById(""+y+"").src="../Img/bok.png";
+    document.getElementById(y+"hid").value= items[y];
+    document.getElementById(0).style="border:0px solid blue;";
+      document.getElementById(1).style="border:0px solid blue;";
+        document.getElementById(2).style="border:0px solid blue;";
+          document.getElementById(3).style="border:0px solid blue;";
+            document.getElementById(4).style="border:0px solid blue;";
+  }
+
+
+  function reply_click(clicked_id)
+    {
+    y=clicked_id;
+    document.getElementById(0).style="border:0px solid blue;";
+      document.getElementById(1).style="border:0px solid blue;";
+        document.getElementById(2).style="border:0px solid blue;";
+          document.getElementById(3).style="border:0px solid blue;";
+            document.getElementById(4).style="border:0px solid blue;";
+    document.getElementById(y).style="border:1px solid blue;";
+
+    }
+function preview_image()
+{
+
+  var total_file=document.getElementById("upload_file").files.length;
+  o=0;
+    document.getElementById("0").src="../Img/bok.png";
+      document.getElementById("1").src="../Img/bok.png";
+        document.getElementById("2").src="../Img/bok.png";
+          document.getElementById("3").src="../Img/bok.png";
+            document.getElementById("4").src="../Img/bok.png";
+
+   for(var i=0;i<total_file;i++)
+   {
+
+  document.getElementById(""+o+"").src=URL.createObjectURL(event.target.files[i]);
+  items[i]=event.target.files[i].name;
+  o++;
+   }
+
+
+
+
+}
 
 </script>
 <script type="text/javascript">
@@ -345,13 +446,13 @@ var customLabel = {
       var point1=kayıts.getAttribute('lng');
         var x = address.split(",");
 
-                  document.getElementById("0").value = x[2];
-                  document.getElementById("1").value = x[1];
-                  document.getElementById("2").value =x[0];
+                  document.getElementById("City").value = x[2];
+                  document.getElementById("District").value = x[1];
+                  document.getElementById("Adres").value =x[0];
 
-                    document.getElementById("5").value = point0;
-                      document.getElementById("6").value = point1;
-                          document.getElementById("7").value = description;
+                    document.getElementById("lat").value = point0;
+                      document.getElementById("long").value = point1;
+                          document.getElementById("description").value = description;
 });
 
  });
@@ -446,18 +547,18 @@ geocode[0] =geocode[0].replace('(','');
 geocode[1] =geocode[1].replace(')','');
 if(res.length!=1)
 {
-document.getElementById("4").value = "";
-document.getElementById("0").value = res[res.length-1];
-document.getElementById("1").value = res[res.length-2];
-document.getElementById("2").value = res[0]+" mahallesi "+res[res.length-4];
-document.getElementById("3").value = res[res.length-3];
-  document.getElementById("5").value = geocode[0];
-    document.getElementById("6").value = geocode[1];
+document.getElementById("Yerİsmi").value = "";
+document.getElementById("City").value = res[res.length-1];
+document.getElementById("District").value = res[res.length-2];
+document.getElementById("Adres").value = res[0]+" mahallesi "+res[res.length-4];
+document.getElementById("PostaKodu").value = res[res.length-3];
+  document.getElementById("lat").value = geocode[0];
+    document.getElementById("long").value = geocode[1];
 }
 else
 {
 
-document.getElementById("4").value = res;
+document.getElementById("Yerİsmi").value = res;
 if(warning%4==0){
 alert("Tam adres çıkması için lokasyona en yakın sokağı işaretlemeye çalışınız.");
 
@@ -492,7 +593,7 @@ warning++;
             var infowincontent = "deneme 1 2";
 
             var text = document.createElement('text');
-          
+
 
 
             var marker = new google.maps.Marker({
@@ -537,18 +638,18 @@ warning++;
         geocode[1] =geocode[1].replace(')','');
       if(res.length!=1)
       {
-          document.getElementById("4").value = "";
-          document.getElementById("0").value = res[res.length-1];
-        document.getElementById("1").value = res[res.length-2];
-          document.getElementById("2").value = res[0]+" mahallesi "+res[res.length-4];
-            document.getElementById("3").value = res[res.length-3];
-              document.getElementById("5").value = geocode[0];
-                document.getElementById("6").value = geocode[1];
+          document.getElementById("Yerİsmi").value = "";
+          document.getElementById("City").value = res[res.length-1];
+        document.getElementById("District").value = res[res.length-2];
+          document.getElementById("Adres").value = res[0]+" mahallesi "+res[res.length-4];
+            document.getElementById("PostaKodu").value = res[res.length-3];
+              document.getElementById("lat").value = geocode[0];
+                document.getElementById("long").value = geocode[1];
       }
       else
       {
 
-          document.getElementById("4").value = res;
+          document.getElementById("Yerİsmi").value = res;
           if(warning%4==0){
           alert("Tam adres çıkması için lokasyona en yakın sokağı işaretlemeye çalışınız.");
 
