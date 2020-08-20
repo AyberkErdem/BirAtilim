@@ -44,7 +44,7 @@ echo"
         <li class='dropdown'>
           <a style='text-decoration:none;' href='#' class='dropdown-toggle' data-toggle='dropdown'>Seçenekler<span class='glyphicon glyphicon-user pull-right'></span></a>
           <ul class='dropdown-menu'>
-            <li><a href='#'>Mesajları Sil<span class='glyphicon glyphicon-cog pull-right'></span></a></li>
+            <li><a href='MesajlarıSil.php?sender=".$_GET['sender']."'>Mesajları Sil<span class='glyphicon glyphicon-cog pull-right'></span></a></li>
             <li class='divider'></li>
             <li><a href='#'>Bildirimleri Aç <span class='glyphicon glyphicon-stats pull-right'></span></a></li>
             <li class='divider'></li>
@@ -53,8 +53,11 @@ echo"
           </ul>
         </li>
       </ul>";
-  $sql1 = "select  *  from chat where Receiver='".$_SESSION['user']."'and Sender='".$_GET['sender']."' OR  Receiver='".$_GET['sender']."'and Sender='".$_SESSION['user']."'order by Id ASC";
+
+    $dbc->next_result();
+  $sql1 = "select * from chat where (Sender='".$_SESSION['user']."' and Send_Active=1 and Receiver='".$_GET['sender']."') or (Receiver='".$_SESSION['user']."' and Sender='".$_GET['sender']."' and Rec_Active=1);";
     $result=@mysqli_query($dbc,$sql1);
+
       if ($result->num_rows > 0) {
         echo" <div id='1' class='msg_history'>";
         while($row=$result->fetch_assoc())
@@ -72,24 +75,34 @@ if($row['Receiver']==$_GET['sender']){
                   <div class='received_msg'>
                     <div class='received_withd_msg'>
                       <p>".$row['Message']."</p>
-                      <span class='time_date'> ".$row['Clock']."<a target='_blank' style='text-decoration:none;'href='Göster.php?subject=".$row['PosterId']."'>@ilan".$row['PosterId']."</a></span></div>
+                      <span class='time_date'> ".$row['Clock']."";if($row['PosterId']!="-1"){echo "<a target='_blank' style='text-decoration:none;'href='Göster.php?subject=".$row['PosterId']."'>@ilan".$row['PosterId']."</a>";}echo "</span></div>
                   </div>
                 </div>";
           }
             $poster=$row['PosterId'];
+
         }
+        echo    "  </div></div><div class='type_msg'>
+              <div class='input_msg_write'>
+              <form style='height:100%;widht:100%' action=MessageFrame.php?sender=".$_GET['sender']." method=post>
+                <input style='height:100%;widht:100%' name='mess' type='text' class='write_msg' placeholder='Type a message' />
+                <input type='hidden' name='poster' value='".$poster."'>
+                <input style='background-color:#05728f;'  name='Privateer' type='submit' class='text-light float-right profile-edit-btn' >
+                 </form>
+        </div></div>";
+
 
       }
-  echo    "  </div></div><div class='type_msg'>
-        <div class='input_msg_write'>
-        <form style='height:100%;widht:100%' action=MessageFrame.php?user=".$_SESSION['user']."&sender=".$_GET['sender']." method=post>
-          <input style='height:100%;widht:100%' name='mess' type='text' class='write_msg' placeholder='Type a message' />
-          <input type='hidden' name='poster' value='".$poster."'>
-          <input style='background-color:#05728f;'  name='Privateer' type='submit' class='text-light float-right profile-edit-btn' >
-           </form>
-</div></div>
-
-    ";
+      if ($result->num_rows==0){
+      echo    "  </div></div><div class='type_msg'>
+            <div class='input_msg_write'>
+            <form style='height:100%;widht:100%' action=MessageFrame.php?sender=".$_GET['sender']." method=post>
+              <input style='height:100%;widht:100%' name='mess' type='text' class='write_msg' placeholder='Type a message' />
+              <input type='hidden' name='poster' value='-1'>
+              <input style='background-color:#05728f;'  name='Privateer' type='submit' class='text-light float-right profile-edit-btn' >
+               </form>
+      </div></div> ";
+}
  ?>
     </div>
    </body>

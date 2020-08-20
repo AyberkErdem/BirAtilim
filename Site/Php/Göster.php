@@ -98,7 +98,7 @@ echo"<script>window.location='Göster.php?subject=".$_GET['subject']."';</script
       </form>
     </nav>
     <?php
-
+$vosoblo=0;
     $sql = "CALL getPoster('".$_GET['subject']."')";
       $result=@mysqli_query($dbc,$sql);
         if ($result->num_rows > 0) {
@@ -156,7 +156,9 @@ echo"<script>window.location='Göster.php?subject=".$_GET['subject']."';</script
                             <button class='btn btn-primary' onclick='Edit()' id='Edit' >Düzenle</button>
 
                             <button style='background-color:#88001b;' class='btn text-light'  onclick='Delete()' id='sil' >Sil</button></p>
-                          </div>";} else {echo "<a class='text-primary' style='text-decoration:none;' href='Eye.php?user=".$_SESSION['user']."&eye=".$row['UserName']."'> --> İlan Sahibi Profili
+                          </div><div class='col-md-6'>
+                              <p class='float-right'><button title='";if($row['Visible']==0){echo "Fiyatları sadece ilan sahibi ve gönderen görüntüler";}else{echo "Fiyatlar herkes görebilir";}echo "' class='btn btn-primary' ondblclick='OpenUp()' id='Edit' >Açık Arttırma Modu:";if($row['Visible']==0){echo "On";}else {echo "Off";}echo "</button> </p>
+                            </div>";} else {echo "<a class='text-primary' style='text-decoration:none;' href='Eye.php?user=".$_SESSION['user']."&eye=".$row['UserName']."'> --> İlan Sahibi Profili
                         </a>";}
                         echo"
                          </p>
@@ -176,7 +178,8 @@ echo"<script>window.location='Göster.php?subject=".$_GET['subject']."';</script
                     </div>
                   </div>
                 </div>
-              ";}
+              ";
+            $vosoblo=$row['Visible'];}
 
             }
             mysqli_free_result($result);
@@ -207,7 +210,7 @@ echo"<script>window.location='Göster.php?subject=".$_GET['subject']."';</script
                                else {echo "<td style='font-size:0.7em;'>".$row['Sender']."</td>";}
                                 echo"
                                    <td style='font-size:0.7em;'>".$row['Message']."</td>
-                                   <td style='font-size:0.7em;'>";if($_SESSION['user']==$row['Sender']||$_SESSION['user']==$row['Receiver']){echo $row['Value'];}else{echo "*";}echo"</td>
+                                   <td style='font-size:0.7em;'>";if(($_SESSION['user']==$row['Sender']||$_SESSION['user']==$row['Receiver'])||$vosoblo==1){echo $row['Value'];}else{echo "*";}echo"</td>
                                    <td style='font-size:0.7em;'>".$row['Date']."</td>
                                </tr>";
 
@@ -239,7 +242,13 @@ echo"<script>window.location='Göster.php?subject=".$_GET['subject']."';</script
        </div>
               </div>;
 <script type="text/javascript">
-
+function OpenUp()
+{
+  var url_string =window.location.href; //window.location.href
+  var url = new URL(url_string);
+  var c = url.searchParams.get("subject");
+  window.location="IlanVisibleSetter.php?subject="+c;
+}
 function myFunction() {
 document.getElementById("myDropdown").classList.toggle("show");
 }
