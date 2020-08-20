@@ -28,7 +28,130 @@ function func(){
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+<style media="screen">
+  @font-face {
 
+    font-display: swap;
+  }
+    .container
+    {
+      display: flex;
+      align-items: center;
+      padding-top: 5px;
+      padding-left: 15px;
+    }
+    body
+    {
+
+    }
+    #map
+    {
+      border:1px solid blue;
+      height:489px;
+      width: 100%;
+    }
+    .googlearea
+    {
+    font-size: 1.2em;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+    .dropbtn {
+
+      border: none;
+      cursor: pointer;
+
+    }
+
+    .dropbtn:hover, .dropbtn:focus {
+      background-color: #2980B9;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+
+    cursor: pointer;
+      overflow: auto;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown a:hover {background-color: #ddd;cursor: pointer;}
+
+    .show {display: block;}
+
+</style>
     <meta charset="utf-8">
     <link style=" border-radius: 50%;" rel = "icon" href ="../Img/icon.png"
         type = "image/x-icon">
@@ -37,21 +160,22 @@ function func(){
   <meta name="keywords" content="esogü staj sistemi,esogü">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" type="text/css" href="../css/reset.css">
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
   <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <title>BirAtilim</title>
-      <link rel="stylesheet" type="text/css" href="../css/reset.css">
-    <link rel="stylesheet" type="text/css" href="../css/Home.css">
+
+
    <script type="text/javascript" src="../Js/googlemap.js">
 
    </script>
 
-  <body>
+  <body style="background-color: #e4b852;overflow-x: hidden;">
     <nav style="background-color:#88001b;" class="navbar navbar-expand-lg navbar-light ">
         <div class="d-flex flex-grow-1">
             <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
@@ -65,7 +189,7 @@ function func(){
                 <img title="Bir Atilim" src="../Img/home.png" alt="Logo">
             </a>
             <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
-                <img  src="//placehold.it/40?text=LOGO" alt="logo">
+                <img  src="../Img/home.png" alt="logo">
             </a>
             <div class="w-100 text-right">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
@@ -173,8 +297,48 @@ function func(){
 
  ?>
  </div>
-  </body>
 
+
+  </body>
+  <script type="text/javascript">
+  document.addEventListener("touchstart", function(e) {
+      console.log(e.defaultPrevented);  // will be false
+      e.preventDefault();   // does nothing since the listener is passive
+      console.log(e.defaultPrevented);  // still false
+  }, Modernizr.passiveeventlisteners ? {passive: true} : false);
+
+  function notifyMe() {
+// Let's check if the browser supports notifications
+if (!("Notification" in window)) {
+  alert("This browser does not support desktop notification");
+}
+
+// Let's check whether notification permissions have already been granted
+else if (Notification.permission === "granted") {
+  // If it's okay let's create a notification
+  var notification = new Notification("Meraba cınım");
+}
+
+// Otherwise, we need to ask the user for permission
+else if (Notification.permission !== "denied") {
+  Notification.requestPermission().then(function (permission) {
+    // If the user accepts, let's create a notification
+    if (permission === "granted") {
+      var notification = new Notification("Vay benim paşşam gelmiş benim balım gelmiş hoşgeldin !");
+    }
+  });
+}
+
+// At last, if the user has denied notifications, and you
+// want to be respectful there is no need to bother them any more.
+}
+notifyMe();
+  </script>
+<script type="text/javascript">
+
+
+handlePermission();
+</script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmCd7903K8KvYDLjq_A_J3vMe4eKDPSNU&callback=initMap">
 
   </script>

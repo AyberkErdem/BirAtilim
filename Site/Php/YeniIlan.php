@@ -2,17 +2,83 @@
 include('config.php');
 session_start();
 if(isset($_POST['Düzenle']))
+{  $stopper=-1;
+  $datas=array("","","","","");
+    $urls=array();
+if($_POST['im0']!="")
 {
-if(isset($_GET['subject'])){
-   $datas=array("","","","","");
-   $filename=$_FILES['image']['name'];
-   $tmpname=$_FILES['image']['tmp_name'];
-   $filetype=$_FILES['image']['type'];
-   for ($i=0; $i <=count($tmpname)-1 ; $i++) {
-     $name=addslashes($filename[$i]);
-     $tmp=addslashes(file_get_contents($tmpname[$i]));
-     $datas[$i]=$tmp;
-   }
+  if($_POST['im0']=="Önizleme")
+  {
+    $prew=0;
+  }
+  else {
+  $stopper=0;
+  }
+}
+if($_POST['im1']!="")
+{
+  if($_POST['im1']=="Önizleme")
+  {
+    $prew=1;
+  }
+  else {
+  $stopper=0;
+  }
+}
+if($_POST['im2']!="")
+{
+  if($_POST['im2']=="Önizleme")
+  {
+    $prew=2;
+  }
+  else {
+  $stopper=0;
+  }
+}
+if($_POST['im3']!="")
+{
+  if($_POST['im3']=="Önizleme")
+  {
+    $prew=3;
+  }
+  else {
+  $stopper=0;
+  }
+}
+if($_POST['im4']!="")
+{
+  if($_POST['im4']=="Önizleme")
+  {
+    $prew=4;
+  }
+  else {
+  $stopper=0;
+  }
+}
+$filename=$_FILES['upload_file']['name'];
+$tmpname=$_FILES['upload_file']['tmp_name'];
+$filetype=$_FILES['upload_file']['type'];
+$h=1;
+for ($i=0; $i <=count($tmpname)-1 ; $i++) {
+  if($i==$stopper)
+  {
+
+  }
+  else if($i!=$stopper&&$prew!=$i)
+  {
+    $name=addslashes($filename[$i]);
+    $tmp=addslashes(file_get_contents($tmpname[$i]));
+    $datas[$h]=$tmp;
+    $h++;
+  }
+else if($i!=$stopper&&$prew==$i)
+  {
+    $name=addslashes($filename[$i]);
+    $tmp=addslashes(file_get_contents($tmpname[$i]));
+    $datas[0]=$tmp;
+  }
+
+}
     $adress=$_POST['address'];
       $adress.=",";
     $adress.=$_POST['District'];
@@ -23,51 +89,89 @@ if(isset($_GET['subject'])){
   '".$datas[1]."','".$datas[2]."','".$datas[3]."','".$datas[4]."')");
 if(mysqli_query($dbc,$query))
 {
+
   header("Location:Göster.php?subject=".$_GET['subject']."");
 }
 }
-}
+
 if(isset($_POST['publish'])){
   $stopper=-1;
   $datas=array("","","","","");
     $urls=array();
-if($_POST['im0']!="")
-{
-  $stopper=0;
-}
-if($_POST['im1']!="")
-{
-  $stopper=1;
-}
-if($_POST['im2']!="")
-{
-  $stopper=2;
-}
-if($_POST['im3']!="")
-{
-  $stopper=3;
-}
-if($_POST['im4']!="")
-{
-  $stopper=4;
-}
-$filename=$_FILES['upload_file']['name'];
-$tmpname=$_FILES['upload_file']['tmp_name'];
-$filetype=$_FILES['upload_file']['type'];
+    if($_POST['im0']!="")
+    {
+      if($_POST['im0']=="Önizleme")
+      {
+        $prew=0;
+      }
+      else {
+      $stopper=0;
+      }
+    }
+    if($_POST['im1']!="")
+    {
+      if($_POST['im1']=="Önizleme")
+      {
+        $prew=1;
+      }
+      else {
+      $stopper=0;
+      }
+    }
+    if($_POST['im2']!="")
+    {
+      if($_POST['im2']=="Önizleme")
+      {
+        $prew=2;
+      }
+      else {
+      $stopper=0;
+      }
+    }
+    if($_POST['im3']!="")
+    {
+      if($_POST['im3']=="Önizleme")
+      {
+        $prew=3;
+      }
+      else {
+      $stopper=0;
+      }
+    }
+    if($_POST['im4']!="")
+    {
+      if($_POST['im4']=="Önizleme")
+      {
+        $prew=4;
+      }
+      else {
+      $stopper=0;
+      }
+    }
+    $filename=$_FILES['upload_file']['name'];
+    $tmpname=$_FILES['upload_file']['tmp_name'];
+    $filetype=$_FILES['upload_file']['type'];
+    $h=1;
+    for ($i=0; $i <=count($tmpname)-1 ; $i++) {
+      if($i==$stopper)
+      {
 
-for ($i=0; $i <=count($tmpname)-1 ; $i++) {
-  if($i==$stopper)
-  {
+      }
+      else if($i!=$stopper&&$prew!=$i)
+      {
+        $name=addslashes($filename[$i]);
+        $tmp=addslashes(file_get_contents($tmpname[$i]));
+        $datas[$h]=$tmp;
+        $h++;
+      }
+    else if($i!=$stopper&&$prew==$i)
+      {
+        $name=addslashes($filename[$i]);
+        $tmp=addslashes(file_get_contents($tmpname[$i]));
+        $datas[0]=$tmp;
+      }
 
-  }
-  else
-  {
-    $name=addslashes($filename[$i]);
-    $tmp=addslashes(file_get_contents($tmpname[$i]));
-    $datas[$i]=$tmp;
-  }
-
-}
+    }
       $adress=$_POST['address'];
         $adress.=",";
       $adress.=$_POST['District'];
@@ -78,6 +182,7 @@ for ($i=0; $i <=count($tmpname)-1 ; $i++) {
       '".$datas[1]."','".$datas[2]."','".$datas[3]."','".$datas[4]."')");
     if(mysqli_query($dbc,$query))
     {
+
       header("Location:Home.php");
     }
 
@@ -356,6 +461,7 @@ else {echo  " <input  class='btn btn-warning btn-lg' type='submit' name='publish
   function reply_click(clicked_id)
     {
     y=clicked_id;
+      document.getElementById(y+"hid").value= "Önizleme";
     document.getElementById(0).style="border:0px solid blue;";
       document.getElementById(1).style="border:0px solid blue;";
         document.getElementById(2).style="border:0px solid blue;";
