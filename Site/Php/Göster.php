@@ -155,7 +155,7 @@ $vosoblo=0;
                             <p class='float-right'>
                             <button class='btn btn-primary' onclick='Edit()' id='Edit' >Düzenle</button>
 
-                            <button style='background-color:#88001b;' class='btn text-light'  onclick='Delete()' id='sil' >Sil</button></p>
+                            <button style='background-color:#88001b;' class='btn text-light'  onclick='Complete()' id='Complete' >Tamamla</button></p>
                           </div><div class='col-md-6'>
                               <p class='float-right'><button title='";if($row['Visible']==0){echo "Fiyatları sadece ilan sahibi ve gönderen görüntüler";}else{echo "Fiyatlar herkes görebilir";}echo "' class='btn btn-primary' ondblclick='OpenUp()' id='Edit' >Açık Arttırma Modu:";if($row['Visible']==0){echo "On";}else {echo "Off";}echo "</button> </p>
                             </div>";} else {echo "<a class='text-primary' style='text-decoration:none;' href='Eye.php?user=".$_SESSION['user']."&eye=".$row['UserName']."'> --> İlan Sahibi Profili
@@ -385,19 +385,16 @@ function f1(objButton){
   </body>
   <script type="text/javascript">
   window.onload = checkFav();
-  function Delete()
+  function Complete()
   {
 
       var txt;
-      if (confirm("Bu ilanı kaldırmak istediğinize emin misiniz?")) {
+
         var url_string =window.location.href; //window.location.href
         var url = new URL(url_string);
         var c = url.searchParams.get("subject");
-        window.location="Delete.php?subject="+c;
+        window.location="Complete.php?subject="+c;
 
-      } else {
-
-      }
 
     }
 

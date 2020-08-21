@@ -205,9 +205,7 @@ include('config.php');
                                                     <p class="text-muted">20</p>
                                                 </div>
                                             </div>
-
-
-                                </div>
+                                          </div>
                             </div>
                         </div>
                     </div>

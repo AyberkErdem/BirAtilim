@@ -157,7 +157,7 @@ function func(){
         type = "image/x-icon">
   <meta name="description" content="staj sistemi">
   <meta name="author" content="Ayberk Erdem">
-  <meta name="keywords" content="esogü staj sistemi,esogü">
+  <meta name="keywords" content="Bir atilim,Ayberk Erdem">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" type="text/css" href="../css/reset.css">
 
@@ -279,7 +279,7 @@ function func(){
     $result=@mysqli_query($dbc,$sql);
       if ($result->num_rows > 0) {
         while($row=$result->fetch_assoc())
-        {?><tr title='İlana Git' onclick='Goster(<?php echo $row['Id']; ?>)'>
+        {?><tr title='İlana Git' ondblclick='Goster(<?php echo $row['Id']; ?>)'>
           <?php
             echo "<td>".$row['UserName']."</td>
             <td><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='150' widht='100'</td>

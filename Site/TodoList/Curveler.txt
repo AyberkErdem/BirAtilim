@@ -26,7 +26,7 @@ dropdown list on options✓
 
 tabloda satıra tıklayınca gitsin giti kaldıralım ✓
 
-value olayını kaldıralım(düşünek)//açık arttırma ilan sahibi görünürlüğü checklesin
+value olayını kaldıralım(düşünek)//açık arttırma ilan sahibi görünürlüğü checklesin✓
 
 puanlama sistemi
 

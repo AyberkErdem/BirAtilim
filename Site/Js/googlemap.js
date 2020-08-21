@@ -41,12 +41,13 @@ var customLabel = {
     label: 'E'
   }
 };
+var periskop=0;
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 function handlePermission() {
 navigator.permissions.query({name:'geolocation'}).then(function(result) {
   if (result.state == 'granted') {
     report(result.state);
-
+periskop=1;
 
   } else if (result.state == 'prompt') {
     report(result.state);
@@ -54,7 +55,7 @@ navigator.permissions.query({name:'geolocation'}).then(function(result) {
     navigator.geolocation.getCurrentPosition(revealPosition,positionDenied,geoSettings);
   } else if (result.state == 'denied') {
     report(result.state);
-  
+
   }
   result.onchange = function() {
     report(result.state);
@@ -65,6 +66,7 @@ navigator.permissions.query({name:'geolocation'}).then(function(result) {
 function report(state) {
 console.log('Permission ' + state);
 }
+
 function initMap() {
   var gm = google.maps;
   var config = {
