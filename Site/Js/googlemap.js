@@ -24,29 +24,6 @@ Notification.requestPermission().then(function (permission) {
 // At last, if the user has denied notifications, and you
 // want to be respectful there is no need to bother them any more.
 }
-function handlePermission() {
-navigator.permissions.query({name:'geolocation'}).then(function(result) {
-  if (result.state == 'granted') {
-    report(result.state);
-    geoBtn.style.display = 'none';
-  } else if (result.state == 'prompt') {
-    report(result.state);
-    geoBtn.style.display = 'none';
-    navigator.geolocation.getCurrentPosition(revealPosition,positionDenied,geoSettings);
-  } else if (result.state == 'denied') {
-    report(result.state);
-    geoBtn.style.display = 'inline';
-  }
-  result.onchange = function() {
-    report(result.state);
-  }
-});
-}
-
-function report(state) {
-console.log('Permission ' + state);
-}
-
 var customIcons = {
                type1: {
                  Ev: 'tip1.png'
@@ -65,8 +42,31 @@ var customLabel = {
   }
 };
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+function handlePermission() {
+navigator.permissions.query({name:'geolocation'}).then(function(result) {
+  if (result.state == 'granted') {
+    report(result.state);
+
+
+  } else if (result.state == 'prompt') {
+    report(result.state);
+
+    navigator.geolocation.getCurrentPosition(revealPosition,positionDenied,geoSettings);
+  } else if (result.state == 'denied') {
+    report(result.state);
+  
+  }
+  result.onchange = function() {
+    report(result.state);
+  }
+});
+}
+
+function report(state) {
+console.log('Permission ' + state);
+}
 function initMap() {
-	var gm = google.maps;
+  var gm = google.maps;
   var config = {
       el: 'map',
       lat: 37.4419,
