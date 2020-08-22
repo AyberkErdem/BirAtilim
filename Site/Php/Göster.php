@@ -233,7 +233,7 @@ $vosoblo=0;
               <textarea name="mesaj" style="resize:none;" class="form-control" placeholder="Enter Message"> </textarea>
           <br>
           </div>
-                <input style="widht:200px" name="price" type="number" placeholder="Fiyat Biçin" value="" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="c2" />
+                <input style="width:200px" name="price" type="number" placeholder="Fiyat Biçin" value="" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="c2" />
              <input type='submit' name='Yolla' value='Gönder'>
          </form>
 </div>

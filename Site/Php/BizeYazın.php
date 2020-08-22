@@ -105,12 +105,33 @@ if(isset($_POST['Gönder']))
             <div class="panel panel-default">
                 <div class="panel-body">
                   <br><br><br><br>
+  <form accept-charset="UTF-8" action="BizeYazın.php" method="POST">
+<?php
+if(isset($_GET['subject']))
+{
+  echo "<h1 class='text-center h3' >Ver Puanını</h1>
+  <br>";
+  echo "<h1 class='text-center h3' >
+  <img id='0' onclick='rate(this.id)' src='../Img/star.png' alt=''>
+  <img id='1' onclick='rate(this.id)' src='../Img/star.png' alt=''>
+  <img id='2' onclick='rate(this.id)' src='../Img/star.png' alt=''>
+  <img id='3' onclick='rate(this.id)' src='../Img/star.png' alt=''>
+  <img id='4' onclick='rate(this.id)' src='../Img/star.png' alt=''>
+  <br><br>
+  </h1>";
+  echo "<h1 class='text-center h3' >Yaz bakalım aslanım</h1>
+  <br>";
+}
+else
+{
+  echo "<h1 class='text-center h3' >Fikirlerinizi Kendinize Saklayın</h1>
+  <br><br>";
+
+}
+ ?>
 
 
 
-                    <form accept-charset="UTF-8" action="BizeYazın.php" method="POST">
-                      <h1 class="text-center h3" >Fikirlerinizi Kendinize Saklayın</h1>
-                      <br><br>
                         <textarea class="form-control counted" name="message" placeholder="Type in your message" rows="5" style="margin-bottom:10px;"></textarea>
 
                         <input class="btn btn-info" name="Gönder" type="submit">
@@ -123,6 +144,18 @@ if(isset($_POST['Gönder']))
    </body>
  </html>
  <script type="text/javascript">
+ function rate(x)
+ {
+   document.getElementById(0).src='../Img/star.png';
+   document.getElementById(1).src='../Img/star.png';
+   document.getElementById(2).src='../Img/star.png';
+   document.getElementById(3).src='../Img/star.png';
+   document.getElementById(4).src='../Img/star.png';
+   for(var i=0;i<=x;i++)
+   {
+     document.getElementById(i).src='../Img/star_filled.png';
+   }
+ }
  function myFunction() {
  document.getElementById("myDropdown").classList.toggle("show");
 }

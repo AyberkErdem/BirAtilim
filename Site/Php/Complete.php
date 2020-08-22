@@ -1,12 +1,23 @@
 <?php
 include('config.php');
 session_start();
-
+if(isset($_POST['Done']))
+{
+  $query="call poster_completer('".$_GET['subject']."','".$_SESSION['user']."','".$_POST['Who']."','".$_POST['price']."')";
+  if(mysqli_query($dbc,$query))
+  {
+ header("location:Home.php");
+  }
+  else
+  {
+    echo "<script>alert('Ben sakinim')</script>";
+  }
+}
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <style media="screen">
+<style media="screen">
     .dropbtn {
 
       border: none;
@@ -43,8 +54,7 @@ session_start();
     .dropdown a:hover {background-color: #ddd;cursor: pointer;}
 
     .show {display: block;}
-
-    </style>
+</style>
     <meta charset="utf-8">
     <title>Bir Atilim</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -111,6 +121,7 @@ session_start();
                       <a class="bg-warning text-muted" href="ilanlarım.php">İlanlarım</a>
                       <a class="bg-warning text-muted" onclick="Fav()">Favorilerim</a>
                           <a class="bg-warning text-muted" href="Mesajlar.php">Mesajlarım</a>
+                                <a class="bg-warning text-muted" href="MyPage.php">AlışVerişlerim</a>
                       <a class="bg-warning text-muted" href="MyPage.php">Ayarlarım</a>
 
     </div>
@@ -139,8 +150,9 @@ session_start();
   </div>
   </div>
 
-                      <div class="row">
+
   <div id='DivSatıldı' class="">
+    <div class="row">
     <div class="col-md-4">
     <span><p>Ürün Satıldı</p></span>
         </br>
@@ -152,14 +164,25 @@ session_start();
 
         while ($row=$result->fetch_assoc()) {
       echo "
-          <button id='".$row['sender']."' onclick='SatınAlan(this.id)' class='btn float-left btn-secondary' type='button'>".$row['sender']."</button>
+          <button id='".$row['sender']."' onclick='SatınAlan(this.id)' value=".$row['sender']." class='btn float-left btn-secondary' type='button'>".$row['sender']."</button>
             </br>  <br>
     ";
     }}
     ?>
     </div>
     </div>
+    <label id ='tag' >Alıcı:</label>
+  </br><br><br>
+  <form  action="Complete.php<?php echo "?subject=".$_GET['subject'];?>" method="post">
+  <label>Ücret</label>
+
+  <input style="width:200px" name="price" type="number" placeholder="Fiyat Biçin" value="" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency"  />
+    <input id="Who" type="hidden" name="Who" value="">
+      <input type="submit" name="Done" value="Tamamla">
+
+  </form>
     </div>
+
     <div id='Silelim' class="">
   <button onclick="Delete()" class="btn btn-primary" type="button" name="button">Sonra başka şeyler ekleyeceğim</button>
       </div>
@@ -168,7 +191,7 @@ session_start();
 </html>
 <script type="text/javascript">
 function Delete()
-{
+  {
   var txt;
   if (confirm("Bu ilanı kaldırmak istediğinize emin misiniz?")) {
 
@@ -184,6 +207,9 @@ function Delete()
 function SatınAlan(clicked_id)
 {
 y=clicked_id;
+
+document.getElementById('Who').value=y;
+document.getElementById('tag').innerHTML="Alıcı:  "+y;
 }
 function myFunction() {
 document.getElementById("myDropdown").classList.toggle("show");
