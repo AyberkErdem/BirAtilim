@@ -1,12 +1,20 @@
 <?php
 session_start();
+include('config.php');
 if(isset($_POST['Gönder'])&&isset($_GET['subject'])==0)
 {
   header("Location:MailSender.php?subject=Destek&Message=".$_POST['message']."");
 }
 if(isset($_POST['Gönder'])&&isset($_GET['subject']))
 {
-header("location:Home.php");
+
+   $query ="call Ratio_Calculator('".$_SESSION['user']."','".$_POST['puan']."','".$_GET['subject']."','".$_POST['message']."')";
+   if(mysqli_query($dbc,$query))
+   {
+      header("location:Home.php");
+  
+   }
+echo mysqli_error($dbc);
 }
  ?>
  <!DOCTYPE html>
@@ -153,12 +161,14 @@ else
  <script type="text/javascript">
  function rate(x)
  {
+   var y=x;
+   y++;
    document.getElementById('0').src='../Img/star_filled.png';
    document.getElementById('1').src='../Img/star.png';
    document.getElementById('2').src='../Img/star.png';
    document.getElementById('3').src='../Img/star.png';
    document.getElementById('4').src='../Img/star.png';
-   document.getElementById('reyt').value=x+1;
+   document.getElementById('reyt').value=y;
    for(var i=0;i<=x;i++)
    {
      document.getElementById(i).src='../Img/star_filled.png';

@@ -122,7 +122,7 @@ session_start();
                 echo "<td>".$row['UserName']."</td>
                 <td><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='150' widht='100'</td>
                 <td>".$row['Description']."</td>
-                <td>".$row['adress']."</td><td><button onclick='rater(".$row['Id'].")' class='btn btn-warning' type='button' name='button'>Değerlendir</button></td>";
+                <td>".$row['adress']."</td><td><button onclick='rater(".$row['Poster_Id'].")' class='btn btn-warning' type='button' name='button'>Değerlendir</button></td>";
                   ?></tr><?php
             }
           }

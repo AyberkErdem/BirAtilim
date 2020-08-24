@@ -113,7 +113,7 @@ include('config.php');
                                             }
                                              ?>
                                         </h6>
-                                        <p class="proile-rating">RANKINGS : <span>10/10</span></p>
+                                        <p class="proile-rating">RANKINGS : <span><?php echo $row['Ratio']." / 5" ?></span></p>
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active text-muted" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Hakkında</a>
