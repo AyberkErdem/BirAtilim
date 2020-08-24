@@ -19,6 +19,9 @@ header("location:SendPrivate.php?user=".$_SESSION['user']."&Receiver=".$_GET['se
  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
    <head>
+     <meta name="description" content="Bir atilim">
+     <meta name="author" content="Ayberk Erdem">
+     <meta name="keywords" content="Bir atilim,Ayberk Erdem">
      <meta charset="utf-8">
      <link style=" border-radius: 50%;" rel = "icon" href ="../Img/icon.png"
          type = "image/x-icon">

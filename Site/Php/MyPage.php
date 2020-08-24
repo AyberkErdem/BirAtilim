@@ -11,7 +11,9 @@ include('config.php');
   <link style=" border-radius: 50%;" rel = "icon" href ="../Img/icon.png"
       type = "image/x-icon">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta name="description" content="Bir atilim">
+<meta name="author" content="Ayberk Erdem">
+<meta name="keywords" content="Bir atilim,Ayberk Erdem">
 <link rel="stylesheet" type="text/css" href="../css/reset.css">
 <link rel="stylesheet" type="text/css" href="../css/MyPage.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">

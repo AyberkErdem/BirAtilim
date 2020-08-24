@@ -57,6 +57,9 @@ if(isset($_POST['Done']))
 </style>
     <meta charset="utf-8">
     <title>Bir Atilim</title>
+    <meta name="description" content="Bir atilim">
+    <meta name="author" content="Ayberk Erdem">
+    <meta name="keywords" content="Bir atilim,Ayberk Erdem">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="../css/reset.css">
 

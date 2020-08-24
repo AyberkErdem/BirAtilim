@@ -1,8 +1,12 @@
 <?php
 session_start();
-if(isset($_POST['Gönder']))
+if(isset($_POST['Gönder'])&&isset($_GET['subject'])==0)
 {
   header("Location:MailSender.php?subject=Destek&Message=".$_POST['message']."");
+}
+if(isset($_POST['Gönder'])&&isset($_GET['subject']))
+{
+header("location:Home.php");
 }
  ?>
  <!DOCTYPE html>
@@ -11,9 +15,9 @@ if(isset($_POST['Gönder']))
      <meta charset="utf-8">
      <link style=" border-radius: 50%;" rel = "icon" href ="../Img/icon.png"
          type = "image/x-icon">
-   <meta name="description" content="staj sistemi">
+   <meta name="description" content="Bir atilim">
    <meta name="author" content="Ayberk Erdem">
-   <meta name="keywords" content="esogü staj sistemi,esogü">
+   <meta name="keywords" content="Bir atilim,Ayberk Erdem">
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <link rel="stylesheet" type="text/css" href="../css/reset.css">
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
@@ -105,14 +109,16 @@ if(isset($_POST['Gönder']))
             <div class="panel panel-default">
                 <div class="panel-body">
                   <br><br><br><br>
-  <form accept-charset="UTF-8" action="BizeYazın.php" method="POST">
+
+
 <?php
 if(isset($_GET['subject']))
 {
+    echo "<form  action='BizeYazın.php?subject=".$_GET['subject']."' method='POST'>";
   echo "<h1 class='text-center h3' >Ver Puanını</h1>
   <br>";
-  echo "<h1 class='text-center h3' >
-  <img id='0' onclick='rate(this.id)' src='../Img/star.png' alt=''>
+  echo "<h1 class='text-center h3' ><input type='hidden' id='reyt' name='puan' value=''>
+  <img id='0' onclick='rate(this.id)' src='../Img/star_filled.png' alt=''>
   <img id='1' onclick='rate(this.id)' src='../Img/star.png' alt=''>
   <img id='2' onclick='rate(this.id)' src='../Img/star.png' alt=''>
   <img id='3' onclick='rate(this.id)' src='../Img/star.png' alt=''>
@@ -124,6 +130,7 @@ if(isset($_GET['subject']))
 }
 else
 {
+  echo "<form accept-charset='UTF-8' action='BizeYazın.php' method='POST'>";
   echo "<h1 class='text-center h3' >Fikirlerinizi Kendinize Saklayın</h1>
   <br><br>";
 
@@ -146,11 +153,12 @@ else
  <script type="text/javascript">
  function rate(x)
  {
-   document.getElementById(0).src='../Img/star.png';
-   document.getElementById(1).src='../Img/star.png';
-   document.getElementById(2).src='../Img/star.png';
-   document.getElementById(3).src='../Img/star.png';
-   document.getElementById(4).src='../Img/star.png';
+   document.getElementById('0').src='../Img/star_filled.png';
+   document.getElementById('1').src='../Img/star.png';
+   document.getElementById('2').src='../Img/star.png';
+   document.getElementById('3').src='../Img/star.png';
+   document.getElementById('4').src='../Img/star.png';
+   document.getElementById('reyt').value=x+1;
    for(var i=0;i<=x;i++)
    {
      document.getElementById(i).src='../Img/star_filled.png';

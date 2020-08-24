@@ -56,7 +56,9 @@
   <!--- Include the above in your HEAD tag ---------->
     <head>
       <meta charset="utf-8">
-
+      <meta name="description" content="Bir atilim">
+      <meta name="author" content="Ayberk Erdem">
+      <meta name="keywords" content="Bir atilim,Ayberk Erdem">
       <link rel="stylesheet" type="text/css" href="../css/reset.css">
       <link rel="stylesheet" type="text/css" href="../css/Editor.css">
       <title></title>

@@ -198,9 +198,9 @@ if(isset($_POST['publish'])){
     <meta charset="utf-8">
     <link style=" border-radius: 50%;" rel = "icon" href ="../Img/icon.png"
         type = "image/x-icon">
-  <meta name="description" content="staj sistemi">
-  <meta name="author" content="Ayberk Erdem">
-  <meta name="keywords" content="esogü staj sistemi,esogü">
+        <meta name="description" content="Bir atilim">
+        <meta name="author" content="Ayberk Erdem">
+        <meta name="keywords" content="Bir atilim,Ayberk Erdem">
   <meta name="viewport" content="widht-device-witdh,initial-scale-1.0">
    <link rel="stylesheet" type="text/css" href="../css/İlan.css">
    <link rel="stylesheet" type="text/css" href="../css/reset.css">
