@@ -28,13 +28,15 @@ tabloda satıra tıklayınca gitsin giti kaldıralım ✓
 
 value olayını kaldıralım(düşünek)//açık arttırma ilan sahibi görünürlüğü checklesin✓
 
-puanlama sistemi
+puanlama sistemi ✓
 
-ilana puan vermedir vs
+ilana puan vermedir vs ✓
 
-alışveriş yapan değerlendirme yorumu yapsın
+alışveriş yapan değerlendirme yorumu yapsın ✓
 
 parquete bakarık
+
+hizmet
 
 MARKER SPIDERFIER✓
 */

@@ -15,12 +15,10 @@ session_start();
   <link rel="stylesheet" type="text/css" href="../css/reset.css">
   <link rel="stylesheet" type="text/css" href="../css/Home.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
-  <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
     <title>BirAtilim</title>
 
   </head>
@@ -99,7 +97,13 @@ session_start();
 
       </form>
     </nav>
-    <div id='DivTablo' class="">
+    <div class="text-center">
+    <div id="choose-form" style="text-align:right" class="btn-group"  aria-label="Basic example">
+    <button value="Aldıklarım" onclick="f1(this)"  type="button" class="btn btn-primary">Alışlarım</button>
+    <button value="Sattıklarım" onclick="f1(this)" type="button" class="btn btn-danger">Sotoşlorom</button>
+  </div>
+  </div>
+    <div id='Aldıklarım' class="">
 
 
     <table class="table table-hover">
@@ -117,12 +121,12 @@ session_start();
         $result=@mysqli_query($dbc,$sql);
           if ($result->num_rows > 0) {
             while($row=$result->fetch_assoc())
-            {?><tr title='İlana Git' ondblclick='Goster(<?php echo $row['Id']; ?>)'>
+            {?><tr title='İlana Git' ondblclick='fotaryus(<?php echo $row['Poster_Id']; ?>)'>
               <?php
                 echo "<td>".$row['UserName']."</td>
                 <td><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='150' widht='100'</td>
                 <td>".$row['Description']."</td>
-                <td>".$row['adress']."</td><td><button onclick='rater(".$row['Poster_Id'].")' class='btn btn-warning' type='button' name='button'>Değerlendir</button></td>";
+                <td>".$row['adress']."</td><td><button ";if($row['Already']==0){ echo "onclick='rater(".$row['Poster_Id'].")'" ;}echo "  class='btn btn-warning' type='button' name='button'>Değerlendir</button></td>";
                   ?></tr><?php
             }
           }
@@ -137,9 +141,58 @@ session_start();
 
      ?>
      </div>
+     <div id='Sattıklarım' class="">
+
+
+     <table class="table table-hover">
+     <tr>
+     <th>İlan Sahibi</th>
+     <th>Resim</th>
+     <th>Açıklama</th>
+     <th>Adres</th>
+     <th>Fatura</th>
+
+     </tr>
+       <?php require_once('config.php');
+
+       $sql = "select * from test.old_poster_data where UserName='".$_SESSION['user']."'";
+         $result=@mysqli_query($dbc,$sql);
+           if ($result->num_rows > 0) {
+             while($row=$result->fetch_assoc())
+             {?><tr title='İlana Git' ondblclick='fotaryus(<?php echo $row['Poster_Id']; ?>)'>
+               <?php
+                 echo "<td>".$row['UserName']."</td>
+                 <td><embed src='data:image/jpeg;base64,".base64_encode($row['Image'])."' height='150' widht='100'</td>
+                 <td>".$row['Description']."</td>
+                 <td>".$row['adress']."</td><td><button onclick='fotaryus(".$row['Poster_Id'].")' class='btn btn-warning' type='button' name='button'>Fatura Bilgisi</button></td>";
+                   ?></tr><?php
+             }
+           }
+           else
+           {
+               echo mysqli_error($dbc);
+             echo"Nothing new here...";
+           }
+        ?>
+     </table>
+     <?php
+
+      ?>
+      </div>
   </body>
 </html>
 <script type="text/javascript">
+function fotaryus(x)
+{
+window.location="Fotaryus.php?subject="+x+"";
+}
+$("#Sattıklarım").hide();
+function f1(objButton){
+
+            $("#Aldıklarım, #Sattıklarım").hide();
+
+            $("#" + $(objButton).val()).show();
+  }
 function Goster(X)
 {
     window.location="Göster.php?subject="+X+"";

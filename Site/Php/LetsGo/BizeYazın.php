@@ -12,7 +12,7 @@ if(isset($_POST['Gönder'])&&isset($_GET['subject']))
    if(mysqli_query($dbc,$query))
    {
       header("location:Home.php");
-  
+
    }
 echo mysqli_error($dbc);
 }

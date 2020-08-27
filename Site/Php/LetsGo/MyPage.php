@@ -81,6 +81,7 @@ include('config.php');
 
       </form>
     </nav>
+    
     <?php
     $query="select * from user Where Name='".$_SESSION['user']."'";
     $response=@mysqli_query($dbc,$query);
