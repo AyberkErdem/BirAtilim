@@ -104,7 +104,7 @@ alert("This browser does not support desktop notification");
 // Let's check whether notification permissions have already been granted
 else if (Notification.permission === "granted") {
 // If it's okay let's create a notification
-var notification = new Notification("Vay benim paşşam gelmiş benim balım gelmiş hoşgeldin !", {icon:'../Img/logo.png'});
+
 }
 
 // Otherwise, we need to ask the user for permission
