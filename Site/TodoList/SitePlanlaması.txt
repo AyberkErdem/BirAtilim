@@ -1,0 +1,5 @@
+Site ikiye bölünecek
+Kaynak dosyaları 2 ana başlığa dönüşecek css ler alakalı img ler sitelerin alt klasörlerine paylaştırılacak
+Armut bir tarafa let go bir tarafa gibin
+Yeni bir github projesi açılarak bu kaynak korunacak
+Armut kısmının tam tasarımı gerçekleştirilecek
